@@ -1,0 +1,74 @@
+/**
+ * This file is part of an ADDON for use with Black Cat CMS Core.
+ * This ADDON is released under the GNU GPL.
+ * Additional license terms can be seen in the info.php of this module.
+ *
+ * @module			cc_multicolumn
+ * @version			see info.php of this module
+ * @author			Matthias Glienke, creativecat
+ * @copyright		2013, Black Cat Development
+ * @link			http://blackcat-cms.org
+ * @license			http://www.gnu.org/licenses/gpl.html
+ *
+ */
+
+.cc_multicolumn {
+	margin-left: 0px;
+	margin-bottom: 1em;
+	margin-top: 1em;
+	float: left;
+	display: inline-block;
+}
+.cc_column_1 {
+	width: 100%;
+}
+.cc_column_2 {
+	margin-right: 2%;
+	width: 49%;
+}
+.cc_column_3 {
+	margin-right: 2%;
+	width: 32%;
+}
+.cc_column_4 {
+	margin-right: 2.6%;
+	width: 23%;
+}
+.cc_column_5 {
+	margin-right: 2.5%;
+	width: 18%;
+}
+.clear {
+	border-width: 0px;
+	padding: 0px;
+	margin: 0px;
+	height: 0px;
+	clear: both;
+}
+.cc_last_column {
+	margin-right: 0px;
+}
+.cc_multicolumn_content {
+	border-color: white;
+	border-width: 3px;
+	border-style: solid;
+	padding: 15px;
+	background-position: right bottom;
+	background-image: url(images/multiple_column_back.jpg);
+	background-repeat: no-repeat;
+	background-color: white;
+}
+.cc_multicolumn_shadow {
+	padding: 0px;
+	margin: 0px;
+	height: 14px;
+	width: 100%;
+}
+.cc_multicolumn_border {
+	border-left-color: #e3e3e3;
+	border-bottom-color: #dadada;
+	border-right-color: #e3e3e3;
+	border-top-color: #e3e3e3;
+	border-width: 1px;
+	border-style: solid;
+}
