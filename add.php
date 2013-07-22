@@ -41,9 +41,13 @@ $database->query("INSERT INTO " . CAT_TABLE_PREFIX . "mod_cc_multicolumn
 	('$page_id','$section_id','2')");
 
 // Insert initial two-columns
-$last_id = $database->get_one("SELECT LAST_INSERT_ID()");
+$last_id	= $database->get_one("SELECT LAST_INSERT_ID()");
 
-$database->query("INSERT INTO " . CAT_TABLE_PREFIX . "mod_cc_multicolumn_contents (column_id) VALUES ('$last_id')");
-$database->query("INSERT INTO " . CAT_TABLE_PREFIX . "mod_cc_multicolumn_contents (column_id) VALUES ('$last_id')");
+$database->query("INSERT INTO " . CAT_TABLE_PREFIX . "mod_cc_multicolumn_contents
+		(column_id,page_id,section_id) VALUES
+		('$last_id','$page_id','$section_id')");
+$database->query("INSERT INTO " . CAT_TABLE_PREFIX . "mod_cc_multicolumn_contents
+		(column_id,page_id,section_id) VALUES
+		('$last_id','$page_id','$section_id')");
 
 ?>

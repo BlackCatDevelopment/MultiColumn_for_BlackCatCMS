@@ -74,8 +74,10 @@ if( $column_id = $val->get('_REQUEST','column_id','numeric') )
 		{
 			$contentname	= 'content_' . $section_id . '_' . $id;
 			$content		= $val->get( '_REQUEST', $contentname, false, true );
+			$content		= $val->add_slashes($content);
+			$text			= umlauts_to_entities(strip_tags($content), strtoupper(DEFAULT_CHARSET), 0);
 
-			$backend->db()->query("UPDATE " . CAT_TABLE_PREFIX . "mod_cc_multicolumn_contents SET content = '$content' WHERE id = '$id' AND column_id = '$column_id'");
+			$backend->db()->query("UPDATE " . CAT_TABLE_PREFIX . "mod_cc_multicolumn_contents SET content = '$content', text = '$text' WHERE id = '$id' AND column_id = '$column_id'");
 		}
 	}
 
@@ -84,7 +86,9 @@ if( $column_id = $val->get('_REQUEST','column_id','numeric') )
 	// ================== 
 	elseif ( $val->get('_REQUEST','add_column') != '' )
 	{
-		$backend->db()->query("INSERT INTO " . CAT_TABLE_PREFIX . "mod_cc_multicolumn_contents (column_id) VALUES ('$column_id')");
+		$backend->db()->query("INSERT INTO " . CAT_TABLE_PREFIX . "mod_cc_multicolumn_contents
+			(column_id,page_id,section_id) VALUES
+			('$column_id','$page_id','$section_id')");
 	}
 
 	// =================== 
