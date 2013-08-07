@@ -107,7 +107,7 @@ if( $column_id = $val->get('_REQUEST','column_id','numeric') )
 	}
 	else
 	{
-		$backend->print_success('Pages saved successfully', CAT_ADMIN_URL . '/pages/modify.php?page_id=' . $page_id);
+		$backend->print_success('Page saved successfully', CAT_ADMIN_URL . '/pages/modify.php?page_id=' . $page_id);
 	}
 }
 else $backend->print_error('An error occured while saving!', $js_back);
