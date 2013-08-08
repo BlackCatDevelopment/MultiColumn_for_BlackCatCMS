@@ -107,6 +107,9 @@ if( $column_id = $val->get('_REQUEST','column_id','numeric') )
 	}
 	else
 	{
+		$update_when_modified = true;
+	CAT_Backend::getInstance()->updateWhenModified();
+
 		$backend->print_success('Page saved successfully', CAT_ADMIN_URL . '/pages/modify.php?page_id=' . $page_id);
 	}
 }
