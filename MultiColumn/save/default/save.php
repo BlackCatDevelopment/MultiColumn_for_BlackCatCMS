@@ -55,14 +55,6 @@ if ( $mc_id = $val->sanitizePost( 'mc_id','numeric' ) )
 	}
 
 
-	// ======================= 
-	// ! Set kind of columns   
-	// ======================= 
-	if ( $kind = $val->sanitizePost( 'set_kind','numeric') )
-	{
-		$MulCol->saveOptions( 'kind', $kind );
-	}
-
 	// =========================== 
 	// ! save content of columns   
 	// =========================== 
@@ -94,19 +86,22 @@ if ( $mc_id = $val->sanitizePost( 'mc_id','numeric' ) )
 	{
 		$MulCol->removeColumn( $id );
 	}
+
+
+
 	// ================================================================ 
 	// ! Check if there is a database error, otherwise say successful   
 	// ================================================================ 
 	if ( $backend->is_error() )
 	{
-		$backend->print_error($backend->get_error(), $js_back);
+		CAT_Backend::getInstance()->print_error($backend->get_error(), $js_back);
 	}
 	else
 	{
 		$update_when_modified = true;
 	CAT_Backend::getInstance()->updateWhenModified();
 
-		$backend->print_success('Page saved successfully', CAT_ADMIN_URL . '/pages/modify.php?page_id=' . $page_id);
+		CAT_Backend::getInstance()->print_success('Page saved successfully', CAT_ADMIN_URL . '/pages/modify.php?page_id=' . $page_id);
 	}
 }
 else $backend->print_error('An error occured while saving!', false);

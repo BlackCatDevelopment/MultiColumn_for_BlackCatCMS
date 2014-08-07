@@ -63,8 +63,12 @@ $parser_data['WYSIWYG']		= array(
 	'height'	=> '300px'
 );
 
+$module_path	= '/modules/cc_multicolumn/';
 
-$parser->setPath( dirname(__FILE__) . '/templates/' . $MulCol->getVariant() );
+if ( file_exists( CAT_PATH . $module_path .'templates/' . $MulCol->getVariant() . '/modify.tpl' ) )
+	$parser->setPath( dirname(__FILE__) . '/templates/' . $MulCol->getVariant() );
+elseif ( file_exists( CAT_PATH . $module_path .'templates/default/modify.tpl' ) )
+	$parser->setPath( dirname(__FILE__) . '/templates/default/' );
 
 $parser->output(
 	'modify',

@@ -16,7 +16,7 @@
 			<input type="hidden" name="page_id" value="{$page_id}" />
 			<input type="hidden" name="section_id" value="{$section_id}" />
 			<input type="hidden" name="mc_id" value="{$mc_id}" />
-			<input type="hidden" name="options" value="variant,equalize" />
+			<input type="hidden" name="options" value="variant,equalize,kind" />
 		</div>
 		<div class="cc_multicolumn_option_noclick fc_gradient1">
 			Optionen
@@ -32,7 +32,7 @@
 			</p>
 			Anzahl der Spalten pro Zeile:
 			{for counter 1 6}
-			<input type="submit" name="set_kind" class="set_kind column_{$counter}{if $options.kind==$counter} active{/if}" value="{$counter}" />
+			<input type="submit" name="kind" class="set_kind column_{$counter}{if $options.kind==$counter} active{/if}" value="{$counter}" />
 			{/for}
 			<br/><br/>
 			<input type="checkbox" name="equalize" class="fc_checkbox_jq" value="1"{if $options.equalize != 0} checked="checked"{/if} id="equalize_{$section_id}" /><label for="equalize_{$section_id}" class="right">Passe Spaltenh&ouml;he an</label>
