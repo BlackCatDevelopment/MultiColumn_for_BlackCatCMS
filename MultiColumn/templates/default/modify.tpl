@@ -16,11 +16,20 @@
 			<input type="hidden" name="page_id" value="{$page_id}" />
 			<input type="hidden" name="section_id" value="{$section_id}" />
 			<input type="hidden" name="mc_id" value="{$mc_id}" />
+			<input type="hidden" name="options" value="variant,equalize" />
 		</div>
 		<div class="cc_multicolumn_option_noclick fc_gradient1">
 			Optionen
 		</div>
 		<div class="cc_multicolumn_option_content show_on_startup cc_multicolumn_options">
+			<p>
+			    {translate('Module Variante')}:
+			    <select name="variant">
+			    {foreach $module_variants index variants}
+			    	<option value="{$index}"{if $index == $options.variant} selected="selected"{/if}>{$variants}</option>
+			    {/foreach}
+			    </select>
+			</p>
 			Anzahl der Spalten pro Zeile:
 			{for counter 1 6}
 			<input type="submit" name="set_kind" class="set_kind column_{$counter}{if $options.kind==$counter} active{/if}" value="{$counter}" />

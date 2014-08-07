@@ -48,8 +48,11 @@ $parser_data	= array(
 	'mc_id'					=> $MulCol->getID(),
 	'variant'				=> $MulCol->getVariant(),
 	'columns'				=> $MulCol->getContents( true, NULL ),
-	'options'				=> $MulCol->getOptions()
+	'options'				=> $MulCol->getOptions(),
+	'module_variants'		=> $MulCol->getModuleVariants()
 );
+
+
 
 // =============================== 
 // ! Get columns in this section   
@@ -60,7 +63,8 @@ $parser_data['WYSIWYG']		= array(
 	'height'	=> '300px'
 );
 
-$parser->setPath( dirname(__FILE__) . '/templates/default' );
+
+$parser->setPath( dirname(__FILE__) . '/templates/' . $MulCol->getVariant() );
 
 $parser->output(
 	'modify',

@@ -34,8 +34,26 @@ if (defined('CAT_PATH')) {
 // ============================= 
 if ( $mc_id = $val->sanitizePost( 'mc_id','numeric' ) )
 {
-	$equalize	= $val->sanitizePost( 'equalize' ) != '' ? 1 : 0;
-	$MulCol->saveOptions( 'equalize', $equalize );
+
+	$options		= $val->sanitizePost('options');
+	$entry_options	= $val->sanitizePost('entry_options');
+
+	if ( $options != '' )
+	{
+		foreach( array_filter( explode(',', $options) ) as $option )
+		{
+			if( !$MulCol->saveOptions( $option, $val->sanitizePost( $option ) )) $error = true;
+		}
+	}
+
+	if ( $entry_options != '' )
+	{
+		foreach( array_filter( explode(',', $entry_options) ) as $option )
+		{
+			if( !$MulCol->saveContentOptions( $option, $val->sanitizePost( $option ) )) $error = true;
+		}
+	}
+
 
 	// ======================= 
 	// ! Set kind of columns   

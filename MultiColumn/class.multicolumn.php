@@ -41,6 +41,7 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 
 		public $contents		= array();
 		public $options			= array();
+		public $module_variants	= array();
 
 		public static function getInstance()
 		{
@@ -559,18 +560,27 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 			if ( isset( $this->options['_variant'] ) )
 				return $this->options['_variant'];
 
-			$getInfo	= CAT_Helper_Addons::checkInfo( CAT_PATH . '/modules/cc_multicolumn/' );
-
+			$this->getModuleVariants();
 			$this->getOptions('variant');
 
 			$variant	= $this->options['variant'] != ''
-				&& isset($getInfo['module_variants'][$this->options['variant']]) ?
-						$getInfo['module_variants'][$this->options['variant']] : 
+				&& isset($this->module_variants[$this->options['variant']]) ?
+						$this->module_variants[$this->options['variant']] : 
 						'default';
 
 			$this->options['_variant']	= $variant;
 
 			return $this->options['_variant'];
+		}
+
+		public function getModuleVariants()
+		{
+			if ( count($this->module_variants) > 0 ) return $this->module_variants;
+			$getInfo	= CAT_Helper_Addons::checkInfo( CAT_PATH . '/modules/cc_multicolumn/' );
+
+			$this->module_variants	= $getInfo['module_variants'];
+
+			return $this->module_variants;
 		}
 
 		/**
