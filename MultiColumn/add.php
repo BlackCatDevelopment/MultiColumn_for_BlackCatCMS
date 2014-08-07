@@ -7,7 +7,7 @@
  * @module			cc_multicolumn
  * @version			see info.php of this module
  * @author			Matthias Glienke, creativecat
- * @copyright		2013, Black Cat Development
+ * @copyright		2014, Black Cat Development
  * @link			http://blackcat-cms.org
  * @license			http://www.gnu.org/licenses/gpl.html
  *
@@ -33,21 +33,17 @@ if (defined('CAT_PATH')) {
 // end include class.secure.php
 
 // Insert an extra row into the database
-global $database, $section_id, $page_id;
+global $section_id, $page_id;
 
-// Add a new WYSIWYG record
-$database->query("INSERT INTO " . CAT_TABLE_PREFIX . "mod_cc_multicolumn
-	(page_id, section_id, kind) VALUES
-	('$page_id','$section_id','2')");
+include_once( 'class.multicolumn.php' );
+
+$MulCol	= new MultiColumn( true );
+
+// Add initial options
+$MulCol->saveOptions( 'kind', 2 );
+$MulCol->saveOptions( 'variant', 0 );
 
 // Insert initial two-columns
-$last_id	= $database->get_one("SELECT LAST_INSERT_ID()");
-
-$database->query("INSERT INTO " . CAT_TABLE_PREFIX . "mod_cc_multicolumn_contents
-		(column_id,page_id,section_id) VALUES
-		('$last_id','$page_id','$section_id')");
-$database->query("INSERT INTO " . CAT_TABLE_PREFIX . "mod_cc_multicolumn_contents
-		(column_id,page_id,section_id) VALUES
-		('$last_id','$page_id','$section_id')");
+$MulCol->addColumn(2);
 
 ?>

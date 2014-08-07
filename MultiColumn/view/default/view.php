@@ -7,7 +7,7 @@
  * @module			cc_multicolumn
  * @version			see info.php of this module
  * @author			Matthias Glienke, creativecat
- * @copyright		2013, Black Cat Development
+ * @copyright		2014, Black Cat Development
  * @link			http://blackcat-cms.org
  * @license			http://www.gnu.org/licenses/gpl.html
  *
@@ -31,5 +31,14 @@ if (defined('CAT_PATH')) {
 	}
 }
 // end include class.secure.php
+
+// Get columns in this section
+$parser_data['columns']	= $MulCol->getContents( true );
+
+
+$parser_data['mc_id']		= $MulCol->getID();
+$parser_data['kind']		= $MulCol->getOptions( 'kind' );
+$parser_data['equalize']	= $MulCol->getOptions( 'equalize' );
+
 
 ?>

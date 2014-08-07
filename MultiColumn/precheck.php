@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of an ADDON for use with Black Cat CMS Core.
  * This ADDON is released under the GNU GPL.
@@ -32,16 +33,6 @@ if (defined('CAT_PATH')) {
 }
 // end include class.secure.php
 
-global $section_id, $page_id;
-
-include_once( 'class.multicolumn.php' );
-
-$MulCol	= new MultiColumn();
-
-// Delete column
-$MulCol->deleteMC();
-
-
-
+$PRECHECK['CAT_VERSION'] = array('VERSION' => '1.0.2', 'OPERATOR' => '>=');
 
 ?>

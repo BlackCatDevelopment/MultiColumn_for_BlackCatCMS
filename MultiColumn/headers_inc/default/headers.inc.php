@@ -14,7 +14,7 @@
  */
 
 // include class.secure.php to protect this file and the whole CMS!
-if (defined('CAT_PATH')) {	
+if (defined('CAT_PATH')) {
 	include(CAT_PATH.'/framework/class.secure.php'); 
 } else {
 	$oneback = "../";
@@ -32,16 +32,40 @@ if (defined('CAT_PATH')) {
 }
 // end include class.secure.php
 
-global $section_id, $page_id;
 
-include_once( 'class.multicolumn.php' );
-
-$MulCol	= new MultiColumn();
-
-// Delete column
-$MulCol->deleteMC();
-
-
-
+$mod_headers = array(
+	'backend' => array(
+		'css' => array(
+			array(
+				'media'		=> 'all',
+				'file'		=> 'modules/cc_multicolumn/css/default/backend.css'
+			)
+		),
+		'js' => array(
+			'/modules/cc_multicolumn/js/default/backend.js',
+		),
+		'ui' => array(
+			array(
+				'core'			=> true
+			),
+		)
+	),
+	'frontend' => array(
+		'css' => array(
+			array(
+				'media'		=> 'all',
+				'file'		=> 'modules/cc_multicolumn/css/default/frontend.css'
+			)
+		),
+		'js' => array(
+			'/modules/cc_multicolumn/js/default/frontend.js'
+		),
+		'jquery' => array(
+			array(
+				'core'			=> true
+			)
+		)
+	)
+);
 
 ?>

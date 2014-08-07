@@ -7,7 +7,7 @@
  * @module			cc_multicolumn
  * @version			see info.php of this module
  * @author			Matthias Glienke, creativecat
- * @copyright		2013, Black Cat Development
+ * @copyright		2014, Black Cat Development
  * @link			http://blackcat-cms.org
  * @license			http://www.gnu.org/licenses/gpl.html
  *
@@ -32,42 +32,35 @@ if (defined('CAT_PATH')) {
 }
 // end include class.secure.php
 
+global $section_id, $page_id;
+
 $parser_data	= array(
-	'page_id' => $page_id,
-	'section_id' => $section_id
+	'page_id'		=> $page_id,
+	'section_id'	=> $section_id
 );
 
-// Get columns in this section
-$result		= CAT_Helper_Page::getInstance()->db()->query("SELECT column_id, kind, equalize FROM " . CAT_TABLE_PREFIX . "mod_cc_multicolumn WHERE section_id = '$section_id'");
 
-if ( isset($result) && $result->numRows() > 0)
-{
-	while( !false == ( $row = $result->fetchRow( MYSQL_ASSOC ) ) )
-	{
-		$parser_data['column_id']	= $row['column_id'];
-		$parser_data['kind']		= $row['kind'];
-		$parser_data['equalize']	= $row['equalize'];
-	}
-	$contents = CAT_Helper_Page::getInstance()->db()->query("SELECT content, id FROM " . CAT_TABLE_PREFIX . "mod_cc_multicolumn_contents WHERE column_id = '" . $parser_data['column_id'] . "' ORDER BY id");
-	
-	if ( isset($contents) && $contents->numRows() > 0)
-	{
-		while( !false == ($row = $contents->fetchRow( MYSQL_ASSOC ) ) )
-		{
-			CAT_Helper_Page::preprocess( $row['content'] );
-			$parser_data['columns'][]		= array(
-				'content'			=> $row['content'],
-				'id'				=> $row['id']
-			);
-		}
-	}
+include_once( 'class.multicolumn.php' );
 
-	$parser->setPath( dirname(__FILE__) . '/templates/default' );
+$MulCol	= new MultiColumn();
 
-	$parser->output(
-		'view',
-		$parser_data
-	);
-}
+$variant		= $MulCol->getVariant();
+$module_path	= '/modules/cc_multicolumn/';
+$template		= 'view';
+
+
+if ( file_exists( CAT_PATH . $module_path .'view/' . $variant . '/view.php' ) )
+	include_once( CAT_PATH . $module_path .'view/' . $variant . '/view.php' );
+elseif ( file_exists( CAT_PATH . $module_path .'view/default/view.php' ) )
+	include_once( CAT_PATH . $module_path .'view/default/view.php' );
+
+
+$parser->setPath( dirname(__FILE__) . '/templates/' . $MulCol->getVariant() );
+
+$parser->output(
+	$template,
+	$parser_data
+);
+
 
 ?>

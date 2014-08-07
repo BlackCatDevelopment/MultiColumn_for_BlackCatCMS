@@ -7,7 +7,7 @@
  * @module			cc_multicolumn
  * @version			see info.php of this module
  * @author			Matthias Glienke, creativecat
- * @copyright		2013, Black Cat Development
+ * @copyright		2014, Black Cat Development
  * @link			http://blackcat-cms.org
  * @license			http://www.gnu.org/licenses/gpl.html
  *
@@ -34,44 +34,26 @@ if (defined('CAT_PATH')) {
 
 $PageHelper	= CAT_Helper_Page::getInstance();
 
+include_once( 'class.multicolumn.php' );
+
+$MulCol	= new MultiColumn();
+
 $parser_data	= array(
 	'CAT_URL'				=> CAT_URL,
 	'CAT_PATH'				=> CAT_PATH,
 	'CAT_ADMIN_URL'			=> CAT_ADMIN_URL,
 	'page_id'				=> $page_id,
 	'section_id'			=> $section_id,
-	'version'				=> CAT_Helper_Addons::getModuleVersion('cc_multicolumn')
+	'version'				=> CAT_Helper_Addons::getModuleVersion('cc_multicolumn'),
+	'mc_id'					=> $MulCol->getID(),
+	'variant'				=> $MulCol->getVariant(),
+	'columns'				=> $MulCol->getContents( true, NULL ),
+	'options'				=> $MulCol->getOptions()
 );
 
 // =============================== 
 // ! Get columns in this section   
 // =============================== 
-
-$result		= $PageHelper->db()->query("SELECT column_id, kind, equalize FROM " . CAT_TABLE_PREFIX . "mod_cc_multicolumn WHERE section_id = '$section_id'");
-if ( isset($result) && $result->numRows() > 0)
-{
-	while( !false == ($row = $result->fetchRow( MYSQL_ASSOC ) ) )
-	{
-		$parser_data['column_id']	= $row['column_id'];
-		$parser_data['kind']		= $row['kind'];
-		$parser_data['equalize']	= $row['equalize'];
-	}
-}
-
-$contents	= $PageHelper->db()->query("SELECT content, id FROM " . CAT_TABLE_PREFIX . "mod_cc_multicolumn_contents 
-					WHERE column_id = '" . $parser_data['column_id'] . "' ORDER BY id");
-
-$counter = 0;
-if ( isset($contents) && $contents->numRows() > 0)
-{
-	while( !false == ($row = $contents->fetchRow( MYSQL_ASSOC ) ) )
-	{
-		$parser_data['columns'][$counter]['content']		= htmlspecialchars($row['content']);
-		$parser_data['columns'][$counter]['id']			= $row['id'];
-		$parser_data['columns'][$counter]['contentname']	= 'content_' . $section_id . '_' . $row['id'];
-		$counter++;
-	}
-}
 
 $parser_data['WYSIWYG']		= array(
 	'width'		=> '100%',

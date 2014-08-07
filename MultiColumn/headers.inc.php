@@ -7,7 +7,7 @@
  * @module			cc_multicolumn
  * @version			see info.php of this module
  * @author			Matthias Glienke, creativecat
- * @copyright		2013, Black Cat Development
+ * @copyright		2014, Black Cat Development
  * @link			http://blackcat-cms.org
  * @license			http://www.gnu.org/licenses/gpl.html
  *
@@ -31,30 +31,20 @@ if (defined('LEPTON_PATH')) {
 	}
 }
 // end include class.secure.php
-/*
-$mod_headers = array(
-	'frontend' => array(
-		'css' => array(
-			array(
-				'media'		=> 'all',
-				'file'		=> 'modules/cc_multicolumn/css/frontend.css'
-			)
-		),
-		'js' => array(
-			'/js/frontend.js'
-		)
-	),
-	'backend' => array(
-		'css' => array(
-			array(
-				'media'		=> 'all',
-				'file'		=> 'modules/cc_multicolumn/css/backend.css'
-			)
-		),
-		'js' => array(
-			'/modules/cc_multicolumn/js/backend.js'
-		)
-	)
-);
-*/
+
+global $page_id, $section_id;
+
+include_once( 'class.multicolumn.php' );
+
+$MulCol			= new MultiColumn( $section );
+
+$variant		= $MulCol->getVariant();
+$module_path	= '/modules/cc_multicolumn/';
+
+if ( file_exists( CAT_PATH . $module_path .'headers_inc/' . $variant . '/headers.inc.php' ) )
+	include_once( CAT_PATH . $module_path .'headers_inc/' . $variant . '/headers.inc.php' );
+elseif ( file_exists( CAT_PATH . $module_path .'headers_inc/default/headers.inc.php' ) )
+	include_once( CAT_PATH . $module_path .'headers_inc/default/headers.inc.php' );
+
+
 ?>
