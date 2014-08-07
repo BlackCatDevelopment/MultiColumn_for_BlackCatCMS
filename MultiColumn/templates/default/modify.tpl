@@ -32,7 +32,8 @@
 			</p>
 			Anzahl der Spalten pro Zeile:
 			{for counter 1 6}
-			<input type="submit" name="kind" class="set_kind column_{$counter}{if $options.kind==$counter} active{/if}" value="{$counter}" />
+			<label for="mc_kind_{$counter}">&nbsp;&nbsp;&nbsp;{$counter}&nbsp;&nbsp;</label><input id="mc_kind_{$counter}" type="radio" name="kind" class="set_kind column_{$counter}{if $options.kind==$counter} active" checked{else}"{/if} value="{$counter}" />&nbsp;&nbsp;&nbsp;|
+
 			{/for}
 			<br/><br/>
 			<input type="checkbox" name="equalize" class="fc_checkbox_jq" value="1"{if $options.equalize != 0} checked="checked"{/if} id="equalize_{$section_id}" /><label for="equalize_{$section_id}" class="right">Passe Spaltenh&ouml;he an</label>
