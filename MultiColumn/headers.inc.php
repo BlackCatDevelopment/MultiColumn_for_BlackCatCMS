@@ -42,9 +42,9 @@ $variant		= $MulCol->getVariant();
 $module_path	= '/modules/cc_multicolumn/';
 
 if ( file_exists( CAT_PATH . $module_path .'headers_inc/' . $variant . '/headers.inc.php' ) )
-	include_once( CAT_PATH . $module_path .'headers_inc/' . $variant . '/headers.inc.php' );
+	include( CAT_PATH . $module_path .'headers_inc/' . $variant . '/headers.inc.php' );
 elseif ( file_exists( CAT_PATH . $module_path .'headers_inc/default/headers.inc.php' ) )
-	include_once( CAT_PATH . $module_path .'headers_inc/default/headers.inc.php' );
+	include( CAT_PATH . $module_path .'headers_inc/default/headers.inc.php' );
 
 
 ?>

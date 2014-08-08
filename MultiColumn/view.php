@@ -42,7 +42,7 @@ $parser_data	= array(
 
 include_once( 'class.multicolumn.php' );
 
-$MulCol	= new MultiColumn();
+$MulCol		= new MultiColumn();
 
 $variant		= $MulCol->getVariant();
 $module_path	= '/modules/cc_multicolumn/';
@@ -50,10 +50,9 @@ $template		= 'view';
 
 
 if ( file_exists( CAT_PATH . $module_path .'view/' . $variant . '/view.php' ) )
-	include_once( CAT_PATH . $module_path .'view/' . $variant . '/view.php' );
+	include( CAT_PATH . $module_path .'view/' . $variant . '/view.php' );
 elseif ( file_exists( CAT_PATH . $module_path .'view/default/view.php' ) )
-	include_once( CAT_PATH . $module_path .'view/default/view.php' );
-
+	include( CAT_PATH . $module_path .'view/default/view.php' );
 
 $parser->setPath( dirname(__FILE__) . '/templates/' . $MulCol->getVariant() );
 

@@ -33,12 +33,12 @@ if (defined('CAT_PATH')) {
 // end include class.secure.php
 
 // Get columns in this section
+
 $parser_data['columns']	= $MulCol->getContents( true );
 
 
 $parser_data['mc_id']		= $MulCol->getID();
-$parser_data['kind']		= $MulCol->getOptions( 'kind' );
-$parser_data['equalize']	= $MulCol->getOptions( 'equalize' );
+$parser_data['options']		= $MulCol->getOptions();
 
 
 ?>
