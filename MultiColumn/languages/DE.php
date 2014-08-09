@@ -56,7 +56,7 @@ $LANG = array(
     'Count of columns per row'		=> 'Anzahl der Spalten pro Zeile',
     'Add column'					=> 'Spalte hinzuf&uuml;gen',
     'Add columns'					=> 'Spalten hinzuf&uuml;gen',
-    'Equalize columns in one row'	=> 'Passe Spaltenh&ouml;he an'
+    'Equalize columns in one row'	=> 'Passe Spaltenh&ouml;he an',
     'Row No.'						=> 'Zeile Nr.',
-    'Column No.'					=> 'Spalte Nr.',
+    'Column No.'					=> 'Spalte Nr.'
 );
