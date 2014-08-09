@@ -25,50 +25,50 @@
 <div class="cc_multicolumn_form">
 	<form action="{$CAT_URL}/modules/cc_multicolumn/save.php" method="post">
 		<div class="cc_multicolumn_header fc_gradient1">
-			Administration f&uuml;r MultiColumn <span class="small">(Version: {$version})</span>
+			{translate('Administration for')} MultiColumn <span class="small">({translate('Version')}: {$version})</span>
 			<input type="hidden" name="page_id" value="{$page_id}" />
 			<input type="hidden" name="section_id" value="{$section_id}" />
 			<input type="hidden" name="mc_id" value="{$mc_id}" />
 			<input type="hidden" name="options" value="variant,equalize,kind" />
 		</div>
 		<div class="cc_multicolumn_option_noclick fc_gradient1">
-			Optionen
+			{translate('Options for frontend')}
 		</div>
 		<div class="cc_multicolumn_option_content show_on_startup cc_multicolumn_options">
 			<p>
-			    {translate('Module Variante')}:
+			    {translate('Module variant')}:
 			    <select name="variant">
 			    {foreach $module_variants index variants}
 			    	<option value="{$index}"{if $index == $options.variant} selected="selected"{/if}>{$variants}</option>
 			    {/foreach}
 			    </select>
 			</p>
-			Anzahl der Spalten pro Zeile:
+			{translate('Count of columns per row')}:
 			{for counter 1 6}
 			<label for="mc_kind_{$counter}">&nbsp;&nbsp;&nbsp;{$counter}&nbsp;&nbsp;</label><input id="mc_kind_{$counter}" type="radio" name="kind" class="set_kind column_{$counter}{if $options.kind==$counter} active" checked{else}"{/if} value="{$counter}" />&nbsp;&nbsp;&nbsp;|
 
 			{/for}
 			<br/><br/>
-			<input type="checkbox" name="equalize" class="fc_checkbox_jq" value="1"{if $options.equalize != 0} checked="checked"{/if} id="equalize_{$section_id}" /><label for="equalize_{$section_id}" class="right">Passe Spaltenh&ouml;he an</label>
-			<input type="submit" name="add_column" class="add_column cc_multicolumn_button" value="Spalte hinzuf&uuml;gen" />
+			<input type="checkbox" name="equalize" class="fc_checkbox_jq" value="1"{if $options.equalize != 0} checked="checked"{/if} id="equalize_{$section_id}" /><label for="equalize_{$section_id}" class="right">{translate('Equalize columns in one row')}</label>
+			<input type="submit" name="add_column" class="add_column cc_multicolumn_button" value="{translate('Add column')}" />
 			<div class="clear"></div>
 		</div>
 		{$counter=0}
 		{$row_counter=1}
 		<div class="cc_multicolumn_option_noclick fc_gradient1">
-			Zeile Nr. {$row_counter}
+			{translate('Row No.')} {$row_counter}
 		</div>
 		{foreach $columns as column}
 			{if $counter == $options.kind}
 				{$row_counter = $row_counter+1}{$counter=0}
 		<div class="cc_multicolumn_option_noclick fc_gradient1">
-			Zeile Nr. {$row_counter}
+			{translate('Row No.')} {$row_counter}
 		</div>
 			{/if}
 			{$counter=$counter+1}
 		<div class="cc_multicolumn_option">
 			<div class="cc_multicolumn_show"></div>
-			Spalte Nr. {$counter}
+			{translate('Column No.')} {$counter}
 			<input type="submit" name="remove_column" value="{$column.column_id}" class="remove_column" />
 		</div>
 		<div class="cc_multicolumn_option_content">
@@ -78,8 +78,8 @@
 		{/foreach}
 
 		<div class="div_submit fc_gradient1">
-			<input type="reset" class="abbrechen right" value="Abbrechen" onclick="javascript: window.location = 'index.php';" />
-			<input type="submit" name="save_columns" class="submit left cc_multicolumn_button" value="Speichern" />
+			<input type="reset" class="abbrechen right" value="{translate('Cancel')}" onclick="javascript: window.location = 'index.php';" />
+			<input type="submit" name="save_columns" class="submit left cc_multicolumn_button" value="{translate('Save')}" />
 			<div class="clear"></div>
 		</div>
 
