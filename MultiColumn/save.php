@@ -48,10 +48,6 @@ $backend	= CAT_Backend::getInstance('Pages', 'pages_modify');
 $page_id	= $val->sanitizePost('page_id','numeric');
 $section_id	= $val->sanitizePost('section_id','numeric');
 
-include_once( 'class.multicolumn.php' );
-
-$MulCol	= new MultiColumn();
-
 // =============
 // ! Get perms
 // =============
@@ -60,7 +56,12 @@ if ( CAT_Helper_Page::getPagePermission( $page_id, 'admin' ) !== true )
 	$backend->print_error( 'You do not have permissions to modify this page!' );
 }
 
+include_once( 'class.multicolumn.php' );
+
+$MulCol	= new MultiColumn();
+
 $variant		= $MulCol->getVariant();
+
 $module_path	= '/modules/cc_multicolumn/';
 
 if ( file_exists( CAT_PATH . $module_path .'save/' . $variant . '/save.php' ) )
@@ -68,10 +69,13 @@ if ( file_exists( CAT_PATH . $module_path .'save/' . $variant . '/save.php' ) )
 elseif ( file_exists( CAT_PATH . $module_path .'save/default/save.php' ) )
 	include_once( CAT_PATH . $module_path .'save/default/save.php' );
 
+$update_when_modified = true;
+CAT_Backend::getInstance()->updateWhenModified();
+
 
 // ====================== 
-// ! Print admin footer   
+// ! Print success   
 // ====================== 
-$backend->print_footer();
+$backend->print_success('Seite erfolgreich gespeichert', CAT_ADMIN_URL . '/pages/modify.php?page_id=' . $page_id);
 
 ?>

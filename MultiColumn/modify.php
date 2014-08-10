@@ -80,6 +80,8 @@ if ( file_exists( CAT_PATH . $module_path .'templates/' . $MulCol->getVariant() 
 elseif ( file_exists( CAT_PATH . $module_path .'templates/default/modify.tpl' ) )
 	$parser->setPath( dirname(__FILE__) . '/templates/default/' );
 
+$parser->setFallbackPath( dirname( __FILE__ ) . '/templates/default' );
+
 $parser->output(
 	'modify',
 	$parser_data

@@ -42,8 +42,6 @@ if (defined('LEPTON_PATH')) {
 }
 // end include class.secure.php
 
-global $page_id, $section_id;
-
 include_once( 'class.multicolumn.php' );
 
 $MulCol			= new MultiColumn( $section );

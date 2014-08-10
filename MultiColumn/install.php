@@ -75,7 +75,7 @@ if(defined('CAT_URL'))
 		. ' `page_id` INT NOT NULL DEFAULT \'0\','
 		. ' `section_id` INT NOT NULL DEFAULT \'0\','
 		. ' `name` VARCHAR(255) NOT NULL,'
-		. ' `value` VARCHAR(255) NOT NULL,'
+		. ' `value` VARCHAR(2047) NOT NULL,'
 		. ' PRIMARY KEY ( `page_id`, `section_id`, `name` )'
 		. ' )';
 	$pageHelper->db()->query($mod_create_table);
@@ -87,7 +87,7 @@ if(defined('CAT_URL'))
 		. ' `page_id` INT NOT NULL DEFAULT \'0\','
 		. ' `section_id` INT NOT NULL DEFAULT \'0\','
 		. ' `name` VARCHAR(255) NOT NULL,'
-		. ' `value` VARCHAR(2048) NOT NULL,'
+		. ' `value` VARCHAR(2047) NOT NULL,'
 		. ' PRIMARY KEY ( `column_id`, `page_id`, `section_id`, `name` )'
 		. ' )';
 	$pageHelper->db()->query($mod_create_table);
