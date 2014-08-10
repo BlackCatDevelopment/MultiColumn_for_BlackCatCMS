@@ -65,6 +65,7 @@ elseif ( file_exists( CAT_PATH . $module_path .'view/default/view.php' ) )
 	include( CAT_PATH . $module_path .'view/default/view.php' );
 
 $parser->setPath( dirname(__FILE__) . '/templates/' . $MulCol->getVariant() );
+$parser->setFallbackPath( dirname( __FILE__ ) . '/templates/default' );
 
 $parser->output(
 	$template,
