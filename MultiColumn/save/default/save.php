@@ -74,13 +74,14 @@ if ( $mc_id = $val->sanitizePost( 'mc_id','numeric' ) )
 	{
 		$ids	= $val->sanitizePost( 'content_id', 'array', false );
 
-		foreach( $ids as $id )
-		{
-			$contentname	= sprintf( "content_%s_%s", $section_id, intval( $id ) );
-			$content		= $val->sanitizePost( $contentname, false, true );
-
-			$MulCol->saveContent( $id, $content );
-		}
+		if( is_array($ids) )
+			foreach( $ids as $id )
+			{
+				$contentname	= sprintf( "content_%s_%s", $section_id, intval( $id ) );
+				$content		= $val->sanitizePost( $contentname, false, true );
+			
+				$MulCol->saveContent( $id, $content );
+			}
 	}
 
 	// ================== 
