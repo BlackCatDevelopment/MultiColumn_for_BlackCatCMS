@@ -43,7 +43,7 @@ if (defined('CAT_PATH')) {
 
 include_once( 'class.multicolumn.php' );
 
-$MulCol			= new MultiColumn( $section );
+$MulCol			= new MultiColumn( $section, true );
 
 $variant		= $MulCol->getVariant();
 $module_path	= '/modules/cc_multicolumn/';

@@ -61,11 +61,11 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 			return self::$instance;
 		}
 
-		public function __construct( $mc_id	= NULL )
+		public function __construct( $mc_id	= NULL, $is_header	= false )
 		{
 			global $page_id, $section_id;
 
-			if ( !isset($section_id) )
+			if ( !isset($section_id) || $is_header )
 			{
 				$section_id	= $mc_id['section_id'];
 			}

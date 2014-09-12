@@ -58,6 +58,12 @@ $module_path	= '/modules/cc_multicolumn/';
 $template		= 'view';
 
 
+$parser_data['columns']		= $MulCol->getContents( true );
+
+
+$parser_data['mc_id']		= $MulCol->getID();
+$parser_data['options']		= $MulCol->getOptions();
+
 if ( file_exists( CAT_PATH . $module_path .'view/' . $variant . '/view.php' ) )
 	include( CAT_PATH . $module_path .'view/' . $variant . '/view.php' );
 elseif ( file_exists( CAT_PATH . $module_path .'view/default/view.php' ) )
@@ -65,6 +71,7 @@ elseif ( file_exists( CAT_PATH . $module_path .'view/default/view.php' ) )
 
 $parser->setPath( dirname(__FILE__) . '/templates/' . $MulCol->getVariant() );
 $parser->setFallbackPath( dirname( __FILE__ ) . '/templates/default' );
+
 
 $parser->output(
 	$template,

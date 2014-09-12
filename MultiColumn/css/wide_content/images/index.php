@@ -41,8 +41,4 @@ if (defined('CAT_PATH')) {
 }
 // end include class.secure.php
 
-// Get columns in this section
-
-
-
 ?>

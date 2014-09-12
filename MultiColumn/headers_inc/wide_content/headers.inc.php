@@ -41,8 +41,32 @@ if (defined('CAT_PATH')) {
 }
 // end include class.secure.php
 
-// Get columns in this section
 
-
+$mod_headers = array(
+	'backend' => array(
+		'css' => array(
+			array(
+				'media'		=> 'all',
+				'file'		=> 'modules/cc_multicolumn/css/default/backend.css'
+			)
+		),
+		'js' => array(
+			'/modules/cc_multicolumn/js/default/backend.js',
+		),
+		'ui' => array(
+			array(
+				'core'			=> true
+			),
+		)
+	),
+	'frontend' => array(
+		'css' => array(
+			array(
+				'media'		=> 'all',
+				'file'		=> 'modules/cc_multicolumn/css/wide_content/frontend.css'
+			)
+		)
+	)
+);
 
 ?>

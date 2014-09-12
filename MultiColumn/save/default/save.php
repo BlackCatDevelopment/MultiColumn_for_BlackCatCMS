@@ -49,6 +49,7 @@ if ( $mc_id = $val->sanitizePost( 'mc_id','numeric' ) )
 
 	$options		= $val->sanitizePost('options');
 	$entry_options	= $val->sanitizePost('entry_options');
+	$ids			= $val->sanitizePost( 'content_id', 'array', false );
 
 	if ( $options != '' )
 	{
@@ -58,11 +59,14 @@ if ( $mc_id = $val->sanitizePost( 'mc_id','numeric' ) )
 		}
 	}
 
-	if ( $entry_options != '' )
-	{
+	if ( $entry_options != ''
+		&& is_array($ids)
+		&& count( $ids ) > 0
+	) {
 		foreach( array_filter( explode(',', $entry_options) ) as $option )
 		{
-			if( !$MulCol->saveContentOptions( $option, $val->sanitizePost( $option ) )) $error = true;
+			foreach( $ids as $id )
+				if( !$MulCol->saveContentOptions( $id, $option, $val->sanitizePost( $option . '_' . $id ) ) ) $error = true;
 		}
 	}
 
@@ -72,8 +76,6 @@ if ( $mc_id = $val->sanitizePost( 'mc_id','numeric' ) )
 	// =========================== 
 	if ( $val->sanitizePost( 'save_columns') != '' )
 	{
-		$ids	= $val->sanitizePost( 'content_id', 'array', false );
-
 		if( is_array($ids) )
 			foreach( $ids as $id )
 			{
