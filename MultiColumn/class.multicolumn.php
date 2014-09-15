@@ -267,11 +267,11 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 			{
 			    while( !false == ($row = $contents->fetchRow( MYSQL_ASSOC ) ) )
 			    {
-			    	CAT_Helper_Page::preprocess( $row['content'] );
+			    	if ($frontend) CAT_Helper_Page::preprocess( $row['content'] );
 			
 			    	$this->contents[$row['column_id']]	= array(
 			    		'column_id'			=> $row['column_id'],
-			    		'content'			=> $frontend ? stripslashes( $row['content'] ) : htmlspecialchars( $row['content'] ),
+			    		'content'			=> $frontend ? stripslashes( $row['content'] ) : htmlspecialchars( stripslashes($row['content']) ),
 			    		'contentname'		=> sprintf( 'content_%s_%s', self::$section_id, $row['column_id'] )
 			    	);
 			    }
@@ -416,6 +416,24 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 				!$column_id ||
 				!is_numeric( $column_id ) ) return false;
 
+			// for non-admins only
+			if(!CAT_Users::getInstance()->ami_group_member(1))
+			{
+				// if HTMLPurifier is enabled...
+				if( $backend->db()->get_one(
+					"SELECT * FROM `'.CAT_TABLE_PREFIX.'mod_wysiwyg_admin_v2` " .
+					"WHERE `set_name`='enable_htmlpurifier' " .
+					"AND `set_value`='1'"
+				) ) {
+					// use HTMLPurifier to clean up the output
+					$content = CAT_Helper_Protect::getInstance()->purify($content,array('Core.CollectErrors'=>true));
+				}
+			}
+			else
+			{
+				$content = CAT_Helper_Validate::getInstance()->add_slashes($content);
+			}
+
 			if ( CAT_Helper_Page::getInstance()->db()->query( sprintf(
 					"UPDATE `%smod_cc_multicolumn_contents`
 						SET `content` = '%s',
@@ -423,8 +441,8 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 						WHERE `mc_id` = '%s' AND
 							`column_id` = '%s'",
 					CAT_TABLE_PREFIX,
-					$this->toSQL( $content),
-					umlauts_to_entities( strip_tags( $content ), strtoupper(DEFAULT_CHARSET), 0),
+					$content,
+					umlauts_to_entities(strip_tags($content), strtoupper(DEFAULT_CHARSET), 0),
 					self::$mc_id,
 					$column_id
 				)
