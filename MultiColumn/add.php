@@ -44,7 +44,7 @@ if (defined('CAT_PATH')) {
 // Insert an extra row into the database
 global $section_id, $page_id;
 
-include_once( 'class.multicolumn.php' );
+include_once( 'classes/class.multicolumn.php' );
 
 $MulCol	= new MultiColumn( true );
 

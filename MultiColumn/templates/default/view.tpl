@@ -1,5 +1,4 @@
-<?php
-/**
+{**
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -21,36 +20,26 @@
  *   @category			CAT_Modules
  *   @package			multiColumn
  *
- */
-
-// include class.secure.php to protect this file and the whole CMS!
-if (defined('CAT_PATH')) {
-	include(CAT_PATH.'/framework/class.secure.php');
-} else {
-	$root = "../";
-	$level = 1;
-	while (($level < 10) && (!file_exists($root.'/framework/class.secure.php'))) {
-		$root .= "../";
-		$level += 1;
-	}
-	if (file_exists($root.'/framework/class.secure.php')) {
-		include($root.'/framework/class.secure.php');
-	} else {
-		trigger_error(sprintf("[ <b>%s</b> ] Can't include class.secure.php!", $_SERVER['SCRIPT_NAME']), E_USER_ERROR);
-	}
-}
-// end include class.secure.php
-
-global $section_id, $page_id;
-
-include_once( 'classes/class.multicolumn.php' );
-
-$MulCol	= new MultiColumn();
-
-// Delete column
-$MulCol->deleteMC();
+ *}
 
 
-
-
-?>
+<div id="cc_multicolumn_{$section_id}"{if $options.equalize != 0} class="cc_multicolumn_eq"{/if}>
+	{$count = 0}
+	{foreach $columns column}
+	{if $options.kind != 0 && $count % $options.kind == 0}
+	<div class="cc_multicolumn_row">{/if}
+		<div class="cc_multicolumn cc_column_{$options.kind}{if $count % $options.kind == ( $options.kind -1)} cc_last_column{/if}">
+			<div class="cc_multicolumn_border">
+				<div class="cc_multicolumn_content">
+					{$column.content}
+				</div>
+			</div>
+		</div>
+	{if $options.kind != 0 && $count % $options.kind == ($options.kind-1)}
+		<div class="clear"></div>
+	</div>{/if}
+	{$count = $count+1}
+	{/foreach}
+	{if $count % $options.kind > 0 }</div>{/if}
+	<div class="clear"></div>
+</div>

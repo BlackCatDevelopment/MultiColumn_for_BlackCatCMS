@@ -73,8 +73,8 @@ if(defined('CAT_URL'))
 	$mod_create_table = 'CREATE TABLE  `'.CAT_TABLE_PREFIX.'mod_cc_multicolumn_options` ('
 		. ' `page_id` INT NOT NULL DEFAULT \'0\','
 		. ' `section_id` INT NOT NULL DEFAULT \'0\','
-		. ' `name` VARCHAR(255) NOT NULL,'
-		. ' `value` VARCHAR(2047) NOT NULL,'
+		. ' `name` VARCHAR(255) NOT NULL DEFAULT \'\','
+		. ' `value` VARCHAR(2047) NOT NULL DEFAULT \'\','
 		. ' PRIMARY KEY ( `page_id`, `section_id`, `name` )'
 		. ' )';
 	$pageHelper->db()->query($mod_create_table);
@@ -85,8 +85,8 @@ if(defined('CAT_URL'))
 		. ' `column_id` INT NOT NULL DEFAULT \'0\','
 		. ' `page_id` INT NOT NULL DEFAULT \'0\','
 		. ' `section_id` INT NOT NULL DEFAULT \'0\','
-		. ' `name` VARCHAR(255) NOT NULL,'
-		. ' `value` VARCHAR(2047) NOT NULL,'
+		. ' `name` VARCHAR(255) NOT NULL DEFAULT \'\','
+		. ' `value` VARCHAR(2047) NOT NULL DEFAULT \'\','
 		. ' PRIMARY KEY ( `column_id`, `page_id`, `section_id`, `name` )'
 		. ' )';
 	$pageHelper->db()->query($mod_create_table);

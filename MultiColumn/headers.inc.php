@@ -41,7 +41,7 @@ if (defined('CAT_PATH')) {
 }
 // end include class.secure.php
 
-include_once( 'class.multicolumn.php' );
+include_once( 'classes/class.multicolumn.php' );
 
 $MulCol			= new MultiColumn( $section, true );
 
