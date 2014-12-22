@@ -43,7 +43,7 @@ if (defined('CAT_PATH')) {
 
 $PageHelper	= CAT_Helper_Page::getInstance();
 
-include_once( 'class.multicolumn.php' );
+include_once( 'classes/class.multicolumn.php' );
 
 $MulCol	= new MultiColumn();
 

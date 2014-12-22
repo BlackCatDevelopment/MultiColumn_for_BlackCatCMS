@@ -435,22 +435,6 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 				!$column_id ||
 				!is_numeric( $column_id ) ) return false;
 
-<<<<<<< HEAD:MultiColumn/classes/class.multicolumn.php
-<<<<<<< HEAD:MultiColumn/classes/class.multicolumn.php
-			if ( CAT_Helper_Page::getInstance()->db()->query(
-				'UPDATE `:prefix:mod_cc_multicolumn_contents`
-					SET `content` = :content,
-						`text` = :text
-					WHERE `mc_id` = :mc_id AND
-						`column_id` = :column_id',
-				array(
-					'content'	=> $content,
-					'text'		=> umlauts_to_entities( strip_tags( $content ), strtoupper(DEFAULT_CHARSET), 0),
-					'mc_id'		=> self::$mc_id,
-					'column_id'	=> $column_id
-=======
-=======
->>>>>>> FETCH_HEAD:MultiColumn/class.multicolumn.php
 			// for non-admins only
 			if(!CAT_Users::getInstance()->ami_group_member(1))
 			{
@@ -469,18 +453,17 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 				$content = CAT_Helper_Validate::getInstance()->add_slashes($content);
 			}
 
-			if ( CAT_Helper_Page::getInstance()->db()->query( sprintf(
-					"UPDATE `%smod_cc_multicolumn_contents`
-						SET `content` = '%s',
-							`text` = '%s'
-						WHERE `mc_id` = '%s' AND
-							`column_id` = '%s'",
-					CAT_TABLE_PREFIX,
-					$content,
-					umlauts_to_entities(strip_tags($content), strtoupper(DEFAULT_CHARSET), 0),
-					self::$mc_id,
-					$column_id
->>>>>>> FETCH_HEAD:MultiColumn/class.multicolumn.php
+			if ( CAT_Helper_Page::getInstance()->db()->query(
+				'UPDATE `:prefix:mod_cc_multicolumn_contents`
+					SET `content` = :content,
+						`text` = :text
+					WHERE `mc_id` = :mc_id AND
+						`column_id` = :column_id',
+				array(
+					'content'	=> $content,
+					'text'		=> umlauts_to_entities( strip_tags( $content ), strtoupper(DEFAULT_CHARSET), 0),
+					'mc_id'		=> self::$mc_id,
+					'column_id'	=> $column_id
 				)
 			) ) return true;
 			else return false;
