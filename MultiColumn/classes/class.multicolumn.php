@@ -439,11 +439,17 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 			if(!CAT_Users::getInstance()->ami_group_member(1))
 			{
 				// if HTMLPurifier is enabled...
-				if( $backend->db()->get_one(
-					"SELECT * FROM `'.CAT_TABLE_PREFIX.'mod_wysiwyg_admin_v2` " .
-					"WHERE `set_name`='enable_htmlpurifier' " .
-					"AND `set_value`='1'"
-				) ) {
+				$check = CAT_Helper_Page::getInstance()->db()->query(
+					'SELECT * FROM `:prefix:mod_wysiwyg_admin_v2`
+						WHERE `set_name`= :name
+						AND `set_value`= :val',
+					array(
+						'name'	=> 'enable_htmlpurifier',
+						'val'	=> 1
+					)
+				);
+				if ( $check && $check->numRows() > 0)
+				{
 					// use HTMLPurifier to clean up the output
 					$content = CAT_Helper_Protect::getInstance()->purify($content,array('Core.CollectErrors'=>true));
 				}
