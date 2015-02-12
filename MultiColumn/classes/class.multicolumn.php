@@ -44,7 +44,7 @@ if (defined('CAT_PATH')) {
 if ( ! class_exists( 'MultiColumn', false ) ) {
 	class MultiColumn
 	{
-		protected static $mc_id		= NULL;
+		protected static $mc_id			= NULL;
 		protected static $page_id		= NULL;
 		protected static $section_id	= NULL;
 
@@ -64,7 +64,7 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 		public function __construct( $mc_id	= NULL, $is_header	= false )
 		{
 			global $page_id, $section_id;
-
+			require_once(CAT_PATH . '/framework/functions.php');
 			if ( !isset($section_id) || $is_header )
 			{
 				$section_id	= is_numeric($mc_id) ? $mc_id : $mc_id['section_id'];
@@ -90,6 +90,24 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 		}
 
 		public function __destruct() {}
+
+		/**
+		 * return, if in a current object all important values are existing (page_id, section_id, gallery_id)
+		 *
+		 * @access public
+		 * @param  integer  $image_id - optional check for $image_id to be numeric
+		 * @return boolean true/false
+		 *
+		 **/
+		private function checkIDs( $colID = NULL )
+		{
+			if ( !self::$section_id ||
+				!self::$page_id ||
+				!self::$mc_id ||
+				( $colID && !is_numeric( $colID ) )
+			) return false;
+			else return true;
+		}
 
 		/**
 		 * add new MultiColumn
@@ -162,27 +180,38 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 				!self::$mc_id ||
 				!is_numeric($count) ) return false;
 
-			$values	= '';
-			$arr	= array();
+			$newIDs	= array();
+
+			$pos	= CAT_Helper_Page::getInstance()->db()->query(
+				'SELECT MAX(position) AS pos FROM `:prefix:mod_cc_multicolumn_contents`
+					WHERE `page_id`			= :page_id
+						AND `section_id`	= :section_id
+						AND `mc_id`			= :mc_id',
+				array(
+					'page_id'		=> self::$page_id,
+					'section_id'	=> self::$section_id,
+					'mc_id'			=> self::$mc_id
+				)
+			)->fetchColumn();
+
 			for($i=0;$i<$count;$i++)
 			{
-				$values	.= "( ?, ?, ? ), ";
-				array_push( $arr, self::$mc_id, self::$page_id, self::$section_id );
-			}
-
-			if ( $values != '' )
-			{
-				if( CAT_Helper_Page::getInstance()->db()->query( sprintf(
+				if( CAT_Helper_Page::getInstance()->db()->query(
 						'INSERT INTO `:prefix:mod_cc_multicolumn_contents`
-							( `mc_id`, `page_id`, `section_id` ) VALUES
-							%s',
-						substr( $values, 0, -2 )
-					),
-					$arr
-				) ) return true;
-				else return false;
-			} else return false;
-
+							( `mc_id`, `page_id`, `section_id`, `position` ) VALUES
+							( :mc_id, :page_id, :section_id, :position )',
+					array( 
+						'mc_id'			=> self::$mc_id,
+						'page_id'		=> self::$page_id,
+						'section_id'	=> self::$section_id,
+						'position'		=> ++$pos
+					)
+				) ) $success = true;
+				$newIDs[]	= CAT_Helper_Page::getInstance()->db()->lastInsertId();
+			}
+			if ( $success )
+				return $newIDs;
+			else return false;
 		}
 
 
@@ -265,7 +294,7 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 				'SELECT `content`, `column_id`
 					FROM `:prefix:mod_cc_multicolumn_contents`
 					WHERE `mc_id` = :mc_id
-					ORDER BY `column_id`',
+					ORDER BY `position`',
 				array(
 					'mc_id'	=> self::$mc_id
 				)
@@ -279,7 +308,7 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 			
 			    	$this->contents[$row['column_id']]	= array(
 			    		'column_id'			=> $row['column_id'],
-			    		'content'			=> $frontend ? stripslashes( $row['content'] ) : htmlspecialchars( stripslashes($row['content']) ),
+			    		'content'			=> stripslashes( $row['content'] ),
 			    		'contentname'		=> sprintf( 'content_%s_%s', self::$section_id, $row['column_id'] )
 			    	);
 			    }
@@ -324,7 +353,7 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 
 			$opts	= CAT_Helper_Page::getInstance()->db()->query( sprintf(
 					'SELECT * FROM `:prefix:mod_cc_multicolumn_content_options`
-							WHERE `section_id` = :section_id %s',
+							WHERE `section_id` = :section_id',
 					$select
 				),
 				array(
@@ -453,10 +482,6 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 					// use HTMLPurifier to clean up the output
 					$content = CAT_Helper_Protect::getInstance()->purify($content,array('Core.CollectErrors'=>true));
 				}
-			}
-			else
-			{
-				$content = CAT_Helper_Validate::getInstance()->add_slashes($content);
 			}
 
 			if ( CAT_Helper_Page::getInstance()->db()->query(
@@ -587,7 +612,45 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 			else return false;
 		} // end saveOptions()
 
+		/**
+		 * reorder columns
+		 *
+		 * @access public
+		 * @param  array			$colIDs - Strings from jQuery sortable()
+		 * @return bool true/false
+		 *
+		 **/
+		public function reorderCols( $colIDs = array() )
+		{
+			if ( !$this->checkIDs()
+				|| !is_array($colIDs)
+				|| count($colIDs) == 0
+			) return false;
 
+			$return	= true;
+
+			foreach( $colIDs as $index => $colStr )
+			{
+				$colID	= explode('_', $colStr);
+
+				if( !CAT_Helper_Page::getInstance()->db()->query(
+					'UPDATE `:prefix:mod_cc_multicolumn_contents`
+						SET `position` = :position
+						WHERE `mc_id`			= :mc_id
+							AND `page_id`		= :page_id
+							AND `section_id`	= :section_id
+							AND `column_id`		= :column_id',
+					array(
+						'position'		=> $index,
+						'mc_id'			=> self::$mc_id,
+						'page_id'		=> self::$page_id,
+						'section_id'	=> self::$section_id,
+						'column_id'		=> $colID[count($colID)-1]
+					)
+				) ) $return = false;
+			}
+			return $return;
+		} // end reorderCols()
 
 		public function getID()
 		{

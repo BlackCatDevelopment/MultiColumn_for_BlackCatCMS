@@ -64,6 +64,7 @@ if(defined('CAT_URL'))
 		. ' `section_id` INT NOT NULL DEFAULT \'0\','
 		. ' `content` TEXT NOT NULL,'
 		. ' `text` TEXT NOT NULL ,'
+		. ' `position` INT NOT NULL DEFAULT \'0\','
 		. ' PRIMARY KEY ( `column_id` )'
 		. ' )';
 	$pageHelper->db()->query($mod_cc_multicolumn_contents);
