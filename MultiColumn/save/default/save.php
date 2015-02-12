@@ -62,8 +62,8 @@ if ( $mc_id = $val->sanitizePost( 'mc_id','numeric' ) )
 			$added		= $MulCol->addColumn( $colCount );
 			$ajax_return	= array(
 				'message'	=> is_array($added) && count($added) > 0
-					? $lang->translate( 'Column added successfully!' )
-					: $lang->translate( 'An error occoured!' ),
+					? $lang->translate( 'Column added successfully' )
+					: $lang->translate( 'An error occoured' ),
 				'colIDs'	=> $added,
 				'success'	=> is_array($added) && count($added) > 0 ? true : false
 			);
@@ -72,15 +72,15 @@ if ( $mc_id = $val->sanitizePost( 'mc_id','numeric' ) )
 			$deleted	= $MulCol->removeColumn( $colID );
 			$ajax_return	= array(
 				'message'	=> $deleted === true
-					? $lang->translate( 'Column deleted successfully!' )
-					: $lang->translate( 'An error occoured!' ),
+					? $lang->translate( 'Column deleted successfully' )
+					: $lang->translate( 'An error occoured' ),
 				'success'	=> $deleted
 			);
 			break;
 		case 'saveColumn':
 			$success	= $MulCol->saveContent( $colID, $val->sanitizePost('content_' . $mc_id, false, true  ) );
 			$ajax_return	= array(
-				'message'	=> $lang->translate( 'Content saved successfully' ),
+				'message'	=> $lang->translate( 'Column saved successfully' ),
 				'success'	=> true
 			);
 
@@ -95,8 +95,8 @@ if ( $mc_id = $val->sanitizePost( 'mc_id','numeric' ) )
 
 			$ajax_return	= array(
 				'message'	=> $success == true
-					? $lang->translate( 'Column saved successfully!' )
-					: $lang->translate( 'An error occoured!' ),
+					? $lang->translate( 'Column saved successfully' )
+					: $lang->translate( 'An error occoured' ),
 				'success'	=> $success
 			);
 
@@ -128,7 +128,7 @@ if ( $mc_id = $val->sanitizePost( 'mc_id','numeric' ) )
 				}
 			}
 			$ajax_return	= array(
-				'message'	=> $lang->translate( 'Options saved successfully!' ),
+				'message'	=> $lang->translate( 'Options saved successfully' ),
 				'success'	=> true
 			);
 			break;
@@ -139,7 +139,7 @@ if ( $mc_id = $val->sanitizePost( 'mc_id','numeric' ) )
 			$MulCol->saveOptions( 'variant', $val->sanitizePost('variant') );
 
 			$ajax_return	= array(
-				'message'	=> $lang->translate( 'Variant saved successfully!' ),
+				'message'	=> $lang->translate( 'Variant saved successfully' ),
 				'success'	=> true
 			);
 

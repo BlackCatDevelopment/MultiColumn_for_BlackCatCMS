@@ -49,13 +49,24 @@ $LANG = array(
 // --- view no image ---
 
 // --- modify ---
-	'Administration for'			=> 'Verwaltung für',
-    'Options for frontend'			=> 'Optionen f&uuml;rs Frontend',
-    'Module variant'				=> 'Modulvariante',
-    'Count of columns per row'		=> 'Anzahl der Spalten pro Zeile',
-    'Add column'					=> 'Spalte hinzuf&uuml;gen',
-    'Add columns'					=> 'Spalten hinzuf&uuml;gen',
-    'Equalize columns in one row'	=> 'Passe Spaltenh&ouml;he an',
-    'Row No.'						=> 'Zeile Nr.',
-    'Column No.'					=> 'Spalte Nr.'
+	'Administration for'				=> 'Verwaltung für',
+    'Options for frontend'				=> 'Optionen f&uuml;rs Frontend',
+    'Module variant'					=> 'Modulvariante',
+    'Count of columns per row'			=> 'Anzahl der Spalten pro Zeile',
+    'Add column'						=> 'Spalte hinzuf&uuml;gen',
+    'Add columns'						=> 'Spalten hinzuf&uuml;gen',
+    'Equalize columns in one row'		=> 'Passe Spaltenh&ouml;he an',
+    'Row No.'							=> 'Zeile Nr.',
+    'Column No.'						=> 'Spalte Nr.',
+    'Set skin'							=> 'Variante setzen',
+    'Save skin &amp; reload'			=> 'Speichern &amp; Neuladen',
+    'Save column'						=> 'Spalte speichern',
+    'An error occoured'					=> 'Ein Fehler ist aufgetreten',
+    'Column added successfully'			=> 'Spalte erfolgreich hinzugefügt',
+    'Column saved successfully'			=> 'Spalte erfolgreich gespeichert',
+    'Column deleted successfully'		=> 'Spalte erfolgreich gelöscht',
+    'Columns reordered successfully'	=> 'Spalten erfolgreich sortiert',
+    'Reorder failed'					=> 'Sortierung fehlgeschlagen',
+    'Options saved successfully'		=> 'Optionen erfolgreich gespeichert',
+    'Variant saved successfully'		=> 'Variante erfolgreich gespeichert'
 );

@@ -45,7 +45,7 @@
 	<ul id="cc_MC_cols_{$mc_id}" class="cc_MC_cols MC_col{$options.kind}" data-cols="{$options.kind}">{$c=1}{$r=1}
 		<li class="clear">Column {$r}</li>
 		{foreach $columns column}
-		{include(../default/modify/column.tpl)}
+		{include(modify/column.tpl)}
 		{if $c == $options.kind && ($r*$options.kind) < count($columns)}{$r=$r+1}<li class="clear">Column {$r}</li>{$c=1}{else}{$c=$c+1}{/if}
 		{/foreach}
 		{$column = NULL}

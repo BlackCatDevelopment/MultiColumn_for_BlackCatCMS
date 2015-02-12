@@ -1,0 +1,64 @@
+/**
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 3 of the License, or (at
+ *   your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful, but
+ *   WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ *   General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program; if not, see <http://www.gnu.org/licenses/>.
+ *
+ *   @author			Matthias Glienke
+ *   @copyright			2014, Black Cat Development
+ *   @link				http://blackcat-cms.org
+ *   @license			http://www.gnu.org/licenses/gpl.html
+ *   @category			CAT_Modules
+ *   @package			multiColumn
+ *
+ */
+
+.wide_content {
+	margin: 1em 0em;
+	padding: 2em 0em;
+	border-bottom: 1px solid #dadada;
+	border-top: 1px solid #dadada;
+	background: white;
+}
+.cc_column_1 {
+	width: 100%;
+}
+.cc_column_2 {
+	margin-right: 2%;
+	width: 49%;
+}
+.cc_column_3 {
+	margin-right: 2%;
+	width: 32%;
+}
+.cc_column_4 {
+	margin-right: 2.6%;
+	width: 23%;
+}
+.cc_column_5 {
+	margin-right: 2.5%;
+	width: 18%;
+}
+.cc_column_6 {
+	margin-right: 2%;
+	width: 15%;
+}
+.clear {
+	border-width: 0px;
+	padding: 0px;
+	margin: 0px;
+	height: 0px;
+	clear: both;
+}
+.cc_last_column {
+	margin-right: 0px;
+}

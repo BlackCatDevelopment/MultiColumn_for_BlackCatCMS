@@ -44,6 +44,11 @@
 		<input type="hidden" name="action" value="saveColumn">
 		<input type="hidden" name="entry_options" value="tab_title">
 		<input type="hidden" name="_cat_ajax" value="1">
+		<p>
+			<strong class="cc_In100px">{translate('Tab title')}:</strong>
+			<input type="text" name="tab_title" value="{if $column.options.tab_title}{$column.options.tab_title}{/if}"{if !$column} disabled{/if}>
+		</p>
+		<hr>
 		<div class="cc_MC_left">
 			<div id="MC_cont_{if !$column}__column_id__{else}{$column.column_id}{/if}" class="MC_content">{$column.content}</div>
 		</div>

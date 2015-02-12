@@ -28,8 +28,7 @@
 	<div class="clear"></div>
 	<div class="cc_MC_settings">
 		<ul class="cc_MC_nav fc_br_left" id="cc_MC_nav_{$mc_id}">
-			<li class="active fc_br_topleft">{translate('Options for frontend')}</li>
-			{*<li class="fc_br_bottomleft">{translate('Column option')}</li>*}
+			<li class="active fc_br_left">{translate('Options for frontend')}</li>
 		</ul>
 		<ul class="cc_MC_tabs fc_br_right">
 			<li class="active cc_MC_tab">{include(modify/set_frontend.tpl)}</li>
