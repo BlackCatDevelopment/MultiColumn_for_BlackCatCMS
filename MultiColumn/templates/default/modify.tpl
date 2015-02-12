@@ -42,7 +42,7 @@
 	</div>
 	<p class="cc_MC_y">{translate('Existing columns')}</p>
 	<p class="cc_MC_n">{translate('No columns available')}</p>
-	<ul id="cc_MC_cols_{$mc_id}" class="cc_MC_cols MC_col{$options.kind}">{$c=1}{$r=1}
+	<ul id="cc_MC_cols_{$mc_id}" class="cc_MC_cols MC_col{$options.kind}" data-cols="{$options.kind}">{$c=1}{$r=1}
 		<li class="clear">Column {$r}</li>
 		{foreach $columns column}
 		{include(modify/column.tpl)}
