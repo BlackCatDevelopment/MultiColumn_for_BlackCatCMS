@@ -49,7 +49,7 @@
 		{if $c == $options.kind && ($r*$options.kind) < count($columns)}{$r=$r+1}<li class="clear">Column {$r}</li>{$c=1}{else}{$c=$c+1}{/if}
 		{/foreach}
 		{$column = NULL}
-		{include(../default/modify/column.tpl)}
+		{include(modify/column.tpl)}
 	</ul>
 </div>
 
