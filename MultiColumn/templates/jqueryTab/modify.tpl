@@ -25,17 +25,9 @@
 {include(../default/modify/javascript.tpl)}
 
 <div class="cc_MC_form" id="cc_MC_{$mc_id}">
-	{include(../default/modify/set_skin.tpl)}
+	{include(modify/set_skin.tpl)}
 	<div class="clear"></div>
-	<div class="cc_MC_settings">
-		<ul class="cc_MC_nav fc_br_left" id="cc_MC_nav_{$mc_id}">
-			<li class="active fc_br_left">{translate('Options for frontend')}</li>
-		</ul>
-		<ul class="cc_MC_tabs fc_br_right">
-			<li class="active cc_MC_tab">{include(../default/modify/set_frontend.tpl)}</li>
-		</ul>
-		<div class="clear"></div>
-	</div>
+	<div class="cc_MC_settings"></div>
 	<div class="right cc_In300px">
 		<input name="colCount" class="colCount" type="text" value="1">
 		<button type="submit" id="add_C_{$mc_id}" class="icon-plus cc_In200px"> {translate('Add column')}</button>

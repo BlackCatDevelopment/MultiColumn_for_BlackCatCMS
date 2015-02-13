@@ -75,7 +75,6 @@ $(document).ready(function()
 				cols		= $mcUL.data('cols'),
 				$WYSIWYG	= $('#MC_WYSIWYG_' + mCID.mc_id).hide(),
 				$prevTemp	= $mcUL.children('.prevTemp').clone().removeClass('prevTemp')[0].outerHTML,
-				$contents	= $MC.find('.MC_content'),
 				$mcNav		= $('#cc_MC_nav_' + mCID.mc_id),
 				$setKind	= $MC.find('.set_kind');
 
@@ -302,7 +301,7 @@ $(document).ready(function()
 						CKEDITOR.instances[wID].updateElement();
 					}
 				}
-				$contents.show();
+				$MC.find('.MC_content').show();
 				$WYSIWYG.hide();
 				$form.submit();
 			});
@@ -335,7 +334,7 @@ $(document).ready(function()
 		
 				editorInstance.destroy();
 
-				$contents.show();
+				$MC.find('.MC_content').show();
 				CKEDITOR.remove( wID );
 
 				$WYSIWYG.show().insertAfter( $content.hide() );
