@@ -45,7 +45,7 @@ if (defined('CAT_PATH')) {
 $module_directory	= 'cc_multicolumn';
 $module_name		= 'Mehrspalten Layout';
 $module_function	= 'page';
-$module_version		= '2.0.0.1';
+$module_version		= '2.0.0.2';
 $module_platform	= '1.x';
 $module_author		= 'Matthias Glienke, creativecat';
 $module_license		= '<a href="http://www.gnu.org/licenses/gpl.html">GNU General Public License</a>';
@@ -56,7 +56,7 @@ $module_variants	= array(
 	1	=> 'wide_content',
 	2	=> 'jqueryTab',
 	3	=> 'jqueryAccordion',
-	4	=> 'flexWidth',
+	4	=> 'flexWidth'
 );
 
 ?>
