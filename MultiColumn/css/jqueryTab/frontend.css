@@ -22,43 +22,6 @@
  *
  */
 
-.wide_content {
-	margin: 1em 0em;
-	padding: 2em 0em;
-	border-bottom: 1px solid #dadada;
-	border-top: 1px solid #dadada;
-	background: white;
-}
-.cc_column_1 {
-	width: 100%;
-}
-.cc_column_2 {
-	margin-right: 2%;
-	width: 49%;
-}
-.cc_column_3 {
-	margin-right: 2%;
-	width: 32%;
-}
-.cc_column_4 {
-	margin-right: 2.6%;
-	width: 23%;
-}
-.cc_column_5 {
-	margin-right: 2.5%;
-	width: 18%;
-}
-.cc_column_6 {
-	margin-right: 2%;
-	width: 15%;
-}
-.clear {
-	border-width: 0px;
-	padding: 0px;
-	margin: 0px;
-	height: 0px;
-	clear: both;
-}
-.cc_last_column {
-	margin-right: 0px;
+.ui-tabs-nav a {
+	border-bottom:	none !important;
 }

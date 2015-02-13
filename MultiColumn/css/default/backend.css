@@ -298,7 +298,7 @@ input[type=submit].add_column {
 	border-bottom:	0px none;
 	background:		#f4f7fa;
 	position:  		relative;
-	z-index:		10;
+	z-index:		1;
 }
 	.mC_skin > * {
 		padding:	0.4em 1em;

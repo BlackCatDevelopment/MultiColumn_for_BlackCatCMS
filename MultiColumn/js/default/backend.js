@@ -36,7 +36,7 @@ if (typeof orderMC !== 'function')
 	function orderMC( $ul,$setKind )
 	{
 		$ul.children('.clear').remove();
-		var	$par	= '<li class="clear">Column __id__</li>',
+		var	$par	= '<li class="clear">' + cattranslate('Row',false,false,'cc_multicolumn') + ' __id__</li>',
 			count	= 1,
 			kind	= parseInt( $setKind.filter(':checked').val() ),
 			size	= parseInt( $ul.children('li').not('.prevTemp, .clear').size() );
@@ -59,6 +59,39 @@ if (typeof orderMC !== 'function')
 		}
 	}
 }
+if (typeof disableWYSIWYG !== 'function')
+{
+	function disableWYSIWYG( $WYSIWYG )
+	{
+		var	wID				= $WYSIWYG.children('textarea').attr('id'),
+			editorInstance	= CKEDITOR.instances[wID],
+			config			= editorInstance.config;
+
+		editorInstance.destroy();
+		CKEDITOR.remove( wID );
+
+		return config;
+	}
+}
+if (typeof enableWYSIWYG !== 'function')
+{
+	function enableWYSIWYG( $WYSIWYG, config, content )
+	{
+		var newConfig	= {},
+			wID			= $WYSIWYG.children('textarea').attr('id');
+		$.each( config, function( index, cF )
+		{
+			if( typeof cF == 'string' || typeof cF == 'boolean' || typeof cF == 'number' )
+			{
+				newConfig[index]	= cF;
+			}
+		});
+		CKEDITOR.replace( wID, newConfig );
+		CKEDITOR.instances[wID].setData( content );
+		CKEDITOR.instances[wID].updateElement();
+	}
+}
+
 
 $(document).ready(function()
 {
@@ -288,24 +321,11 @@ $(document).ready(function()
 					$cur.addClass('input_50p').removeClass('input_100p').prev('button').show();
 					editorInstance.updateElement();
 				} else {
-					editorInstance.destroy();
 
-					CKEDITOR.remove( wID );
-					
+					var config = disableWYSIWYG( $WYSIWYG );
 					$WYSIWYG.show().insertAfter( $content.hide() );
-					if (typeof wID != 'undefined') {
-						var newConfig	= {};
-						$.each( config, function( index, cF )
-						{
-							if( typeof cF == 'string' || typeof cF == 'boolean' || typeof cF == 'number' )
-							{
-								newConfig[index]	= cF;
-							}
-						});
-						CKEDITOR.replace( wID, newConfig );
-						CKEDITOR.instances[wID].setData( $form.find('.MC_content').html() );
-						CKEDITOR.instances[wID].updateElement();
-					}
+					enableWYSIWYG( $WYSIWYG, config, $form.find('.MC_content').html() );
+
 				}
 				$MC.find('.MC_content').show();
 				$WYSIWYG.hide();
@@ -318,8 +338,9 @@ $(document).ready(function()
 			{
 				e.preventDefault();
 
-				var $cur			= $(this).hide(),
+				var $cur			= $(this),
 					$par			= $cur.closest('li'),
+					$form			= $par.children('form'),
 					colID			= $par.find('input[name=colID]').val(),
 					$content		= $('#MC_cont_' + colID),
 					content			= $content.html(),
@@ -329,8 +350,8 @@ $(document).ready(function()
 					oldContent		= editorInstance.getData(),
 					$oldForm		= $WYSIWYG.closest('form');
 
-				$cur.next('input').removeClass('input_50p').addClass('input_100p');
 				$oldForm.children('.showWYSIWYG').show().next('input').addClass('input_50p').removeClass('input_100p');
+				$cur.hide().next('input').removeClass('input_50p').addClass('input_100p');
 
 				if( $oldForm.size() > 0 )
 				{
@@ -339,25 +360,13 @@ $(document).ready(function()
 					$oldForm.find('.MC_content').html(oldContent);
 				}
 
-				editorInstance.destroy();
+				var config = disableWYSIWYG( $WYSIWYG );
 
 				$MC.find('.MC_content').show();
-				CKEDITOR.remove( wID );
 
 				$WYSIWYG.show().insertAfter( $content.hide() );
-				if (typeof wID != 'undefined') {
-					var newConfig	= {};
-					$.each( config, function( index, cF )
-					{
-						if( typeof cF == 'string' || typeof cF == 'boolean' || typeof cF == 'number' )
-						{
-							newConfig[index]	= cF;
-						}
-					});
-					CKEDITOR.replace( wID, newConfig );
-					CKEDITOR.instances[wID].setData( content );
-					CKEDITOR.instances[wID].updateElement();
-				}
+
+				enableWYSIWYG( $WYSIWYG, config, $form.find('.MC_content').html() );
 			});
 			
 			$WYSIWYG.on( 'click',

@@ -40,8 +40,8 @@
 		<input name="colCount" class="colCount" type="text" value="1">
 		<button type="submit" id="add_C_{$mc_id}" class="icon-plus cc_In200px"> {translate('Add column')}</button>
 	</div>
-	<p class="cc_MC_y">{translate('Existing columns')}</p>
-	<p class="cc_MC_n">{translate('No columns available')}</p>
+	<p class="cc_MC_y">{translate('Existing rows')}</p>
+	<p class="cc_MC_n">{translate('No rows available')}</p>
 	<ul id="cc_MC_cols_{$mc_id}" class="cc_MC_cols MC_col{$options.kind}" data-cols="{$options.kind}">{$c=1}{$r=1}
 		<li class="clear">Column {$r}</li>
 		{foreach $columns column}
