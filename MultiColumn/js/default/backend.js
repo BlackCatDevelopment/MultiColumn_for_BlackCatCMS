@@ -48,10 +48,8 @@ if (typeof orderMC !== 'function')
 		if ( size > 0 )
 		{
 			i = 0;
-			console.log('size : ' + size);
 			while (i < size)
 			{
-				console.log(i);
 				$ul.children('li').not('.prevTemp, .clear').eq(i).before($($par).html(function(index,html)
 				{
 					return html.replace(/__id__/g,count++);
@@ -126,7 +124,7 @@ $(document).ready(function()
 								$newCont.attr('id','catMC_' + cID).html(function(index,html)
 								{
 									return html.replace(/__column_id__/g,cID);
-								}).find(':disabled').prop('disabled', false);
+								}).find('input, button, textarea').prop('disabled', false);
 								dialog_form( $newCont.find('.ajaxForm') );
 							});
 							$mcUL.sortable( "refresh" );
@@ -280,12 +278,12 @@ $(document).ready(function()
 					$content		= $('#MC_cont_' + colID),
 					wID				= $WYSIWYG.children('textarea').attr('id'),
 					editorInstance	= CKEDITOR.instances[wID],
-					oldContent		= CKEDITOR.instances[wID].getData(),
+					config			= editorInstance.config,
+					oldContent		= editorInstance.getData(),
 					$oldForm		= $WYSIWYG.closest('form');
 
 				if( $cur.hasClass('input_100p') )
 				{
-					console.log('check1');
 					$content.html(oldContent);
 					$cur.addClass('input_50p').removeClass('input_100p').prev('button').show();
 					editorInstance.updateElement();
@@ -296,7 +294,15 @@ $(document).ready(function()
 					
 					$WYSIWYG.show().insertAfter( $content.hide() );
 					if (typeof wID != 'undefined') {
-						CKEDITOR.replace( wID );
+						var newConfig	= {};
+						$.each( config, function( index, cF )
+						{
+							if( typeof cF == 'string' || typeof cF == 'boolean' || typeof cF == 'number' )
+							{
+								newConfig[index]	= cF;
+							}
+						});
+						CKEDITOR.replace( wID, newConfig );
 						CKEDITOR.instances[wID].setData( $form.find('.MC_content').html() );
 						CKEDITOR.instances[wID].updateElement();
 					}
@@ -319,7 +325,8 @@ $(document).ready(function()
 					content			= $content.html(),
 					wID				= $WYSIWYG.children('textarea').attr('id'),
 					editorInstance	= CKEDITOR.instances[wID],
-					oldContent		= CKEDITOR.instances[wID].getData(),
+					config			= editorInstance.config,
+					oldContent		= editorInstance.getData(),
 					$oldForm		= $WYSIWYG.closest('form');
 
 				$cur.next('input').removeClass('input_50p').addClass('input_100p');
@@ -331,7 +338,7 @@ $(document).ready(function()
 					$oldForm.submit();
 					$oldForm.find('.MC_content').html(oldContent);
 				}
-		
+
 				editorInstance.destroy();
 
 				$MC.find('.MC_content').show();
@@ -339,7 +346,15 @@ $(document).ready(function()
 
 				$WYSIWYG.show().insertAfter( $content.hide() );
 				if (typeof wID != 'undefined') {
-					CKEDITOR.replace( wID );
+					var newConfig	= {};
+					$.each( config, function( index, cF )
+					{
+						if( typeof cF == 'string' || typeof cF == 'boolean' || typeof cF == 'number' )
+						{
+							newConfig[index]	= cF;
+						}
+					});
+					CKEDITOR.replace( wID, newConfig );
 					CKEDITOR.instances[wID].setData( content );
 					CKEDITOR.instances[wID].updateElement();
 				}
