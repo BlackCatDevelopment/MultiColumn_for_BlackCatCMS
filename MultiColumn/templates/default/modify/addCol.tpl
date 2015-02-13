@@ -18,28 +18,11 @@
  *   @link				http://blackcat-cms.org
  *   @license			http://www.gnu.org/licenses/gpl.html
  *   @category			CAT_Modules
- *   @package			multiColumn
+ *   @package			catMCallery
  *
  *}
 
-{include(../default/modify/javascript.tpl)}
-
-<div class="cc_MC_form" id="cc_MC_{$mc_id}">
-	{include(modify/set_skin.tpl)}
-	<div class="clear"></div>
-	<div class="cc_MC_settings"></div>
-	{include(../default/modify/addCol.tpl)}
-	<p class="cc_MC_y">{translate('Existing rows')}</p>
-	<p class="cc_MC_n">{translate('No rows available')}</p>
-	<ul id="cc_MC_cols_{$mc_id}" class="cc_MC_cols MC_col{$options.kind}" data-cols="{$options.kind}">{$c=1}{$r=1}
-		<li class="clear">Column {$r}</li>
-		{foreach $columns column}
-		{include(modify/column.tpl)}
-		{if $c == $options.kind && ($r*$options.kind) < count($columns)}{$r=$r+1}<li class="clear">Column {$r}</li>{$c=1}{else}{$c=$c+1}{/if}
-		{/foreach}
-		{$column = NULL}
-		{include(modify/column.tpl)}
-	</ul>
+<div class="right cc_In300px fc_gradient1 fc_border_all_light fc_br_top colCountCont">
+	<button type="submit" id="add_C_{$mc_id}" class="icon-plus cc_In200px right fc_br_right"> {translate('Add column')}</button>
+	<input name="colCount" class="colCount right fc_br_left" type="text" value="1">
 </div>
-
-{include(../default/modify/wysiwyg.tpl)}

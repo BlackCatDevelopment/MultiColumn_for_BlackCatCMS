@@ -74,5 +74,6 @@ $LANG = array(
 	'No rows available'					=> 'Keine Zeilen vorhanden',
 	'Column'							=> 'Spalte',
 	'Row'								=> 'Zeile',
-	'Tab title'							=> 'Tab-Titel'
+	'Tab title'							=> 'Tab-Titel',
+	'Column width in percent'			=> 'Spaltenbreite in Prozent'
 );

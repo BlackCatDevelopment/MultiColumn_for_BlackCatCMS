@@ -22,7 +22,7 @@
  *
  */
 
-.cc_multicolumn {
+.cc_MC {
 	margin-left: 0px;
 	margin-bottom: 1em;
 	margin-top: 1em;
@@ -62,7 +62,7 @@
 .cc_last_column {
 	margin-right: 0px;
 }
-.cc_multicolumn_content {
+.cc_MC_content {
 	border-color: white;
 	border-width: 3px;
 	border-style: solid;
@@ -72,13 +72,13 @@
 	background-repeat: no-repeat;
 	background-color: white;
 }
-.cc_multicolumn_shadow {
+.cc_MC_shadow {
 	padding: 0px;
 	margin: 0px;
 	height: 14px;
 	width: 100%;
 }
-.cc_multicolumn_border {
+.cc_MC_border {
 	border-left-color: #e3e3e3;
 	border-bottom-color: #dadada;
 	border-right-color: #e3e3e3;

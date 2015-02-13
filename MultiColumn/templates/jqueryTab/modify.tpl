@@ -28,10 +28,7 @@
 	{include(modify/set_skin.tpl)}
 	<div class="clear"></div>
 	<div class="cc_MC_settings"></div>
-	<div class="right cc_In300px fc_gradient1 fc_border_all_light fc_br_top colCountCont">
-		<button type="submit" id="add_C_{$mc_id}" class="icon-plus cc_In200px right fc_br_right"> {translate('Add column')}</button>
-		<input name="colCount" class="colCount right fc_br_left" type="text" value="1">
-	</div>
+	{include(../default/modify/addCol.tpl)}
 	<p class="cc_MC_y">{translate('Existing rows')}</p>
 	<p class="cc_MC_n">{translate('No rows available')}</p>
 	<ul id="cc_MC_cols_{$mc_id}" class="cc_MC_cols MC_col{$options.kind}" data-cols="{$options.kind}">{$c=1}{$r=1}
