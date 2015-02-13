@@ -253,7 +253,7 @@ $(document).ready(function()
 					});
 				}
 			});
-			$mcUL.disableSelection();
+
 			
 			$mcNav.children('li').click( function()
 			{
