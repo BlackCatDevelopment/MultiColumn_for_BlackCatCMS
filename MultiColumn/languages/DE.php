@@ -49,6 +49,7 @@ $LANG = array(
 // --- view no image ---
 
 // --- modify ---
+	'You sent an invalid ID'			=> 'Es wurde eine ung&uuml;ltige ID &uuml;bermittelt',
 	'Administration for'				=> 'Verwaltung für',
 	'Options for frontend'				=> 'Optionen f&uuml;rs Frontend',
 	'Module variant'					=> 'Modulvariante',
@@ -70,7 +71,7 @@ $LANG = array(
 	'Options saved successfully'		=> 'Optionen erfolgreich gespeichert',
 	'Variant saved successfully'		=> 'Variante erfolgreich gespeichert',
 	'Existing rows'						=> 'Vorhandene Zeilen',
-	'No rows available'				=> 'Keine Zeilen vorhanden',
+	'No rows available'					=> 'Keine Zeilen vorhanden',
 	'Column'							=> 'Spalte',
 	'Row'								=> 'Zeile',
 	'Tab title'							=> 'Tab-Titel'
