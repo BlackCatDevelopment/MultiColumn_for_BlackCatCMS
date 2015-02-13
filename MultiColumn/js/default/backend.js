@@ -122,6 +122,10 @@ $(document).ready(function()
 
 			orderMC( $mcUL,$setKind );
 
+			$('.colCount').on("click", function () {
+				$(this).select();
+			});
+
 			$('#add_C_' + mCID.mc_id).click( function()
 			{
 				var ajaxData	= {
@@ -129,7 +133,7 @@ $(document).ready(function()
 						section_id	: mCID.section_id,
 						mc_id		: mCID.mc_id,
 						action		: 'addContent',
-						colCount	: $(this).prev('input').val(),
+						colCount	: $(this).next('input').val(),
 						_cat_ajax	: 1
 					};
 
@@ -246,6 +250,19 @@ $(document).ready(function()
 			$mcUL.sortable(
 			{
 				handle:			'.drag_corner',
+				start:			function( event, ui )
+				{
+					var config = disableWYSIWYG( $WYSIWYG );
+					$WYSIWYG.data('config',config);
+				},
+				stop:			function( event, ui )
+				{
+					var $cur			= $(this),
+						$par			= $cur.closest('li'),
+						$form			= $par.children('form');
+					
+						enableWYSIWYG( $WYSIWYG, $WYSIWYG.data('config'), $form.find('.MC_content').html() );
+				},
 				update:			function(event, ui)
 				{
 					var current			= $(this),

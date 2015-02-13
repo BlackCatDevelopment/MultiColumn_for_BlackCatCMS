@@ -81,10 +81,20 @@
 .cc_MC_cols .saveCol {
 	margin:	0em 0em 1em 0em;
 }
-
+.colCountCont {
+	padding:		0.5em 1em 7px 1em;
+}
+.colCountCont > button {
+	text-align:		center;
+	height:	   		28px;
+	margin-top:		2px;
+	line-height:	20px;
+}
 .cc_MC_form input[type=text].colCount {
 	width:		50px;
+	height:		28px;
 	text-align:	center;
+	margin-top:	2px;
 }
 
 input[type=submit].add_column {
@@ -104,6 +114,7 @@ input[type=submit].add_column {
 		font-weight:	700;
 		color:			#818a92;
 		border-bottom:	1px solid #818a92;
+		padding-bottom:	14px;
 	}
 	.cc_MC_settings {
 		overflow:		hidden;
@@ -322,3 +333,7 @@ input[type=submit].add_column {
 		left:			5%;
 		position:		absolute;
 	}
+
+.MC_content {
+	min-height:	50px;
+}
