@@ -115,7 +115,10 @@ $(document).ready(function()
 			});
 
 			$MC.find('.cc_toggle_set').next('form').hide();
-			$MC.find('.cc_toggle_set, .mC_skin input:reset').click(function()
+			$MC.on(
+				'click',
+				'.cc_toggle_set, .mC_skin input:reset',
+			function()
 			{
 				$(this).closest('.mC_skin').children('form').slideToggle(200);
 			});

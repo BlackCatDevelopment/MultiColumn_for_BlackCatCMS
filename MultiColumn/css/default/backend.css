@@ -303,7 +303,7 @@ input[type=submit].add_column {
 .mC_skin {
 	padding:   		0;
 	float:	   		right;
-	width:	   		250px;
+	width:	   		350px;
 	margin:	   		0em 1em 0em 0em;
 	border:	   		1px solid #b1bec7;
 	border-bottom:	0px none;
@@ -326,6 +326,11 @@ input[type=submit].add_column {
 		font-weight:	700;
 		cursor:			pointer;
 	}
+		.mC_skin small {
+			font-weight:	300;
+			font-size:		0.9em;
+			float:			right;
+		}
 	.mC_skin > form {
 		padding:	 	1em 0.8em 0.2em 0.8em;
 		line-height:	1.8em;
