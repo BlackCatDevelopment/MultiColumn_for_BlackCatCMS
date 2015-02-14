@@ -46,9 +46,17 @@ if(!isset($module_version))
 	$details		= CAT_Helper_Addons::getAddonDetails('cc_multicolumn');
 	$module_version	= $details['version'];
 }
-if ( ! CAT_Helper_Addons::versionCompare( $module_version, '2.0', '<' ) )
+
+if ( CAT_Helper_Addons::versionCompare( $module_version, '2.0', '<' ) )
 {
-	CAT_Helper_Page::getInstance()->db()->query('ALTER TABLE :prefix:mod_cc_multicolumn_contents ADD `position` INT NOT NULL DEFAULT \'0\'');
+	$checkExists	= CAT_Helper_Page::getInstance()->db()->query(
+		"SELECT * FROM INFORMATION_SCHEMA.COLUMNS" .
+			" WHERE table_name = ':prefix:mod_cc_multicolumn_contents'" .
+				" AND column_name = 'position'");
+	if( $checkExists && $checkExists->rowCount() == 0 )
+	{
+		CAT_Helper_Page::getInstance()->db()->query("ALTER TABLE :prefix:mod_cc_multicolumn_contents ADD `position` INT NOT NULL DEFAULT '0'");
+	}
 }
 
 ?>

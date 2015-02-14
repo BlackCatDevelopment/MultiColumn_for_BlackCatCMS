@@ -25,6 +25,7 @@
 .mcFlexWidth > div {
 	width:		100%;
 	float:		left;
+	padding:	1em;
 }
 .mcFlexWidth > div.clear {
 	float:		none;
