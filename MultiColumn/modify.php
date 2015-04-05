@@ -74,6 +74,11 @@ $parser_data['WYSIWYG']		= array(
 
 $module_path	= '/modules/cc_multicolumn/';
 
+if ( file_exists( CAT_PATH . $module_path .'modify/' . $MulCol->getVariant() . '/modify.php' ) )
+	include( CAT_PATH . $module_path .'modify/' . $MulCol->getVariant() . '/modify.php' );
+elseif ( file_exists( CAT_PATH . $module_path .'modify/default/modify.php' ) )
+	include( CAT_PATH . $module_path .'modify/default/modify.php' );
+
 if ( file_exists( CAT_PATH . $module_path .'templates/' . $MulCol->getVariant() . '/modify.tpl' ) )
 	$parser->setPath( dirname(__FILE__) . '/templates/' . $MulCol->getVariant() );
 elseif ( file_exists( CAT_PATH . $module_path .'templates/default/modify.tpl' ) )
