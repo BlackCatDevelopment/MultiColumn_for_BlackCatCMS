@@ -48,12 +48,5 @@ include_once( 'classes/class.multicolumn.php' );
 
 $MulCol	= new MultiColumn( true );
 
-// Add initial options
-$MulCol->saveOptions( 'kind', 2 );
-$MulCol->saveOptions( 'variant', 0 );
-
-// Insert initial two-columns
-$MulCol->addColumn(2);
-
 ?>
 

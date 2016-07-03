@@ -52,6 +52,11 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 		public $options			= array();
 		public $module_variants	= array();
 
+		protected static $initOptions		= array(
+			'variant'		=> '0',
+			'kind'			=> '2'
+		);
+
 		public static function getInstance()
 		{
 			if (!self::$instance)
@@ -129,7 +134,19 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 					'page_id'		=> self::$page_id,
 					'section_id'	=> self::$section_id
 				)
-			) ) return $this->setColumnID();
+			) ){
+				$this->setColumnID();
+				// Add initial options for multicolumn
+				foreach( self::$initOptions as $name => $val )
+				{
+					if( !$this->saveOptions( $name, $val ) )
+						$return	= false;
+				}
+
+				$this->addColumn(self::$initOptions['kind']);
+
+				return self::$mc_id;
+			}
 			else return false;
 		} // initAdd()
 
@@ -606,7 +623,7 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 					'page_id'		=> self::$page_id,
 					'section_id'	=> self::$section_id,
 					'name'			=> $name,
-					'value'			=> $value ? $value : ''
+					'value'			=> is_null($value) ? '' : $value
 				)
 			) ) return true;
 			else return false;
