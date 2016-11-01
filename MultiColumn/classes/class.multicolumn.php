@@ -316,10 +316,9 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 					'mc_id'	=> self::$mc_id
 				)
 			);
-			
 			if ( $contents && $contents->numRows() > 0)
 			{
-			    while( !false == ($row = $contents->fetchRow( MYSQL_ASSOC ) ) )
+			    while( !false == ($row = $contents->fetchRow(  ) ) )
 			    {
 			    	if ($frontend) CAT_Helper_Page::preprocess( $row['content'] );
 			
@@ -382,7 +381,7 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 
 			if ( $opts && $opts->numRows() > 0)
 			{
-				while( !false == ($row = $opts->fetchRow( MYSQL_ASSOC ) ) )
+				while( !false == ($row = $opts->fetchRow(  ) ) )
 				{
 					$options[$row['column_id']][$row['name']]		= $row['value'];
 
@@ -446,7 +445,7 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 
 			if ( isset($getOptions) && $getOptions->numRows() > 0)
 			{
-				while( !false == ($row = $getOptions->fetchRow( MYSQL_ASSOC ) ) )
+				while( !false == ($row = $getOptions->fetchRow(  ) ) )
 				{
 					$this->contents[$row['column_id']]['options'][$row['name']]	= $row['value'];
 				}
@@ -563,7 +562,6 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 		{
 			if ( $name && isset($this->options[$name]) ) return $this->options[$name];
 
-
 			$getOptions		= $name ? 
 				CAT_Helper_Page::getInstance()->db()->query(
 					'SELECT * FROM `:prefix:mod_cc_multicolumn_options`
@@ -584,7 +582,7 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 
 			if ( isset($getOptions) && $getOptions->numRows() > 0)
 			{
-				while( !false == ($row = $getOptions->fetchRow( MYSQL_ASSOC ) ) )
+				while( !false == ($row = $getOptions->fetchRow() ) )
 				{
 					$this->options[$row['name']]	= $row['value'];
 				}
