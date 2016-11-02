@@ -163,24 +163,15 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 				!self::$page_id ||
 				!self::$mc_id ) return false;
 
-			$return	= true;
-
-			foreach(
-				array( 'multicolumn', 'multicolumn_contents', 'multicolumn_options', 'multicolumn_content_options' )
-				as $table )
-			{
-				// Delete complete record from the database
-				if( !CAT_Helper_Page::getInstance()->db()->query( sprintf(
-						"DELETE FROM `:prefix:mod_cc_%s`
-							WHERE `section_id` = :section_id",
-						$table
-					),
-					array(
-						'section_id'	=> self::$section_id
-					)
-				) ) $return = false;
-			}
-			return $return;
+			// Delete complete record from the database
+			if( CAT_Helper_Page::getInstance()->db()->query(
+				'DELETE FROM `:prefix:mod_cc_multicolumn`'
+					. ' WHERE `section_id` = :section_id',
+				array(
+					'section_id'	=> self::$section_id
+				)
+			) ) $return = true;
+			return false;
 		}
 
 		/**
@@ -192,21 +183,15 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 		 **/
 		public function addColumn( $count = 1 )
 		{
-			if ( !self::$section_id ||
-				!self::$page_id ||
-				!self::$mc_id ||
+			if ( !self::$mc_id ||
 				!is_numeric($count) ) return false;
 
 			$newIDs	= array();
 
 			$pos	= CAT_Helper_Page::getInstance()->db()->query(
 				'SELECT MAX(position) AS pos FROM `:prefix:mod_cc_multicolumn_contents`
-					WHERE `page_id`			= :page_id
-						AND `section_id`	= :section_id
-						AND `mc_id`			= :mc_id',
+					WHERE `mc_id` = :mc_id',
 				array(
-					'page_id'		=> self::$page_id,
-					'section_id'	=> self::$section_id,
 					'mc_id'			=> self::$mc_id
 				)
 			)->fetchColumn();
@@ -215,12 +200,10 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 			{
 				if( CAT_Helper_Page::getInstance()->db()->query(
 						'INSERT INTO `:prefix:mod_cc_multicolumn_contents`
-							( `mc_id`, `page_id`, `section_id`, `position` ) VALUES
-							( :mc_id, :page_id, :section_id, :position )',
+							( `mc_id`, `position` ) VALUES
+							( :mc_id, :position )',
 					array( 
 						'mc_id'			=> self::$mc_id,
-						'page_id'		=> self::$page_id,
-						'section_id'	=> self::$section_id,
 						'position'		=> ++$pos
 					)
 				) ) $success = true;
@@ -242,25 +225,15 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 		 **/
 		public function removeColumn( $column_id = NULL )
 		{
-			if ( !self::$section_id ||
-				!self::$page_id ||
-				!self::$mc_id ||
+			if ( !self::$mc_id ||
 				!$column_id ||
 				!is_numeric( $column_id ) ) return false;
 
 			if( CAT_Helper_Page::getInstance()->db()->query(
 				'DELETE FROM `:prefix:mod_cc_multicolumn_contents`
-					WHERE `section_id` = :section_id AND `column_id` = :column_id',
+					WHERE `column_id` = :column_id',
 				array(
-					'section_id'	=> self::$section_id,
-					'column_id'		=> $column_id
-				)
-			) && CAT_Helper_Page::getInstance()->db()->query(
-				'DELETE FROM `:prefix:mod_cc_multicolumn_content_options`
-					WHERE `section_id` = :section_id AND `column_id` = :column_id',
-				array(
-					'section_id'	=> self::$section_id,
-					'column_id'		=> $column_id
+					'column_id'	=> $column_id
 				)
 			) ) return true;
 			else return false;
@@ -318,7 +291,7 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 			);
 			if ( $contents && $contents->numRows() > 0)
 			{
-			    while( !false == ($row = $contents->fetchRow(  ) ) )
+			    while( !false == ($row = $contents->fetchRow() ) )
 			    {
 			    	if ($frontend) CAT_Helper_Page::preprocess( $row['content'] );
 			
@@ -369,11 +342,11 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 
 			$opts	= CAT_Helper_Page::getInstance()->db()->query( sprintf(
 					'SELECT * FROM `:prefix:mod_cc_multicolumn_content_options`
-							WHERE `section_id` = :section_id',
+							WHERE `column_id` = :column_id',
 					$select
 				),
 				array(
-					'section_id'	=> self::$section_id
+					'column_id'	=> $column_id
 				)
 			);
 
@@ -381,7 +354,7 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 
 			if ( $opts && $opts->numRows() > 0)
 			{
-				while( !false == ($row = $opts->fetchRow(  ) ) )
+				while( !false == ($row = $opts->fetchRow() ) )
 				{
 					$options[$row['column_id']][$row['name']]		= $row['value'];
 
@@ -424,28 +397,24 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 			$getOptions		= $name ? 
 				CAT_Helper_Page::getInstance()->db()->query(
 					'SELECT * FROM `:prefix:mod_cc_multicolumn_content_options`
-						WHERE `section_id` = :section_id AND
-							`column_id` = :column_id AND
+						WHERE `column_id` = :column_id AND
 							`name` = :name',
 					array(
-						'section_id'	=> self::$section_id,
 						'column_id'		=> self::$gallery_id,
 						'name'			=> $name
 					)
 				) : 
 				CAT_Helper_Page::getInstance()->db()->query(
 					'SELECT * FROM `:prefix:mod_cc_multicolumn_content_options`
-						WHERE `section_id` = :section_id AND
-							`column_id` = :column_id',
+						WHERE `column_id` = :column_id',
 					array(
-						'section_id'	=> self::$section_id,
-						'column_id'		=> self::$gallery_id
+						'column_id'	=> self::$gallery_id
 					)
 			);
 
 			if ( isset($getOptions) && $getOptions->numRows() > 0)
 			{
-				while( !false == ($row = $getOptions->fetchRow(  ) ) )
+				while( !false == ($row = $getOptions->fetchRow() ) )
 				{
 					$this->contents[$row['column_id']]['options'][$row['name']]	= $row['value'];
 				}
@@ -532,17 +501,13 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 			if ( !$name || !$column_id ) return false;
 			if ( CAT_Helper_Page::getInstance()->db()->query(
 				'REPLACE INTO `:prefix:mod_cc_multicolumn_content_options`
-					SET `page_id`		= :page_id,
-						`section_id`	= :section_id,
-						`column_id`		= :column_id,
+					SET `column_id`		= :column_id,
 						`name`			= :name,
 						`value`			= :value',
 				array(
-					'page_id'		=> self::$page_id,
-					'section_id'	=> self::$section_id,
-					'column_id'		=> intval( $column_id ),
-					'name'			=> $name,
-					'value'			=> $value ? $value : ''
+					'column_id'	=> intval( $column_id ),
+					'name'		=> $name,
+					'value'		=> $value ? $value : ''
 				)
 			) ) return true;
 			else return false;
@@ -565,18 +530,18 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 			$getOptions		= $name ? 
 				CAT_Helper_Page::getInstance()->db()->query(
 					'SELECT * FROM `:prefix:mod_cc_multicolumn_options`
-						WHERE `section_id` = :section_id AND
+						WHERE `mc_id` = :mc_id AND
 							`name` = :name',
 					array(
-						'section_id'	=> self::$section_id,
-						'name'			=> $name
+						'mc_id'	=> self::$mc_id,
+						'name'	=> $name
 					)
 				) : 
 				CAT_Helper_Page::getInstance()->db()->query(
 					'SELECT * FROM `:prefix:mod_cc_multicolumn_options`
-						WHERE `section_id` = :section_id',
+						WHERE `mc_id` = :mc_id',
 					array(
-						'section_id'	=> self::$section_id,
+						'mc_id'	=> self::$mc_id,
 					)
 				);
 
@@ -613,15 +578,13 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 
 			if ( CAT_Helper_Page::getInstance()->db()->query(
 				'REPLACE INTO `:prefix:mod_cc_multicolumn_options`
-					SET `page_id`		= :page_id,
-						`section_id`	= :section_id,
-						`name`			= :name,
-						`value`			= :value',
+					SET `mc_id`		= :mc_id,
+						`name`		= :name,
+						`value`		= :value',
 				array(
-					'page_id'		=> self::$page_id,
-					'section_id'	=> self::$section_id,
-					'name'			=> $name,
-					'value'			=> is_null($value) ? '' : $value
+					'mc_id'		=> self::$mc_id,
+					'name'		=> $name,
+					'value'		=> is_null($value) ? '' : $value
 				)
 			) ) return true;
 			else return false;
@@ -652,14 +615,10 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 					'UPDATE `:prefix:mod_cc_multicolumn_contents`
 						SET `position` = :position
 						WHERE `mc_id`			= :mc_id
-							AND `page_id`		= :page_id
-							AND `section_id`	= :section_id
 							AND `column_id`		= :column_id',
 					array(
 						'position'		=> $index,
 						'mc_id'			=> self::$mc_id,
-						'page_id'		=> self::$page_id,
-						'section_id'	=> self::$section_id,
 						'column_id'		=> $colID[count($colID)-1]
 					)
 				) ) $return = false;

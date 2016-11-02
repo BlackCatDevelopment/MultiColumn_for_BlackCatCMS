@@ -15,7 +15,7 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
  *   @author			Matthias Glienke
- *   @copyright			2014, Black Cat Development
+ *   @copyright			2016, Black Cat Development
  *   @link				http://blackcat-cms.org
  *   @license			http://www.gnu.org/licenses/gpl.html
  *   @category			CAT_Modules
@@ -43,56 +43,66 @@ if (defined('CAT_PATH')) {
 
 if(defined('CAT_URL'))
 {
-	$pageHelper	= CAT_Helper_Page::getInstance();
+	// Delete all tables if exists
+	CAT_Helper_Page::getInstance()->db()->query(
+		'DROP TABLE IF EXISTS'
+			. ' `:prefix:mod_cc_multicolumn`,'
+			. ' `:prefix:mod_cc_multicolumn_contents`,'
+			. ' `:prefix:mod_cc_multicolumn_options`,'
+			. ' `:prefix:mod_cc_multicolumn_content_options`'
+	);
 
 	// Create table for basic informations
-	$pageHelper->db()->query("DROP TABLE IF EXISTS `" . CAT_TABLE_PREFIX . "mod_cc_multicolumn`");
-	$mod_cc_multicolumn = 'CREATE TABLE  `'.CAT_TABLE_PREFIX.'mod_cc_multicolumn` ('
-		. ' `mc_id` INT NOT NULL AUTO_INCREMENT,'
-		. ' `page_id` INT NOT NULL DEFAULT \'0\','
-		. ' `section_id` INT NOT NULL DEFAULT \'0\','
-		. ' PRIMARY KEY ( `mc_id`, `section_id` )'
-		. ' )';
-	$pageHelper->db()->query($mod_cc_multicolumn);
+	CAT_Helper_Page::getInstance()->db()->query(
+		'CREATE TABLE `:prefix:mod_cc_multicolumn`  ('
+			. ' `mc_id` INT NOT NULL AUTO_INCREMENT,'
+			. ' `page_id` INT,'
+			. ' `section_id` INT,'
+			. ' PRIMARY KEY ( `mc_id` ),'
+			. ' CONSTRAINT `mc_pages` FOREIGN KEY (`page_id`) REFERENCES `:prefix:pages`(`page_id`) ON DELETE CASCADE,'
+			. ' CONSTRAINT `mc_sections` FOREIGN KEY (`section_id`) REFERENCES `:prefix:sections`(`section_id`) ON DELETE CASCADE'
+		. ' ) ENGINE=InnoDB'
+	);
 
 	// Create table for contents
-	$pageHelper->db()->query("DROP TABLE IF EXISTS `" . CAT_TABLE_PREFIX . "mod_cc_multicolumn_contents`");
-	$mod_cc_multicolumn_contents = 'CREATE TABLE  `'.CAT_TABLE_PREFIX.'mod_cc_multicolumn_contents` ('
-		. ' `column_id` INT NOT NULL AUTO_INCREMENT,'
-		. ' `mc_id` INT NOT NULL DEFAULT \'0\','
-		. ' `page_id` INT NOT NULL DEFAULT \'0\','
-		. ' `section_id` INT NOT NULL DEFAULT \'0\','
-		. ' `content` TEXT NOT NULL,'
-		. ' `text` TEXT NOT NULL ,'
-		. ' `position` INT NOT NULL DEFAULT \'0\','
-		. ' PRIMARY KEY ( `column_id` )'
-		. ' )';
-	$pageHelper->db()->query($mod_cc_multicolumn_contents);
+	CAT_Helper_Page::getInstance()->db()->query(
+		'CREATE TABLE `:prefix:mod_cc_multicolumn_contents`  ('
+			. ' `column_id` INT NOT NULL AUTO_INCREMENT,'
+			. ' `mc_id` INT,'
+			. ' `content` TEXT NOT NULL,'
+			. ' `text` TEXT NOT NULL ,'
+			. ' `position` INT NOT NULL DEFAULT \'0\','
+			. ' PRIMARY KEY ( `column_id` ),'
+			. ' CONSTRAINT `content_mcID` FOREIGN KEY (`mc_id`) REFERENCES `:prefix:mod_cc_multicolumn`(`mc_id`) ON DELETE CASCADE'
+		. ' ) ENGINE=InnoDB'
+	);
 
 	// Create table for options
-	$pageHelper->db()->query("DROP TABLE IF EXISTS `" . CAT_TABLE_PREFIX . "mod_cc_multicolumn_options`");
-	$mod_create_table = 'CREATE TABLE  `'.CAT_TABLE_PREFIX.'mod_cc_multicolumn_options` ('
-		. ' `page_id` INT NOT NULL DEFAULT \'0\','
-		. ' `section_id` INT NOT NULL DEFAULT \'0\','
-		. ' `name` VARCHAR(255) NOT NULL DEFAULT \'\','
-		. ' `value` VARCHAR(2047) NOT NULL DEFAULT \'\','
-		. ' PRIMARY KEY ( `page_id`, `section_id`, `name` )'
-		. ' )';
-	$pageHelper->db()->query($mod_create_table);
+	CAT_Helper_Page::getInstance()->db()->query(
+		'CREATE TABLE `:prefix:mod_cc_multicolumn_options`  ('
+			. ' `mc_id` INT,'
+			. ' `name` VARCHAR(255) NOT NULL DEFAULT \'\','
+			. ' `value` VARCHAR(2047) NOT NULL DEFAULT \'\','
+			. ' PRIMARY KEY ( `mc_id`, `name` ),'
+			. ' CONSTRAINT `options_mcID` FOREIGN KEY (`mc_id`) REFERENCES `:prefix:mod_cc_multicolumn`(`mc_id`) ON DELETE CASCADE'
+		. ' ) ENGINE=InnoDB'
+	);
 
-	// Create table
-	$pageHelper->db()->query("DROP TABLE IF EXISTS `" . CAT_TABLE_PREFIX . "mod_cc_multicolumn_content_options`");
-	$mod_create_table = 'CREATE TABLE  `'.CAT_TABLE_PREFIX.'mod_cc_multicolumn_content_options` ('
-		. ' `column_id` INT NOT NULL DEFAULT \'0\','
-		. ' `page_id` INT NOT NULL DEFAULT \'0\','
-		. ' `section_id` INT NOT NULL DEFAULT \'0\','
-		. ' `name` VARCHAR(255) NOT NULL DEFAULT \'\','
-		. ' `value` VARCHAR(2047) NOT NULL DEFAULT \'\','
-		. ' PRIMARY KEY ( `column_id`, `page_id`, `section_id`, `name` )'
-		. ' )';
-	$pageHelper->db()->query($mod_create_table);
+	// Create table for content options
+	CAT_Helper_Page::getInstance()->db()->query(
+		'CREATE TABLE `:prefix:mod_cc_multicolumn_content_options`  ('
+			. ' `column_id` INT,'
+			. ' `name` VARCHAR(255) NOT NULL DEFAULT \'\','
+			. ' `value` VARCHAR(2047) NOT NULL DEFAULT \'\','
+			. ' PRIMARY KEY ( `column_id`, `name` ),'
+			. ' CONSTRAINT `optContent_mcID` FOREIGN KEY (`column_id`) REFERENCES `:prefix:mod_cc_multicolumn_contents`(`column_id`) ON DELETE CASCADE'
+		. ' ) ENGINE=InnoDB'
+	);
 
-	$insert_search = $pageHelper->db()->query( sprintf(
+
+
+
+	$insert_search = CAT_Helper_Page::getInstance()->db()->query( sprintf(
 			"SELECT * FROM `%ssearch`
 				WHERE `value` = '%s'",
 			CAT_TABLE_PREFIX,
@@ -114,7 +124,7 @@ if(defined('CAT_URL'))
 
 		$field_info = serialize($field_info);
 
-		$pageHelper->query( sprintf(
+		CAT_Helper_Page::getInstance()->db()->query( sprintf(
 				"INSERT INTO `%ssearch`
 					( `name`, `value`, `extra` ) VALUES
 					( 'module', 'cc_multicolumn', '%s' )",
@@ -125,7 +135,7 @@ if(defined('CAT_URL'))
 		// Query start
 		$query_start_code = "SELECT [TP]pages.page_id, [TP]pages.page_title, [TP]pages.link, [TP]pages.description, [TP]pages.modified_when, [TP]pages.modified_by FROM [TP]mod_cc_multicolumn_contents, [TP]pages WHERE ";
 
-		$pageHelper->query( sprintf(
+		CAT_Helper_Page::getInstance()->db()->query( sprintf(
 				"INSERT INTO `%ssearch`
 					( `name`, `value`, `extra` ) VALUES
 					( 'query_start', '%s', '%s' )",
@@ -137,7 +147,7 @@ if(defined('CAT_URL'))
 		// Query body
 		$query_body_code = " [TP]pages.page_id = [TP]mod_cc_multicolumn_contents.page_id AND [TP]mod_cc_multicolumn_contents.text [O] \'[W][STRING][W]\' AND [TP]pages.searching = \'1\'";
 
-		$pageHelper->query( sprintf(
+		CAT_Helper_Page::getInstance()->db()->query( sprintf(
 				"INSERT INTO `%ssearch`
 					( `name`, `value`, `extra` ) VALUES
 					( 'query_body', '%s', '%s' )",
@@ -149,7 +159,7 @@ if(defined('CAT_URL'))
 
 		// Query end
 		$query_end_code = "";
-		$pageHelper->query( sprintf(
+		CAT_Helper_Page::getInstance()->db()->query( sprintf(
 				"INSERT INTO `%ssearch`
 					( `name`, `value`, `extra` ) VALUES
 					( 'query_end', '%s', '%s' )",
@@ -161,7 +171,7 @@ if(defined('CAT_URL'))
 
 
 		// Insert blank row (there needs to be at least on row for the search to work)
-		$pageHelper->query( sprintf(
+		CAT_Helper_Page::getInstance()->db()->query( sprintf(
 				"INSERT INTO `%smod_cc_multicolumn_contents`
 					( `page_id`, `section_id`, `content`, `text` ) VALUES
 					( '0', '0', '', '' )",
