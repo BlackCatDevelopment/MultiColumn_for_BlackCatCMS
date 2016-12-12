@@ -51,8 +51,9 @@ if (!class_exists('MultiColumn', false))
 
 		public function __construct( $mc_id	= NULL, $is_header	= false )
 		{
-			require_once(CAT_PATH . '/framework/functions.php');
-/*
+			parent::__construct();
+/*			require_once(CAT_PATH . '/framework/functions.php');
+
 		Need to rework this code to handle headers etc..!!!!
 				if ( !isset($section_id) || $is_header )
 			{
@@ -74,7 +75,6 @@ if (!class_exists('MultiColumn', false))
 				$this->setColumnID();
 			}
 			else return false;*/
-			parent::__construct();
 		}
 		public function __destruct()
 		{
