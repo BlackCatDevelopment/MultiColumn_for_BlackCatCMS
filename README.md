@@ -1,17 +1,15 @@
-MultiColumn for BlackCat CMS
+MultiColumn for BlackCat CMS 2.0
 ===============================
+
+This is an EXPERIMENTAL repository for a MultiColumn module for BlackCat CMS v2.0.
 
 This is a module for BlackCat CMS. It provides the opportunity to add multiple columns.
 
-This is the first official release of MultiColumn.
+## Important note!
 
-## Please notice
+This project is work in progress, which means you can not download and install it yet, and there will be no release before end 2017. If you are looking for a stable release of BlackCat CMS, please visit
 
-You are not able to update from previous beta versions as there had been many changes in the structure. Please uninstall and reinstall this version. Your data will be lost when uninstalling previous installed version.
-You might try to manually check the differences betwenn the structure of the current and previous database and adapt your old database. In that case you need to Upload the files of the new version manually.
-
-## German description
-For a german description of the module please follow this link: http://wiki.blackcat-cms.org/doku.php?id=addons:modules:multicolumn
+https://github.com/BlackCatDevelopment/BlackCatCMS
 
 ## License
 
