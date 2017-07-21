@@ -71,6 +71,7 @@ if(defined('CAT_URL'))
 			. ' `mc_id` INT,'
 			. ' `content` TEXT NOT NULL,'
 			. ' `text` TEXT NOT NULL ,'
+			. ' `published` TINYINT(1) NULL DEFAULT NULL,'
 			. ' `position` INT NOT NULL DEFAULT \'0\','
 			. ' PRIMARY KEY ( `column_id` ),'
 			. ' CONSTRAINT `content_mcID` FOREIGN KEY (`mc_id`) REFERENCES `:prefix:mod_cc_multicolumn`(`mc_id`) ON DELETE CASCADE'

@@ -1,5 +1,4 @@
-<?php
-/**
+{**
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -21,25 +20,17 @@
  *   @category			CAT_Modules
  *   @package			multiColumn
  *
- */
+ *}
 
-// include class.secure.php to protect this file and the whole CMS!
-if (defined('CAT_PATH')) {	
-	include(CAT_PATH.'/framework/class.secure.php'); 
-} else {
-	$oneback = "../";
-	$root = $oneback;
-	$level = 1;
-	while (($level < 10) && (!file_exists($root.'/framework/class.secure.php'))) {
-		$root .= $oneback;
-		$level += 1;
-	}
-	if (file_exists($root.'/framework/class.secure.php')) { 
-		include($root.'/framework/class.secure.php'); 
-	} else {
-		trigger_error(sprintf("[ <b>%s</b> ] Can't include class.secure.php!", $_SERVER['SCRIPT_NAME']), E_USER_ERROR);
-	}
-}
-// end include class.secure.php
-
-?>
+<article class="MC_imgL">
+	<div style="{if $column.options.height && $column.options.height > 0 && !$options.is_mobile}min-height:{$column.options.height}px;{/if}">
+		<div class="c_1000">
+			<div class="MC_imgL-content">
+				{$column.content}
+			</div>
+		</div>
+		{if $column.options.imgBack && $column.options.imgBack != ''}<figure class="MC_imgL-IMG" style="{if $column.options.height && $column.options.height > 0 && !$options.is_mobile}min-height:{$column.options.height}px;{/if}">
+			<img src="{cat_url}/media/{$column.options.imgBack}" alt="{$column.options.alt}">
+		</figure>{/if}
+	</div>
+</article>

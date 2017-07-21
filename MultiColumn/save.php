@@ -15,7 +15,7 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
  *   @author			Matthias Glienke
- *   @copyright			2014, Black Cat Development
+ *   @copyright			2017, Black Cat Development
  *   @link				http://blackcat-cms.org
  *   @license			http://www.gnu.org/licenses/gpl.html
  *   @category			CAT_Modules
@@ -65,7 +65,7 @@ if ( CAT_Helper_Page::getPagePermission( $page_id, 'admin' ) !== true )
 	$backend->print_error( 'You do not have permissions to modify this page!' );
 }
 
-include_once( 'classes/class.multicolumn.php' );
+require_once "inc/class.multicolumn.php";
 
 $MulCol	= new MultiColumn();
 

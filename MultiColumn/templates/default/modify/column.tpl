@@ -14,7 +14,7 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
  *   @author			Matthias Glienke
- *   @copyright			2014, Black Cat Development
+ *   @copyright			2017, Black Cat Development
  *   @link				http://blackcat-cms.org
  *   @license			http://www.gnu.org/licenses/gpl.html
  *   @category			CAT_Modules
@@ -25,6 +25,7 @@
 <li class="fc_border_all fc_shadow_small fc_br_all {if !$column}prevTemp{/if}" id="catMC_{if !$column}__column_id__{else}{$column.column_id}{/if}">
 	<div class="MC_options">
 		<p class="drag_corner icon-resize" title="{translate('Reorder column')}"></p>
+		<p class="icon-feed MC_publish{if $column.published} active{/if}" title="{translate('Publish this content')}"></p>
 		<div class="cc_MC_del">
 			<span class="icon-remove" title="{translate('Delete this column')}"></span>
 			<p class="fc_br_right fc_shadow_small">
@@ -33,8 +34,6 @@
 				<span class="cc_MC_del_conf">{translate('Confirm delete')}</span>
 			</p>
 		</div>
-		{*<p class="icon-eye"></p>
-		<p class="icon-scissors"></p>*}
 	</div>
 	<form action="{$CAT_URL}/modules/cc_multicolumn/save.php" method="post" class="ajaxForm">
 		<input type="hidden" name="page_id" value="{$page_id}">

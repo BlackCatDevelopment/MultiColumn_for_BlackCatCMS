@@ -15,7 +15,7 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
  *   @author			Matthias Glienke
- *   @copyright			2014, Black Cat Development
+ *   @copyright			2017, Black Cat Development
  *   @link				http://blackcat-cms.org
  *   @license			http://www.gnu.org/licenses/gpl.html
  *   @category			CAT_Modules
@@ -129,6 +129,17 @@ if ( $mc_id = $val->sanitizePost( 'mc_id','numeric' ) )
 			}
 			$ajax_return	= array(
 				'message'	=> $lang->translate( 'Options saved successfully' ),
+				'success'	=> true
+			);
+			break;
+		case 'publishIMG':
+			// =========================== 
+			// ! save options for gallery   
+			// =========================== 
+			$success		= $MulCol->publishContent( $colID );
+			$ajax_return	= array(
+				'message'	=> $success	? $lang->translate( 'Content published successfully!' ) : $lang->translate( 'Content unpublished successfully!' ),
+				'published'	=> $success,
 				'success'	=> true
 			);
 			break;

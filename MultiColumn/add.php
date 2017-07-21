@@ -15,7 +15,7 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
  *   @author			Matthias Glienke
- *   @copyright			2014, Black Cat Development
+ *   @copyright			2017, Black Cat Development
  *   @link				http://blackcat-cms.org
  *   @license			http://www.gnu.org/licenses/gpl.html
  *   @category			CAT_Modules
@@ -44,7 +44,7 @@ if (defined('CAT_PATH')) {
 // Insert an extra row into the database
 global $section_id, $page_id;
 
-include_once( 'classes/class.multicolumn.php' );
+require_once "inc/class.multicolumn.php";
 
 $MulCol	= new MultiColumn( true );
 

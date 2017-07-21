@@ -15,7 +15,7 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
  *   @author			Matthias Glienke
- *   @copyright			2014, Black Cat Development
+ *   @copyright			2017, Black Cat Development
  *   @link				http://blackcat-cms.org
  *   @license			http://www.gnu.org/licenses/gpl.html
  *   @category			CAT_Modules
@@ -297,6 +297,7 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 			
 			    	$this->contents[$row['column_id']]	= array(
 			    		'column_id'			=> $row['column_id'],
+						'published'			=> $row['published'],
 			    		'content'			=> stripslashes( $row['content'] ),
 			    		'contentname'		=> sprintf( 'content_%s_%s', self::$section_id, $row['column_id'] )
 			    	);
@@ -513,6 +514,33 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 			else return false;
 
 		} // end saveContentOptions()
+
+		/**
+		 * (un)publish single image
+		 *
+		 * @access public
+		 * @param  integer		$colID - id of image
+		 * @return bool true/false
+		 *
+		 **/
+		public function publishContent( $colID = NULL )
+		{
+			CAT_Helper_Page::getInstance()->db()->query(
+				'UPDATE `:prefix:mod_cc_multicolumn_content`' .
+					' SET `published` = 1 - `published`' .
+				' WHERE `column_id`		= :colID',
+				array(
+					'colID'		=> intval( $colID )
+				)
+			);
+			return CAT_Helper_Page::getInstance()->db()->query(
+				'SELECT `published` FROM `:prefix:mod_cc_multicolumn_content`' .
+				' WHERE `column_id`		= :colID',
+				array(
+					'colID'		=> intval( $colID )
+				)
+			)->fetchColumn();
+		} // end publishContent()
 
 		/**
 		 * get options for MultiColumn

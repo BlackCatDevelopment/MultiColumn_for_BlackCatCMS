@@ -1,0 +1,103 @@
+/**
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 3 of the License, or (at
+ *   your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful, but
+ *   WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ *   General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program; if not, see <http://www.gnu.org/licenses/>.
+ *
+ *   @author			Matthias Glienke
+ *   @copyright			2014, Black Cat Development
+ *   @link				http://blackcat-cms.org
+ *   @license			http://www.gnu.org/licenses/gpl.html
+ *   @category			CAT_Modules
+ *   @package			multiColumn
+ *
+ */
+
+#main_content.no_pre_head {
+	padding-top:	100px !important;
+	padding-bottom:	4em !important;
+	background:		white;
+}
+#main_footer {
+	margin:	0px !important;
+}
+
+.image-left {
+	background:		white;
+	padding:		0em 0em;
+	border-bottom:	1px solid #d8dbdd;
+}
+	.image-left section {
+		padding:		7em 0em 3em 0em;
+		min-height:		650px;
+	}
+		.image-left-content {
+			float:	right;
+			width: 38%;
+		}
+	.image-left h2 {
+		font-size:		3em;
+		line-height:	1.4em;
+		color:			#61358b;
+		padding:		0.2em 0em 1em 0em;
+	}
+	.image-left h3 {
+		font-size:		1.4em;
+		line-height:	1.4em;
+		color:			#5b6268;
+		padding:		0.2em 0em 2em 0em;
+	}
+@media (max-width: 960px) {
+	#main_content.no_pre_head {
+		padding-top:	40px !important;
+	}
+	.image-left-content {
+		width:				68%;
+		text-shadow:		1px 1px 2px white;
+		background:			rgba(255, 255, 255, 0.600);
+		-webkit-box-shadow:	rgba(255, 255, 255, 0.600) 0px 0px 15px 15px;
+		-moz-box-shadow:	rgba(255, 255, 255, 0.600) 0px 0px 15px 15px;
+		-o-box-shadow:		rgba(255, 255, 255, 0.600) 0px 0px 15px 15px;
+		-ms-box-shadow:		rgba(255, 255, 255, 0.600) 0px 0px 15px 15px;
+		box-shadow:			rgba(255, 255, 255, 0.600) 0px 0px 15px 15px;
+	}
+	.image-left h1 {
+		font-size:	2em;
+	}
+	.image-left h2 {
+		font-size:		1.6em;
+		line-height:	1.4em;
+		color:			#61358b;
+		padding:		0.2em 0em 1em 0em;
+	}
+	.image-left h3 {
+		font-size:		1.2em;
+		line-height:	1.4em;
+		color:			#5b6268;
+		padding:		0.2em 0em 2em 0em;
+	}
+	.image-left section {
+		min-height:			0 !important;
+		background-size:	240px auto !important;
+		padding:			1em 1em 6em 1em;
+	}
+}
+@media (max-width: 480px) {
+	.image-left-content {
+		width:				100%;
+	}
+	.image-left section {
+		min-height:			0 !important;
+		background-size:	240px auto !important;
+		padding:			1em 1em 10em 1em;
+	}
+}

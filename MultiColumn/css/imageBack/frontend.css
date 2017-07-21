@@ -1,0 +1,245 @@
+/**
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 3 of the License, or (at
+ *   your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful, but
+ *   WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ *   General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program; if not, see <http://www.gnu.org/licenses/>.
+ *
+ *   @author			Matthias Glienke
+ *   @copyright			2014, Black Cat Development
+ *   @link				http://blackcat-cms.org
+ *   @license			http://www.gnu.org/licenses/gpl.html
+ *   @category			CAT_Modules
+ *   @package			multiColumn
+ *
+ */
+
+
+.MC_imgL,
+.MC_imgC,
+.MC_imgR {
+	background:		white;
+	padding:		0em 0em;
+	position:		relative;
+	overflow:		hidden;
+}
+.MC_imgL,
+.MC_imgR {
+	border-bottom:	1px solid #d8dbdd;
+}
+
+
+	.MC_imgR > div > div,
+	.MC_imgL > div > div,
+	.MC_imgC > div > div {
+		padding:		7em 0em 3em 0em;
+		min-height:		650px;
+	}
+	.MC_imgC > div > div {
+		padding:		3em 0em;
+	}
+		.MC_imgR-content,
+		.MC_imgL-content {
+			width:		50%;
+			position:	relative;
+			z-index:	1;
+		}
+		.MC_imgL-content {
+			float:	right;
+		}
+		.MC_imgR-content {
+			float:	left;
+		}
+
+	.MC_imgR h2,
+	.MC_imgC h2,
+	.MC_imgL h2 {
+		font-size:		3em;
+		line-height:	1.4em;
+		padding:		.2em 0em .6em 0em;
+	}
+	.MC_imgR h3,
+	.MC_imgC h3,
+	.MC_imgL h3 {
+		font-size:		2em;
+		line-height:	1.4em;
+		padding:		.2em 0em 1.4em 0em;
+	}
+	.MC_imgR h4,
+	.MC_imgC h4,
+	.MC_imgL h4 {
+		font-size:		1.2em;
+		line-height:	1.6em;
+		font-weight:	400;
+		padding:		.2em 0em 1.4em 0em;
+	}
+	.MC_imgC h2,
+	.MC_imgC h3,
+	.MC_imgC h4 {
+		text-align:	center;
+	}
+
+	.MC_imgL-IMG,
+	.MC_imgR-IMG {
+		width:					3000px;
+		position:				absolute;
+		margin:					0em;
+		padding:				0em;
+		bottom:					0em;
+		left:					56%;
+		z-index:				0;
+	}
+
+	.MC_imgL-IMG {
+		left:					auto;
+		right:					56%;
+		float:					right;
+	}
+
+	.MC_imgL-IMG img,
+	.MC_imgR-IMG img {
+		position:	absolute;
+		left:		0em;
+		bottom:		0em;
+		margin:		0em;
+		padding:	0em;
+	}
+	.MC_imgL-IMG img {
+		left:		auto;
+		right:		0em;
+	}
+
+@media (max-width: 960px) {
+	.MC_imgL-content {
+		width:				68%;
+		text-shadow:		1px 1px 2px white;
+		background:			rgba(255, 255, 255, .600);
+		-webkit-box-shadow:	rgba(255, 255, 255, .600) 0px 0px 15px 15px;
+		-moz-box-shadow:	rgba(255, 255, 255, .600) 0px 0px 15px 15px;
+		-o-box-shadow:		rgba(255, 255, 255, .600) 0px 0px 15px 15px;
+		-ms-box-shadow:		rgba(255, 255, 255, .600) 0px 0px 15px 15px;
+		box-shadow:			rgba(255, 255, 255, .600) 0px 0px 15px 15px;
+	}
+	.MC_imgL h1 {
+		font-size:	2em;
+	}
+	.MC_imgL h2 {
+		font-size:		1.6em;
+		line-height:	1.4em;
+		padding:		.2em 0em 1em 0em;
+	}
+	.MC_imgL h3 {
+		font-size:		1.2em;
+		line-height:	1.4em;
+		padding:		.2em 0em 2em 0em;
+	}
+	.MC_imgL > div > div {
+		min-height:			0 !important;
+		background-size:	240px auto !important;
+		padding:			1em 1em 6em 1em;
+	}
+}
+@media (max-width: 480px) {
+	.MC_imgL-content {
+		width:				100%;
+	}
+	.MC_imgL > div > div {
+		min-height:			0 !important;
+		background-size:	240px auto !important;
+		padding:			1em 1em 10em 1em;
+	}
+}
+
+	.MC_imgC h1 {
+		text-align:	center;
+		font-size:	4em;
+		padding:	.2em 0em .8em 0em;
+	}
+	.MC_imgC h2 {
+		text-align:		center;
+		font-size:		2em;
+		line-height:	1.4em;
+		padding:		0em 0em 1em 0em;
+	}
+@media (max-width: 960px) {
+	.MC_imgC-content {
+		width:				100%;
+		text-shadow:		1px 1px 2px white;
+		background:			rgba(255, 255, 255, .600);
+		-webkit-box-shadow:	rgba(255, 255, 255, .600) 0px 0px 15px 15px;
+		-moz-box-shadow:	rgba(255, 255, 255, .600) 0px 0px 15px 15px;
+		-o-box-shadow:		rgba(255, 255, 255, .600) 0px 0px 15px 15px;
+		-ms-box-shadow:		rgba(255, 255, 255, .600) 0px 0px 15px 15px;
+		box-shadow:			rgba(255, 255, 255, .600) 0px 0px 15px 15px;
+	}
+	.MC_imgC h1 {
+		font-size:	2em;
+	}
+	.MC_imgC h2 {
+		font-size:		1.6em;
+		line-height:	1.4em;
+		padding:		.2em 0em 1em 0em;
+	}
+	.MC_imgC h3 {
+		font-size:		1.2em;
+		line-height:	1.4em;
+		padding:		.2em 0em 2em 0em;
+	}
+	.MC_imgC > div > div {
+		min-height:			0 !important;
+		background-size:	240px auto !important;
+		padding:			1em 1em 10em 1em;
+	}
+}
+@media (max-width: 480px) {
+	.MC_imgC > div > div {
+		padding:			1em 1em 10em 1em;
+	}
+}
+
+
+@media (max-width: 960px) {
+	.MC_imgR-content {
+		width:				68%;
+		text-shadow:		1px 1px 2px white;
+		background:			rgba(255, 255, 255, .600);
+		-webkit-box-shadow:	rgba(255, 255, 255, .600) 0px 0px 15px 15px;
+		-moz-box-shadow:	rgba(255, 255, 255, .600) 0px 0px 15px 15px;
+		-o-box-shadow:		rgba(255, 255, 255, .600) 0px 0px 15px 15px;
+		-ms-box-shadow:		rgba(255, 255, 255, .600) 0px 0px 15px 15px;
+		box-shadow:			rgba(255, 255, 255, .600) 0px 0px 15px 15px;
+	}
+	.MC_imgR h2 {
+		font-size:		1.6em;
+		line-height:	1.4em;
+		padding:		.2em 0em 1em 0em;
+	}
+	.MC_imgR h3 {
+		font-size:		1.2em;
+		line-height:	1.4em;
+		padding:		.2em 0em 2em 0em;
+	}
+	.MC_imgR > div > div {
+		min-height:			0 !important;
+		background-size:	240px auto !important;
+		padding:			1em 1em 6em 1em;
+	}
+}
+@media (max-width: 480px) {
+	.MC_imgR-content {
+		width:				100%;
+	}
+	.MC_imgR > div > div {
+		min-height:			0 !important;
+		background-size:	240px auto !important;
+		padding:			1em 1em 10em 1em;
+	}
+}

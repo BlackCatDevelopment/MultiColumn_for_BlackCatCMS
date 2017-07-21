@@ -6,7 +6,7 @@
  * @module			cc_MC
  * @version			see info.php of this module
  * @author			Matthias Glienke, creativecat
- * @copyright		2014, Black Cat Development
+ * @copyright		2017, Black Cat Development
  * @link			http://blackcat-cms.org
  * @license			http://www.gnu.org/licenses/gpl.html
  *
@@ -248,6 +248,37 @@ $(document).ready(function()
 						return_error( jqXHR.process , data.message );
 					}
 				});
+			});
+
+			$mcUL.on( 'click',
+				'.MC_publish',
+			function()
+			{
+				var $cur		= $(this),
+					$li			= $cur.closest('li'),
+					$inputs		= $li.find('input'),
+					ajaxData	= {
+						page_id		: cGID.page_id,
+						section_id	: cGID.section_id,
+						gallery_id	: cGID.gallery_id,
+						imgID		: $inputs.filter('input[name=colID]').val(),
+						action		: 'publishContent',
+						_cat_ajax	: 1
+					};
+				dialog_ajax(
+					'Inhalt veröffentlichen',
+					CAT_URL + '/modules/cc_multicolumn/save.php',
+					ajaxData,
+					'POST',
+					'JSON',
+					false, function(data)
+					{
+						if( data.published == 1 )
+							$cur.addClass('active');
+						else
+							$cur.removeClass('active');
+					}, $cur
+				);
 			});
 
 			$mcUL.sortable(
