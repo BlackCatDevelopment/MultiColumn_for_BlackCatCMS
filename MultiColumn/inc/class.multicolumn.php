@@ -82,7 +82,7 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 			{
 				return $this->initAdd();
 			}
-			elseif ( is_numeric($mc_id) )
+			elseif ( is_numeric($mc_id) && !$is_header )
 			{
 				self::$mc_id	= $mc_id;
 			}
