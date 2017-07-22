@@ -59,8 +59,8 @@ if(defined('CAT_URL'))
 			. ' `page_id` INT,'
 			. ' `section_id` INT,'
 			. ' PRIMARY KEY ( `mc_id` ),'
-			. ' CONSTRAINT `mc_pages` FOREIGN KEY (`page_id`) REFERENCES `:prefix:pages`(`page_id`) ON DELETE CASCADE,'
-			. ' CONSTRAINT `mc_sections` FOREIGN KEY (`section_id`) REFERENCES `:prefix:sections`(`section_id`) ON DELETE CASCADE'
+			. ' CONSTRAINT `:prefix:mc_pages` FOREIGN KEY (`page_id`) REFERENCES `:prefix:pages`(`page_id`) ON DELETE CASCADE,'
+			. ' CONSTRAINT `:prefix:mc_sections` FOREIGN KEY (`section_id`) REFERENCES `:prefix:sections`(`section_id`) ON DELETE CASCADE'
 		. ' ) ENGINE=InnoDB'
 	);
 
@@ -74,18 +74,18 @@ if(defined('CAT_URL'))
 			. ' `published` TINYINT(1) NULL DEFAULT NULL,'
 			. ' `position` INT NOT NULL DEFAULT \'0\','
 			. ' PRIMARY KEY ( `column_id` ),'
-			. ' CONSTRAINT `content_mcID` FOREIGN KEY (`mc_id`) REFERENCES `:prefix:mod_cc_multicolumn`(`mc_id`) ON DELETE CASCADE'
+			. ' CONSTRAINT `:prefix:content_mcID` FOREIGN KEY (`mc_id`) REFERENCES `:prefix:mod_cc_multicolumn`(`mc_id`) ON DELETE CASCADE'
 		. ' ) ENGINE=InnoDB'
 	);
 
 	// Create table for options
 	CAT_Helper_Page::getInstance()->db()->query(
 		'CREATE TABLE `:prefix:mod_cc_multicolumn_options`  ('
-			. ' `mc_id` INT,'
+			. ' `mc_id` INT NULL DEFAULT NULL,'
 			. ' `name` VARCHAR(255) NOT NULL DEFAULT \'\','
 			. ' `value` VARCHAR(2047) NOT NULL DEFAULT \'\','
 			. ' PRIMARY KEY ( `mc_id`, `name` ),'
-			. ' CONSTRAINT `options_mcID` FOREIGN KEY (`mc_id`) REFERENCES `:prefix:mod_cc_multicolumn`(`mc_id`) ON DELETE CASCADE'
+			. ' CONSTRAINT `:prefix:options_mcID` FOREIGN KEY (`mc_id`) REFERENCES `:prefix:mod_cc_multicolumn`(`mc_id`) ON DELETE CASCADE'
 		. ' ) ENGINE=InnoDB'
 	);
 
@@ -96,7 +96,7 @@ if(defined('CAT_URL'))
 			. ' `name` VARCHAR(255) NOT NULL DEFAULT \'\','
 			. ' `value` VARCHAR(2047) NOT NULL DEFAULT \'\','
 			. ' PRIMARY KEY ( `column_id`, `name` ),'
-			. ' CONSTRAINT `optContent_mcID` FOREIGN KEY (`column_id`) REFERENCES `:prefix:mod_cc_multicolumn_contents`(`column_id`) ON DELETE CASCADE'
+			. ' CONSTRAINT `:prefix:optContent_mcID` FOREIGN KEY (`column_id`) REFERENCES `:prefix:mod_cc_multicolumn_contents`(`column_id`) ON DELETE CASCADE'
 		. ' ) ENGINE=InnoDB'
 	);
 
