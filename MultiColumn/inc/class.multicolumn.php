@@ -50,10 +50,13 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 
 		public $contents		= array();
 		public $options			= array();
-		public $module_variants	= array();
+
+		public $variant				= 'default';
+		public static $directory	= 'cc_multicolumn';
+		public static $allVariants	= array();
 
 		protected static $initOptions		= array(
-			'variant'		=> '0',
+			'variant'		=> 'default',
 			'kind'			=> '2'
 		);
 
@@ -332,7 +335,7 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 				{
 					$select	.= " OR `column_id` = '" . intval( $id ) . "'";
 				}
-				$select		= "AND (" . substr( $select, 3 ) . ")";
+				$select		= "(" . substr( $select, 3 ) . ")";
 			}
 			elseif ( $column_id )
 			{
@@ -340,12 +343,20 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 			}
 			else return false;
 
-
-			$opts	= CAT_Helper_Page::getInstance()->db()->query( sprintf(
+			if ($column_id)
+				$opts	= CAT_Helper_Page::getInstance()->db()->query( sprintf(
+						'SELECT * FROM `:prefix:mod_cc_multicolumn_content_options`
+								WHERE `column_id` = :column_id ',
+						$select
+					),
+					array(
+						'column_id'	=> $column_id
+					)
+				);
+			else $opts	= CAT_Helper_Page::getInstance()->db()->query(
 					'SELECT * FROM `:prefix:mod_cc_multicolumn_content_options`
-							WHERE `column_id` = :column_id',
-					$select
-				),
+							WHERE ' .
+					$select,
 				array(
 					'column_id'	=> $column_id
 				)
@@ -664,27 +675,26 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 			if ( isset( $this->options['_variant'] ) )
 				return $this->options['_variant'];
 
-			$this->getModuleVariants();
 			$this->getOptions('variant');
 
-			$variant	= $this->options['variant'] != ''
-				&& isset($this->module_variants[$this->options['variant']]) ?
-						$this->module_variants[$this->options['variant']] : 
-						'default';
-
-			$this->options['_variant']	= $variant;
+			$this->options['_variant']	= $this->options['variant'] != '' ? $this->options['variant'] : 'default';
 
 			return $this->options['_variant'];
 		}
 
-		public function getModuleVariants()
+
+		/**
+		 * Get all available variants of an addon by checking the templates-folder
+		 */
+		public static function getAllVariants()
 		{
-			if ( count($this->module_variants) > 0 ) return $this->module_variants;
-			$getInfo	= CAT_Helper_Addons::checkInfo( CAT_PATH . '/modules/cc_multicolumn/' );
-
-			$this->module_variants	= $getInfo['module_variants'];
-
-			return $this->module_variants;
+			if ( count(self::$allVariants) > 0 )  return self::$allVariants;
+			foreach( CAT_Helper_Directory::getInstance()->setRecursion(false)
+				->scanDirectory( CAT_PATH . '/modules/' . static::$directory . '/templates/' ) as $path)
+			{
+				self::$allVariants[]	= basename($path);
+			}
+			return self::$allVariants;
 		}
 
 		/**

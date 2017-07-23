@@ -25,7 +25,7 @@
 {include(../default/modify/javascript.tpl)}
 
 <div class="cc_MC_form" id="cc_MC_{$mc_id}">
-	{include(modify/set_skin.tpl)}
+	{include(../default/modify/set_skin.tpl)}
 	<div class="clear"></div>
 	<div class="cc_MC_settings"></div>
 	{include(../default/modify/addCol.tpl)}

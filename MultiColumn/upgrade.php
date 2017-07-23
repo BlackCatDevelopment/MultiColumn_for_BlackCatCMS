@@ -171,6 +171,34 @@ if ( CAT_Helper_Addons::versionCompare( $module_version, '2.0.0.3', '<' ) )
 	if (file_exists($path))
 		CAT_Helper_Directory::getInstance()->removeDirectory( $path );
 
+	# change save of variant to new automatic detected variants
+	$getInfo	= CAT_Helper_Addons::checkInfo( CAT_PATH . '/modules/cc_multicolumn/' );
+
+	$getVariant	= CAT_Helper_Page::getInstance()->db()->query("SELECT `mc_id`, `value` FROM `:prefix:mod_cc_multicolumn_options`
+ WHERE `name` = 'variant'");
+	if( $getVariant && $getVariant->rowCount() > 0 )
+	{
+		while( !false == ($row = $getVariant->fetchRow() ) )
+		{
+			if ($row['value'] == '' || $row['value'] == '0' )
+				$variant	= 'default';
+			else if (is_numeric($row['value']) && isset($getInfo['module_variants'][$row['value']]))
+				$variant	= $getInfo['module_variants'][$row['value']];
+			else if (is_numeric($row['value']))
+				$variant	= 'default';
+			else $variant	= $row['value'];
+			CAT_Helper_Page::getInstance()->db()->query(
+				"UPDATE `:prefix:mod_cc_multicolumn_options` " .
+					"SET `value` = :val " .
+					"WHERE `mc_id` = :mcID AND `name` = 'variant'",
+				array(
+					'val'		=> $variant,
+					'mcID'		=> $row['mc_id']
+			));
+		}
+	}
+
+
 }
 
 ?>
