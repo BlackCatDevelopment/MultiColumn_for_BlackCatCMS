@@ -1,0 +1,53 @@
+/*--------------------------------------------------------------
+Pricing
+--------------------------------------------------------------*/
+.pts {
+    background-color: #f6f9fc;
+}
+.pts {
+    padding-bottom: 66px;
+    padding-top: 66px;
+}
+.pts .pt {
+    background-color: #fff;
+    border-radius: 3px;
+    padding: 0 0 30px;
+    text-align: center;
+    z-index: 10;
+}
+.pts .pt h3 {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+}
+.pts .pt_main {
+    background-color: #31ddb7;
+    color: #ffffff;
+    font-size: 46px;
+    line-height: 1;
+    padding: 50px 0;
+}
+.pts .pt_main span {
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.pt ul {
+    margin: 0;
+    padding: 0 40px;
+}
+.pt li {
+    border-bottom: 1px dashed #d9dce0;
+    list-style: outside none none;
+    padding: 15px 0;
+}
+.pt li:last-child {
+    border-bottom: medium none;
+}
+.pts .btn-primary {
+    margin-top: 20px;
+}
+.pts .btn-primary:hover {
+    color: #ffffff;
+}
