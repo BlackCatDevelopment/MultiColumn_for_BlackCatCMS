@@ -19,7 +19,7 @@ if (typeof checkCols !== 'function')
 		var	$par	= $ul.closest('div'),
 			$yes	= $par.children('.cc_MC_y'),
 			$no		= $par.children('.cc_MC_n'),
-			size	= $ul.children('li').not('.prevTemp, .clear').size();
+			size	= $ul.children('li').not('.prevTemp, .clear').length;
 		if( size == 0 )
 		{
 			$yes.hide();
@@ -39,7 +39,7 @@ if (typeof orderMC !== 'function')
 		var	$par	= '<li class="clear">' + cattranslate('Row',false,false,'cc_multicolumn') + ' __id__</li>',
 			count	= 1,
 			kind	= parseInt( $setKind.filter(':checked').val() ),
-			size	= parseInt( $ul.children('li').not('.prevTemp, .clear').size() );
+			size	= parseInt( $ul.children('li').not('.prevTemp, .clear').length );
 		$ul.removeClass(function (index, css)
 		{
 			return (css.match (/(^|\s)MC_col\S+/g) || []).join(' ');
@@ -404,7 +404,7 @@ $(document).ready(function()
 				$oldForm.children('.showWYSIWYG').show().next('input').addClass('input_50p').removeClass('input_100p');
 				$cur.hide().next('input').removeClass('input_50p').addClass('input_100p');
 
-				if( $oldForm.size() > 0 )
+				if( $oldForm.length > 0 )
 				{
 					editorInstance.updateElement();
 					$oldForm.submit();
