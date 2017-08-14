@@ -45,7 +45,6 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 	class MultiColumn
 	{
 		protected static $mc_id			= NULL;
-		protected static $page_id		= NULL;
 		protected static $section_id	= NULL;
 
 		public $contents		= array();
@@ -71,7 +70,7 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 
 		public function __construct( $mc_id	= NULL, $is_header	= false )
 		{
-			global $page_id, $section_id;
+			global $section_id;
 			require_once(CAT_PATH . '/framework/functions.php');
 			if ( !isset($section_id) || $is_header )
 			{
@@ -79,7 +78,6 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 			}
 
 			self::$section_id	= intval($section_id);
-			self::$page_id		= intval($page_id);
 
 			if ( $mc_id === true )
 			{
@@ -100,7 +98,7 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 		public function __destruct() {}
 
 		/**
-		 * return, if in a current object all important values are existing (page_id, section_id, gallery_id)
+		 * return, if in a current object all important values are existing (section_id, gallery_id)
 		 *
 		 * @access public
 		 * @param  integer  $image_id - optional check for $image_id to be numeric
@@ -110,7 +108,6 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 		private function checkIDs( $colID = NULL )
 		{
 			if ( !self::$section_id ||
-				!self::$page_id ||
 				!self::$mc_id ||
 				( $colID && !is_numeric( $colID ) )
 			) return false;
@@ -126,15 +123,14 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 		 **/
 		private function initAdd()
 		{
-			if ( !self::$section_id || !self::$page_id ) return false;
+			if ( !self::$section_id ) return false;
 
 			// Add a new MultiColum
 			if ( CAT_Helper_Page::getInstance()->db()->query(
-				'INSERT INTO `:prefix:mod_cc_multicolumn`
-					( `page_id`, `section_id` ) VALUES
-					( :page_id, :section_id )',
+				'INSERT INTO `:prefix:mod_cc_multicolumn` ' .
+					'( `section_id` ) VALUES ' .
+					'( :section_id )',
 				array(
-					'page_id'		=> self::$page_id,
 					'section_id'	=> self::$section_id
 				)
 			) ){
@@ -163,7 +159,6 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 		public function deleteMC()
 		{
 			if ( !self::$section_id ||
-				!self::$page_id ||
 				!self::$mc_id ) return false;
 
 			// Delete complete record from the database
@@ -253,9 +248,9 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 		{
 			// Get columns in this section
 			$getID = CAT_Helper_Page::getInstance()->db()->query(
-				'SELECT `mc_id`
-					FROM `:prefix:mod_cc_multicolumn`
-					WHERE `section_id` = :section_id',
+				'SELECT `mc_id` ' .
+					'FROM `:prefix:mod_cc_multicolumn` ' .
+					'WHERE `section_id` = :section_id',
 				array(
 					'section_id'	=> self::$section_id
 				)
@@ -456,7 +451,6 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 		{
 		
 			if ( !self::$section_id ||
-				!self::$page_id ||
 				!self::$mc_id ||
 				!$column_id ||
 				!is_numeric( $column_id ) ) return false;

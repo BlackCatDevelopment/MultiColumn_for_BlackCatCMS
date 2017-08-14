@@ -25,7 +25,7 @@
 <li class="fc_border_all fc_shadow_small fc_br_all {if !$column}prevTemp{/if}" id="catMC_{if !$column}__column_id__{else}{$column.column_id}{/if}">
 	<div class="MC_options">
 		<p class="drag_corner icon-resize" title="{translate('Reorder column')}"></p>
-		<p class="icon-feed MC_publish{if $column.published} active{/if}" title="{translate('Publish this content')}"></p>
+		<p class="icon-feed MC_publish{if $column.published} active{/if}" title="{translate('Publish this content')}">s</p>
 		<div class="cc_MC_del">
 			<span class="icon-remove" title="{translate('Delete this column')}"></span>
 			<p class="fc_br_right fc_shadow_small">

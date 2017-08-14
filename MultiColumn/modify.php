@@ -58,7 +58,7 @@ $parser_data	= array(
 	'variant'				=> $MulCol->getVariant(),
 	'columns'				=> $MulCol->getContents( true, NULL ),
 	'options'				=> $MulCol->getOptions(),
-	'module_variants'		=> $MulCol->getModuleVariants()
+	'module_variants'		=> $MulCol->getAllVariants()
 );
 
 

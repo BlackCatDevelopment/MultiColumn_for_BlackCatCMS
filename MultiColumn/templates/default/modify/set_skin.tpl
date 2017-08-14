@@ -30,8 +30,8 @@
 		<input type="hidden" name="mc_id" value="{$mc_id}" />
 		<input type="hidden" name="options" value="variant" />
 		<select name="variant">
-		{foreach $module_variants index variants}
-			<option value="{$index}"{if $index == $options.variant} selected="selected"{/if}>{$variants}</option>
+		{foreach $module_variants variants}
+			<option value="{$variants}"{if $variants == $options.variant} selected="selected"{/if}>{$variants}</option>
 		{/foreach}
 		</select>
 		<input type="submit" name="speichern" value="{translate('Save skin &amp; reload')}" /><br/>
