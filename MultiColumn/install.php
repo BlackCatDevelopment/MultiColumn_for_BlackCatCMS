@@ -46,20 +46,18 @@ if(defined('CAT_URL'))
 	// Delete all tables if exists
 	CAT_Helper_Page::getInstance()->db()->query(
 		'DROP TABLE IF EXISTS'
-			. ' `:prefix:mod_cc_multicolumn`,'
-			. ' `:prefix:mod_cc_multicolumn_contents`,'
+			. ' `:prefix:mod_cc_multicolumn_content_options`,'
 			. ' `:prefix:mod_cc_multicolumn_options`,'
-			. ' `:prefix:mod_cc_multicolumn_content_options`'
+			. ' `:prefix:mod_cc_multicolumn_contents`,'
+			. ' `:prefix:mod_cc_multicolumn`;'
 	);
 
 	// Create table for basic informations
 	CAT_Helper_Page::getInstance()->db()->query(
 		'CREATE TABLE `:prefix:mod_cc_multicolumn`  ('
 			. ' `mc_id` INT NOT NULL AUTO_INCREMENT,'
-			. ' `page_id` INT,'
 			. ' `section_id` INT,'
 			. ' PRIMARY KEY ( `mc_id` ),'
-			. ' CONSTRAINT `:prefix:mc_pages` FOREIGN KEY (`page_id`) REFERENCES `:prefix:pages`(`page_id`) ON DELETE CASCADE,'
 			. ' CONSTRAINT `:prefix:mc_sections` FOREIGN KEY (`section_id`) REFERENCES `:prefix:sections`(`section_id`) ON DELETE CASCADE'
 		. ' ) ENGINE=InnoDB'
 	);
@@ -81,7 +79,7 @@ if(defined('CAT_URL'))
 	// Create table for options
 	CAT_Helper_Page::getInstance()->db()->query(
 		'CREATE TABLE `:prefix:mod_cc_multicolumn_options`  ('
-			. ' `mc_id` INT NULL DEFAULT NULL,'
+			. ' `mc_id` INT NOT NULL DEFAULT 0,'
 			. ' `name` VARCHAR(255) NOT NULL DEFAULT \'\','
 			. ' `value` VARCHAR(2047) NOT NULL DEFAULT \'\','
 			. ' PRIMARY KEY ( `mc_id`, `name` ),'
@@ -92,7 +90,7 @@ if(defined('CAT_URL'))
 	// Create table for content options
 	CAT_Helper_Page::getInstance()->db()->query(
 		'CREATE TABLE `:prefix:mod_cc_multicolumn_content_options`  ('
-			. ' `column_id` INT,'
+			. ' `column_id` INT NOT NULL DEFAULT 0,'
 			. ' `name` VARCHAR(255) NOT NULL DEFAULT \'\','
 			. ' `value` VARCHAR(2047) NOT NULL DEFAULT \'\','
 			. ' PRIMARY KEY ( `column_id`, `name` ),'
@@ -102,7 +100,7 @@ if(defined('CAT_URL'))
 
 
 
-
+/*
 	$insert_search = CAT_Helper_Page::getInstance()->db()->query( sprintf(
 			"SELECT * FROM `%ssearch`
 				WHERE `value` = '%s'",
@@ -180,6 +178,7 @@ if(defined('CAT_URL'))
 			)
 		);
 	}
+*/
 	// add files to class_secure
 	$addons_helper = new CAT_Helper_Addons();
 	foreach(
@@ -193,6 +192,7 @@ if(defined('CAT_URL'))
 			 error_log( "Unable to register file -$file-!" );
 		}
 	}
+
 }
 
 ?>
