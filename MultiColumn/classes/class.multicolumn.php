@@ -302,7 +302,7 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 			
 			if ( $contents && $contents->numRows() > 0)
 			{
-			    while( !false == ($row = $contents->fetchRow( MYSQL_ASSOC ) ) )
+			    while( !false == ($row = $contents->fetchRow() ) )
 			    {
 			    	if ($frontend) CAT_Helper_Page::preprocess( $row['content'] );
 			
@@ -365,7 +365,7 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 
 			if ( $opts && $opts->numRows() > 0)
 			{
-				while( !false == ($row = $opts->fetchRow( MYSQL_ASSOC ) ) )
+				while( !false == ($row = $opts->fetchRow() ) )
 				{
 					$options[$row['column_id']][$row['name']]		= $row['value'];
 
@@ -429,7 +429,7 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 
 			if ( isset($getOptions) && $getOptions->numRows() > 0)
 			{
-				while( !false == ($row = $getOptions->fetchRow( MYSQL_ASSOC ) ) )
+				while( !false == ($row = $getOptions->fetchRow() ) )
 				{
 					$this->contents[$row['column_id']]['options'][$row['name']]	= $row['value'];
 				}
@@ -567,7 +567,7 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 
 			if ( isset($getOptions) && $getOptions->numRows() > 0)
 			{
-				while( !false == ($row = $getOptions->fetchRow( MYSQL_ASSOC ) ) )
+				while( !false == ($row = $getOptions->fetchRow() ) )
 				{
 					$this->options[$row['name']]	= $row['value'];
 				}
@@ -665,7 +665,8 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 			$this->getModuleVariants();
 			$this->getOptions('variant');
 
-			$variant	= $this->options['variant'] != ''
+			$variant	= isset($this->options['variant'])
+                && $this->options['variant'] != ''
 				&& isset($this->module_variants[$this->options['variant']]) ?
 						$this->module_variants[$this->options['variant']] : 
 						'default';
