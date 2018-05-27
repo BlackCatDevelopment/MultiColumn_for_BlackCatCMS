@@ -521,7 +521,7 @@ if ( ! class_exists( 'MultiColumn', false ) ) {
 		} // end saveContentOptions()
 
 		/**
-		 * (un)publish single image
+		 * (un)publish single column
 		 *
 		 * @access public
 		 * @param  integer		$colID - id of image
