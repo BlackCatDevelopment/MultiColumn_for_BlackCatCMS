@@ -15,8 +15,8 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
  *   @author			Matthias Glienke
- *   @copyright			2017, Black Cat Development
- *   @link				http://blackcat-cms.org
+ *   @copyright			2019, Black Cat Development
+ *   @link				https://blackcat-cms.org
  *   @license			http://www.gnu.org/licenses/gpl.html
  *   @category			CAT_Modules
  *   @package			multiColumn
@@ -52,8 +52,8 @@ function cc_multicolumn_search($func_vars)
     // doesn't remove scripting well.
 	// scripting will be removed later on automatically
 	$query = $func_database->query(sprintf(
-        "SELECT `content` FROM `%smod_cc_multicolumn_contents` WHERE section_id='%d'",
-        CAT_TABLE_PREFIX, $func_section_id
+        "SELECT `content` FROM `:prefix:mod_cc_multicolumn` AS mc, `:prefix:mod_cc_multicolumn_contents` AS mcc WHERE mc.`mc_id`= mcc.`mc_id` AND section_id='%d'",
+        $func_section_id
 	));
 
 	if($query->numRows() > 0)
@@ -85,5 +85,4 @@ function cc_multicolumn_search($func_vars)
 	}
 	return $result;
 }
-
 ?>
