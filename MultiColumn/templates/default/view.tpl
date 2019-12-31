@@ -41,7 +41,7 @@
 	{foreach $columns column}
 	{if $options.kind != 0 && $count % $options.kind == 0}
 	<div class="cc_MC_row">{/if}
-		<div class="cc_MC cc_column_{$options.kind}{if $count % $options.kind == ( $options.kind -1)} cc_last_column{/if}">
+		<div class="cc_MC cc_column_{$options.kind}{if $options.kind != 0 && $count % $options.kind == ( $options.kind -1)} cc_last_column{/if}">
 			<div class="cc_MC_border">
 				<div class="cc_MC_content">
 					{$column.content}
@@ -53,6 +53,6 @@
 	</div>{/if}
 	{$count = $count+1}
 	{/foreach}
-	{if $count % $options.kind > 0 }</div>{/if}
+	{if  $options.kind != 0 && $count % $options.kind > 0 }</div>{/if}
 	<div class="clear"></div>
 </div>
