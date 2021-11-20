@@ -24,83 +24,97 @@
  */
 
 // include class.secure.php to protect this file and the whole CMS!
-if (defined('CAT_PATH')) {
-	include(CAT_PATH.'/framework/class.secure.php');
+if (defined("CAT_PATH")) {
+    include CAT_PATH . "/framework/class.secure.php";
 } else {
-	$root = "../";
-	$level = 1;
-	while (($level < 10) && (!file_exists($root.'/framework/class.secure.php'))) {
-		$root .= "../";
-		$level += 1;
-	}
-	if (file_exists($root.'/framework/class.secure.php')) {
-		include($root.'/framework/class.secure.php');
-	} else {
-		trigger_error(sprintf("[ <b>%s</b> ] Can't include class.secure.php!", $_SERVER['SCRIPT_NAME']), E_USER_ERROR);
-	}
+    $oneback = "../";
+    $root = $oneback;
+    $level = 1;
+    while ($level < 10 && !file_exists($root . "framework/class.secure.php")) {
+        $root .= $oneback;
+        $level += 1;
+    }
+    if (file_exists($root . "/framework/class.secure.php")) {
+        include $root . "/framework/class.secure.php";
+    } else {
+        trigger_error(
+            sprintf(
+                "[ <b>%s</b> ] Can't include class.secure.php!",
+                $_SERVER["SCRIPT_NAME"]
+            ),
+            E_USER_ERROR
+        );
+    }
 }
 // end include class.secure.php
 
-if(defined('CAT_URL'))
-{
-	// Delete all tables if exists
-	CAT_Helper_Page::getInstance()->db()->query(
-		'DROP TABLE IF EXISTS'
-			. ' `:prefix:mod_cc_multicolumn_content_options`,'
-			. ' `:prefix:mod_cc_multicolumn_options`,'
-			. ' `:prefix:mod_cc_multicolumn_contents`,'
-			. ' `:prefix:mod_cc_multicolumn`;'
-	);
+if (defined("CAT_URL")) {
+    // Delete all tables if exists
+    CAT_Helper_Page::getInstance()
+        ->db()
+        ->query(
+            "DROP TABLE IF EXISTS" .
+                " `:prefix:mod_cc_multicolumn_content_options`," .
+                " `:prefix:mod_cc_multicolumn_options`," .
+                " `:prefix:mod_cc_multicolumn_contents`," .
+                " `:prefix:mod_cc_multicolumn`;"
+        );
 
-	// Create table for basic informations
-	CAT_Helper_Page::getInstance()->db()->query(
-		'CREATE TABLE `:prefix:mod_cc_multicolumn`  ('
-			. ' `mc_id` INT NOT NULL AUTO_INCREMENT,'
-			. ' `section_id` INT,'
-			. ' PRIMARY KEY ( `mc_id` ),'
-			. ' CONSTRAINT `:prefix:mc_sections` FOREIGN KEY (`section_id`) REFERENCES `:prefix:sections`(`section_id`) ON DELETE CASCADE'
-		. ' ) ENGINE=InnoDB'
-	);
+    // Create table for basic informations
+    CAT_Helper_Page::getInstance()
+        ->db()
+        ->query(
+            "CREATE TABLE `:prefix:mod_cc_multicolumn`  (" .
+                " `mc_id` INT NOT NULL AUTO_INCREMENT," .
+                " `section_id` INT," .
+                " PRIMARY KEY ( `mc_id` )," .
+                " CONSTRAINT `:prefix:mc_sections` FOREIGN KEY (`section_id`) REFERENCES `:prefix:sections`(`section_id`) ON DELETE CASCADE" .
+                " ) ENGINE=InnoDB"
+        );
 
-	// Create table for contents
-	CAT_Helper_Page::getInstance()->db()->query(
-		'CREATE TABLE `:prefix:mod_cc_multicolumn_contents`  ('
-			. ' `column_id` INT NOT NULL AUTO_INCREMENT,'
-			. ' `mc_id` INT,'
-			. ' `content` TEXT NOT NULL,'
-			. ' `text` TEXT NOT NULL ,'
-			. ' `published` TINYINT(1) NULL DEFAULT NULL,'
-			. ' `position` INT NOT NULL DEFAULT \'0\','
-			. ' PRIMARY KEY ( `column_id` ),'
-			. ' CONSTRAINT `:prefix:content_mcID` FOREIGN KEY (`mc_id`) REFERENCES `:prefix:mod_cc_multicolumn`(`mc_id`) ON DELETE CASCADE'
-		. ' ) ENGINE=InnoDB'
-	);
+    // Create table for contents
+    CAT_Helper_Page::getInstance()
+        ->db()
+        ->query(
+            "CREATE TABLE `:prefix:mod_cc_multicolumn_contents`  (" .
+                " `column_id` INT NOT NULL AUTO_INCREMENT," .
+                " `mc_id` INT," .
+                " `content` TEXT NOT NULL ," .
+                " `text` TEXT NOT NULL ," .
+                " `published` TINYINT(1) NULL DEFAULT NULL," .
+                ' `position` INT NOT NULL DEFAULT \'0\',' .
+                " PRIMARY KEY ( `column_id` )," .
+                " CONSTRAINT `:prefix:content_mcID` FOREIGN KEY (`mc_id`) REFERENCES `:prefix:mod_cc_multicolumn`(`mc_id`) ON DELETE CASCADE" .
+                " ) ENGINE=InnoDB"
+        );
 
-	// Create table for options
-	CAT_Helper_Page::getInstance()->db()->query(
-		'CREATE TABLE `:prefix:mod_cc_multicolumn_options`  ('
-			. ' `mc_id` INT NOT NULL DEFAULT 0,'
-			. ' `name` VARCHAR(255) NOT NULL DEFAULT \'\','
-			. ' `value` VARCHAR(2047) NOT NULL DEFAULT \'\','
-			. ' PRIMARY KEY ( `mc_id`, `name` ),'
-			. ' CONSTRAINT `:prefix:options_mcID` FOREIGN KEY (`mc_id`) REFERENCES `:prefix:mod_cc_multicolumn`(`mc_id`) ON DELETE CASCADE'
-		. ' ) ENGINE=InnoDB'
-	);
+    // Create table for options
+    CAT_Helper_Page::getInstance()
+        ->db()
+        ->query(
+            "CREATE TABLE `:prefix:mod_cc_multicolumn_options`  (" .
+                " `mc_id` INT NOT NULL DEFAULT 0," .
+                ' `name` VARCHAR(255) NOT NULL DEFAULT \'\',' .
+                ' `value` VARCHAR(2047) NOT NULL DEFAULT \'\',' .
+                " PRIMARY KEY ( `mc_id`, `name` )," .
+                " CONSTRAINT `:prefix:options_mcID` FOREIGN KEY (`mc_id`) REFERENCES `:prefix:mod_cc_multicolumn`(`mc_id`) ON DELETE CASCADE" .
+                " ) ENGINE=InnoDB"
+        );
 
-	// Create table for content options
-	CAT_Helper_Page::getInstance()->db()->query(
-		'CREATE TABLE `:prefix:mod_cc_multicolumn_content_options`  ('
-			. ' `column_id` INT NOT NULL DEFAULT 0,'
-			. ' `name` VARCHAR(255) NOT NULL DEFAULT \'\','
-			. ' `value` VARCHAR(2047) NOT NULL DEFAULT \'\','
-			. ' PRIMARY KEY ( `column_id`, `name` ),'
-			. ' CONSTRAINT `:prefix:optContent_mcID` FOREIGN KEY (`column_id`) REFERENCES `:prefix:mod_cc_multicolumn_contents`(`column_id`) ON DELETE CASCADE'
-		. ' ) ENGINE=InnoDB'
-	);
+    // Create table for content options
+    CAT_Helper_Page::getInstance()
+        ->db()
+        ->query(
+            "CREATE TABLE `:prefix:mod_cc_multicolumn_content_options`  (" .
+                " `column_id` INT NOT NULL DEFAULT 0," .
+                ' `name` VARCHAR(255) NOT NULL DEFAULT \'\',' .
+                ' `value` VARCHAR(2047) NOT NULL DEFAULT \'\',' .
+                " PRIMARY KEY ( `column_id`, `name` )," .
+                " CONSTRAINT `:prefix:optContent_mcID` FOREIGN KEY (`column_id`) REFERENCES `:prefix:mod_cc_multicolumn_contents`(`column_id`) ON DELETE CASCADE" .
+                " ) ENGINE=InnoDB"
+        );
 
-
-
-/*
+    /*
 	$insert_search = CAT_Helper_Page::getInstance()->db()->query( sprintf(
 			"SELECT * FROM `%ssearch`
 				WHERE `value` = '%s'",
@@ -179,20 +193,15 @@ if(defined('CAT_URL'))
 		);
 	}
 */
-	// add files to class_secure
-	$addons_helper = new CAT_Helper_Addons();
-	foreach(
-		array(
-			'save.php'
-		)
-		as $file
-	) {
-		if ( false === $addons_helper->sec_register_file( 'cc_multicolumn', $file ) )
-		{
-			 error_log( "Unable to register file -$file-!" );
-		}
-	}
-
+    // add files to class_secure
+    $addons_helper = new CAT_Helper_Addons();
+    foreach (["save.php"] as $file) {
+        if (
+            false === $addons_helper->sec_register_file("cc_multicolumn", $file)
+        ) {
+            error_log("Unable to register file -$file-!");
+        }
+    }
 }
 
 ?>

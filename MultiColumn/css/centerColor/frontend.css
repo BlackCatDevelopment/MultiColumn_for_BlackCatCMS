@@ -1,0 +1,150 @@
+/**
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 3 of the License, or (at
+ *   your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful, but
+ *   WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ *   General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program; if not, see <http://www.gnu.org/licenses/>.
+ *
+ *   @author			Matthias Glienke
+ *   @copyright			2014, Black Cat Development
+ *   @link				http://blackcat-cms.org
+ *   @license			http://www.gnu.org/licenses/gpl.html
+ *   @category			CAT_Modules
+ *   @package			multiColumn
+ *
+ */
+
+.centerColor {
+	color:			white;
+	padding:		0em;
+	text-align:		center;
+}
+.centerColor.mc_cC_light {
+	color:	#053741;
+}
+	.centerColor article {
+		padding:			3em 1em;
+		min-height:			0 !important;
+		
+	}
+		.centerColor-content {
+			clear:	both;
+		}
+
+	.centerColor h1,
+	.centerColor h2,
+	.centerColor h3,
+	.centerColor h4,
+	.centerColor h5 {
+		color:	white;
+	}
+	.centerColor h1 {
+		text-align:	center;
+		font-size:	2em;
+	}
+	.centerColor h2 {
+		color:			#efefef;
+		line-height:	1.4em;
+		padding:		.2em 0em 1em 0em;
+	}
+	.centerColor h3 {
+		font-size:		1.2em;
+		line-height:	1.4em;
+		text-align:		center;
+		font-weight:	700;
+		color:			#efefef;
+		padding:		0em 0em .6em 0em;
+	}
+	.centerColor.mc_cC_light h1,
+	.centerColor.mc_cC_light h2,
+	.centerColor.mc_cC_light h3,
+	.centerColor.mc_cC_light h4,
+	.centerColor.mc_cC_light h5 {
+		color:	#0e94b1;
+	}
+	
+
+@media (min-width: 480px) {
+	.centerColor h3 {
+		font-size:		2em;
+	}
+	.centerColor article {
+		padding:	8em 2em 10em 2em;
+	}
+	.mc_cC_eq {
+		display:	table;
+		min-height:	100vh;
+	}
+	.mc_cC_eq article {
+		min-height:		100vh !important;
+		display:		table-cell;
+		vertical-align:	middle;
+		width:			100vw;
+		padding:		0 calc( ( 100vw - 960px ) / 2 );
+		clear:			both;
+	}
+	.mc_cC_eq article::after {
+		content:	'';
+		display:	block;
+		clear:		both;
+	}
+}
+@media (min-width: 960px) {
+	.centerColor h1 {
+		font-size:	2.4em;
+		padding:	.2em 0em .8em 0em;
+	}
+	.centerColor h2 {
+		font-size:	2em;
+	}
+	.centerColor h3 {
+		font-size:		1.8em;
+		line-height:	1.4em;
+		padding:		.2em 0em 1em 0em;
+	}
+}
+.centerColor button,
+.centerColor .button,
+.centerColor a.button,
+.centerColor input,
+.centerColor input[type=submit] {
+	background:			rgba(239, 239, 239, .100);
+	border:				1px solid white;
+	color:				#ffffff;
+	box-shadow:			none;
+	text-transform:		uppercase;
+	font-weight:		300;
+	text-shadow:		none;
+	font-size:			1.2em;
+	font-weight:		300;
+	text-shadow:		none;
+	padding:			.4em 1em;
+	width:				100%;
+}
+@media (min-width: 480px) {
+	.centerColor button,
+	.centerColor .button,
+	.centerColor a.button,
+	.centerColor input,
+	.centerColor input[type=submit] {
+		width:		auto;
+		padding:	.4em 4em;
+	}
+}
+.centerColor button:hover,
+.centerColor .button:hover,
+.centerColor a.button:hover,
+.centerColor input:hover,
+.centerColor input[type=submit]:hover {
+	background:			rgba(239, 239, 239, .200);
+	background-image:	none;
+	border:				1px solid white;
+}
