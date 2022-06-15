@@ -419,12 +419,12 @@ if (!class_exists("MultiColumn", false)) {
                         ] = array_merge(
                             $this->contents[$row["column_id"]]["options"],
                             [
-                                $row["name"] => $row["value"],
+                                $row["name"] => htmlspecialchars($row["value"]),
                             ]
                         );
                     } else {
                         $this->contents[$row["column_id"]]["options"] = [
-                            $row["name"] => $row["value"],
+                            $row["name"] => htmlspecialchars($row["value"]),
                         ];
                     }
                 }
