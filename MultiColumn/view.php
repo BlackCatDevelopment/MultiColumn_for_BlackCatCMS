@@ -24,59 +24,58 @@
  */
 
 // include class.secure.php to protect this file and the whole CMS!
-if (defined('CAT_PATH')) {
-	include(CAT_PATH.'/framework/class.secure.php');
+if (defined("CAT_PATH")) {
+    include CAT_PATH . "/framework/class.secure.php";
 } else {
-	$root = "../";
-	$level = 1;
-	while (($level < 10) && (!file_exists($root.'/framework/class.secure.php'))) {
-		$root .= "../";
-		$level += 1;
-	}
-	if (file_exists($root.'/framework/class.secure.php')) {
-		include($root.'/framework/class.secure.php');
-	} else {
-		trigger_error(sprintf("[ <b>%s</b> ] Can't include class.secure.php!", $_SERVER['SCRIPT_NAME']), E_USER_ERROR);
-	}
+    $root = "../";
+    $level = 1;
+    while ($level < 10 && !file_exists($root . "/framework/class.secure.php")) {
+        $root .= "../";
+        $level += 1;
+    }
+    if (file_exists($root . "/framework/class.secure.php")) {
+        include $root . "/framework/class.secure.php";
+    } else {
+        trigger_error(
+            sprintf(
+                "[ <b>%s</b> ] Can't include class.secure.php!",
+                $_SERVER["SCRIPT_NAME"]
+            ),
+            E_USER_ERROR
+        );
+    }
 }
 // end include class.secure.php
 
 global $section_id, $page_id;
 
-$parser_data	= array(
-	'page_id'		=> $page_id,
-	'section_id'	=> $section_id
-);
-
+$parser_data = [
+    "page_id" => $page_id,
+    "section_id" => $section_id,
+];
 
 require_once "inc/class.multicolumn.php";
 
-$MulCol		= new MultiColumn();
+$MulCol = new MultiColumn();
 
-$variant		= $MulCol->getVariant();
-$module_path	= '/modules/cc_multicolumn/';
-$template		= 'view';
+$variant = $MulCol->getVariant();
+$module_path = "/modules/cc_multicolumn/";
+$template = "view";
 
+$parser_data["columns"] = $MulCol->getContents(true, true);
 
-$parser_data['columns']		= $MulCol->getContents( true );
+$parser_data["mc_id"] = $MulCol->getID();
+$parser_data["options"] = $MulCol->getOptions(null, true);
 
+if (file_exists(CAT_PATH . $module_path . "view/" . $variant . "/view.php")) {
+    include CAT_PATH . $module_path . "view/" . $variant . "/view.php";
+} elseif (file_exists(CAT_PATH . $module_path . "view/default/view.php")) {
+    include CAT_PATH . $module_path . "view/default/view.php";
+}
 
-$parser_data['mc_id']		= $MulCol->getID();
-$parser_data['options']		= $MulCol->getOptions();
+$parser->setPath(dirname(__FILE__) . "/templates/" . $MulCol->getVariant());
+$parser->setFallbackPath(dirname(__FILE__) . "/templates/default");
 
-if ( file_exists( CAT_PATH . $module_path .'view/' . $variant . '/view.php' ) )
-	include( CAT_PATH . $module_path .'view/' . $variant . '/view.php' );
-elseif ( file_exists( CAT_PATH . $module_path .'view/default/view.php' ) )
-	include( CAT_PATH . $module_path .'view/default/view.php' );
-
-$parser->setPath( dirname(__FILE__) . '/templates/' . $MulCol->getVariant() );
-$parser->setFallbackPath( dirname( __FILE__ ) . '/templates/default' );
-
-
-$parser->output(
-	$template,
-	$parser_data
-);
-
+$parser->output($template, $parser_data);
 
 ?>

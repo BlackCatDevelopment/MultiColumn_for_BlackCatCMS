@@ -356,7 +356,7 @@ if (!class_exists("MultiColumn", false)) {
             }
 
             if ($addOptions) {
-                $this->getContentOptions();
+                $this->getContentOptions(null, $frontend);
             }
             return $this->contents;
         } // end getContents()
@@ -370,7 +370,7 @@ if (!class_exists("MultiColumn", false)) {
          * @return array()
          *
          **/
-        private function getContentOptions($column_id = null)
+        private function getContentOptions($column_id = null, $frontend = false)
         {
             $select = "";
 
@@ -411,7 +411,9 @@ if (!class_exists("MultiColumn", false)) {
 
             if ($opts && $opts->numRows() > 0) {
                 while (!false == ($row = $opts->fetchRow())) {
-                    $options[$row["column_id"]][$row["name"]] = $row["value"];
+                    $options[$row["column_id"]][$row["name"]] = $frontend
+                        ? htmlspecialchars_decode($row["value"])
+                        : htmlspecialchars($row["value"]);
 
                     if (isset($this->contents[$row["column_id"]]["options"])) {
                         $this->contents[$row["column_id"]][
@@ -419,12 +421,16 @@ if (!class_exists("MultiColumn", false)) {
                         ] = array_merge(
                             $this->contents[$row["column_id"]]["options"],
                             [
-                                $row["name"] => htmlspecialchars($row["value"]),
+                                $row["name"] => $frontend
+                                    ? htmlspecialchars_decode($row["value"])
+                                    : htmlspecialchars($row["value"]),
                             ]
                         );
                     } else {
                         $this->contents[$row["column_id"]]["options"] = [
-                            $row["name"] => htmlspecialchars($row["value"]),
+                            $row["name"] => $frontend
+                                ? htmlspecialchars_decode($row["value"])
+                                : htmlspecialchars($row["value"]),
                         ];
                     }
                 }
@@ -445,8 +451,11 @@ if (!class_exists("MultiColumn", false)) {
          * @return array()
          *
          **/
-        public function getSingContentOptions($column_id = null, $name = null)
-        {
+        public function getSingContentOptions(
+            $column_id = null,
+            $name = null,
+            $frontend = false
+        ) {
             if (!$column_id) {
                 return false;
             }
@@ -481,7 +490,9 @@ if (!class_exists("MultiColumn", false)) {
                 while (!false == ($row = $getOptions->fetchRow())) {
                     $this->contents[$row["column_id"]]["options"][
                         $row["name"]
-                    ] = $row["value"];
+                    ] = $frontend
+                        ? htmlspecialchars_decode($row["value"])
+                        : htmlspecialchars($row["value"]);
                 }
             }
             if (
@@ -648,7 +659,7 @@ if (!class_exists("MultiColumn", false)) {
          * @return array()
          *
          **/
-        public function getOptions($name = null)
+        public function getOptions($name = null, $frontend = false)
         {
             if ($name && isset($this->options[$name])) {
                 return $this->options[$name];
@@ -678,7 +689,9 @@ if (!class_exists("MultiColumn", false)) {
 
             if (isset($getOptions) && $getOptions->numRows() > 0) {
                 while (!false == ($row = $getOptions->fetchRow())) {
-                    $this->options[$row["name"]] = $row["value"];
+                    $this->options[$row["name"]] = $frontend
+                        ? htmlspecialchars_decode($row["value"])
+                        : htmlspecialchars($row["value"]);
                 }
             }
             if ($name) {
