@@ -47,125 +47,145 @@ if (defined("CAT_PATH")) {
 }
 // end include class.secure.php
 
-if ( CAT_Helper_Page::getPagePermission( $page_id, 'admin' ) !== true )
-{
-	$backend->print_error( 'You do not have permissions to modify this page!' );
+if (CAT_Helper_Page::getPagePermission($page_id, "admin") !== true) {
+    $backend->print_error("You do not have permissions to modify this page!");
 }
 
+// =============================
+// ! Get the current mc_id
+// =============================
+if ($mc_id = $val->sanitizePost("mc_id", "numeric")) {
+    $colID = $val->sanitizePost("colID", "numeric");
+    $action = $val->sanitizePost("action");
 
-// ============================= 
-// ! Get the current mc_id   
-// ============================= 
-if ( $mc_id = $val->sanitizePost( 'mc_id','numeric' ) )
-{
-	$colID	= $val->sanitizePost( 'colID','numeric' );
-	$action	= $val->sanitizePost( 'action' );
+    switch ($action) {
+        case "addContent":
+            $colCount = $val->sanitizePost("colCount");
+            $added = $MulCol->addColumn($colCount);
+            $ajax_return = [
+                "message" =>
+                    is_array($added) && count($added) > 0
+                        ? $lang->translate("Column added successfully")
+                        : $lang->translate("An error occoured"),
+                "colIDs" => $added,
+                "success" =>
+                    is_array($added) && count($added) > 0 ? true : false,
+            ];
+            break;
+        case "removeContent":
+            $deleted = $MulCol->removeColumn($colID);
+            $ajax_return = [
+                "message" =>
+                    $deleted === true
+                        ? $lang->translate("Column deleted successfully")
+                        : $lang->translate("An error occoured"),
+                "success" => $deleted,
+            ];
+            break;
+        case "saveColumn":
+            $success = $MulCol->saveContent(
+                $colID,
+                $val->sanitizePost("content_" . $mc_id, false, true)
+            );
+            $ajax_return = [
+                "message" => $lang->translate("Column saved successfully"),
+                "success" => true,
+            ];
 
-	switch ( $action )
-	{
-		case 'addContent':
-			$colCount	= $val->sanitizePost( 'colCount' );
-			$added		= $MulCol->addColumn( $colCount );
-			$ajax_return	= array(
-				'message'	=> is_array($added) && count($added) > 0
-					? $lang->translate( 'Column added successfully' )
-					: $lang->translate( 'An error occoured' ),
-				'colIDs'	=> $added,
-				'success'	=> is_array($added) && count($added) > 0 ? true : false
-			);
-			break;
-		case 'removeContent':
-			$deleted	= $MulCol->removeColumn( $colID );
-			$ajax_return	= array(
-				'message'	=> $deleted === true
-					? $lang->translate( 'Column deleted successfully' )
-					: $lang->translate( 'An error occoured' ),
-				'success'	=> $deleted
-			);
-			break;
-		case 'saveColumn':
-			$success	= $MulCol->saveContent( $colID, $val->sanitizePost('content_' . $mc_id, false, true  ) );
-			$ajax_return	= array(
-				'message'	=> $lang->translate( 'Column saved successfully' ),
-				'success'	=> true
-			);
+            $entry_options = $val->sanitizePost("entry_options");
+            if ($entry_options != "") {
+                foreach (
+                    array_filter(explode(",", $entry_options))
+                    as $option
+                ) {
+                    if (
+                        !$MulCol->saveContentOptions(
+                            $colID,
+                            $option,
+                            $val->sanitizePost($option)
+                        )
+                    ) {
+                        $success = false;
+                    }
+                }
+            }
 
-			$entry_options	= $val->sanitizePost( 'entry_options' );
-			if ( $entry_options != '' )
-			{
-				foreach( array_filter( explode(',', $entry_options) ) as $option )
-				{
-					if( !$MulCol->saveContentOptions( $colID, $option, $val->sanitizePost( $option ) ) ) $success = false;
-				}
-			}
+            $ajax_return = [
+                "message" =>
+                    $success == true
+                        ? $lang->translate("Column saved successfully")
+                        : $lang->translate("An error occoured"),
+                "success" => $success,
+            ];
 
-			$ajax_return	= array(
-				'message'	=> $success == true
-					? $lang->translate( 'Column saved successfully' )
-					: $lang->translate( 'An error occoured' ),
-				'success'	=> $success
-			);
+            break;
+        case "reorder":
+            // ===========================
+            // ! save options for images
+            // ===========================
+            $success = $MulCol->reorderCols($val->sanitizePost("positions"));
 
-			break;
-		case 'reorder':
-			// =========================== 
-			// ! save options for images   
-			// =========================== 
-			$success	= $MulCol->reorderCols( $val->sanitizePost('positions') );
+            $ajax_return = [
+                "message" =>
+                    $success === true
+                        ? $lang->translate("Columns reordered successfully")
+                        : $lang->translate("Reorder failed"),
+                "success" => $success,
+            ];
+            break;
+        case "saveOptions":
+            $options = $val->sanitizePost("options");
 
-			$ajax_return	= array(
-				'message'	=> $success === true ?
-						$lang->translate( 'Columns reordered successfully' )
-						: $lang->translate( 'Reorder failed' ),
-				'success'	=> $success
-			);
-			break;
-		case 'saveOptions':
-			$options		= $val->sanitizePost('options');
+            // ===========================
+            // ! save options for gallery
+            // ===========================
+            if ($options != "") {
+                foreach (array_filter(explode(",", $options)) as $option) {
+                    if (
+                        !$MulCol->saveOptions(
+                            $option,
+                            $val->sanitizePost($option)
+                        )
+                    ) {
+                        $error = true;
+                    }
+                }
+            }
+            $ajax_return = [
+                "message" => $lang->translate("Options saved successfully"),
+                "success" => true,
+            ];
+            break;
+        case "publishContent":
+            // ===========================
+            // ! save options for gallery
+            // ===========================
+            $success = $MulCol->publishContent($colID);
+            $ajax_return = [
+                "message" => $success
+                    ? $lang->translate("Content published successfully!")
+                    : $lang->translate("Content unpublished successfully!"),
+                "published" => $success,
+                "success" => true,
+            ];
+            break;
+        default:
+            // ===========================
+            // ! save variant of images
+            // ===========================
+            $MulCol->saveOptions("variant", $val->sanitizePost("variant"));
 
-			// =========================== 
-			// ! save options for gallery   
-			// =========================== 
-			if ( $options != '' )
-			{
-				foreach( array_filter( explode(',', $options) ) as $option )
-				{
-					if( !$MulCol->saveOptions( $option, $val->sanitizePost( $option ) )) $error = true;
-				}
-			}
-			$ajax_return	= array(
-				'message'	=> $lang->translate( 'Options saved successfully' ),
-				'success'	=> true
-			);
-			break;
-		case 'publishIMG':
-			// =========================== 
-			// ! save options for gallery   
-			// =========================== 
-			$success		= $MulCol->publishContent( $colID );
-			$ajax_return	= array(
-				'message'	=> $success	? $lang->translate( 'Content published successfully!' ) : $lang->translate( 'Content unpublished successfully!' ),
-				'published'	=> $success,
-				'success'	=> true
-			);
-			break;
-		default:
-			// =========================== 
-			// ! save variant of images   
-			// =========================== 
-			$MulCol->saveOptions( 'variant', $val->sanitizePost('variant') );
+            $ajax_return = [
+                "message" => $lang->translate("Variant saved successfully"),
+                "success" => true,
+            ];
 
-			$ajax_return	= array(
-				'message'	=> $lang->translate( 'Variant saved successfully' ),
-				'success'	=> true
-			);
-
-			break;
-	}
+            break;
+    }
 } else {
-	$backend->print_error(
-		$lang->translate( 'You sent an invalid ID' ),
-		CAT_ADMIN_URL . '/pages/modify.php?page_id=' . $page_id
-	);
+    $backend->print_error(
+        $lang->translate("You sent an invalid ID"),
+        CAT_ADMIN_URL . "/pages/modify.php?page_id=" . $page_id
+    );
 }
 ?>

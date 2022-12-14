@@ -7,7 +7,7 @@
         </div>
     </div>{/if}
   	{assign var=count value=0}{$width = $options.kind}{$max = 12}{$width = $max / $width}
-	{foreach $columns column}
+	{foreach $columns column}{if $column.published}
     {if $options.kind != 0 && $count % $options.kind == 0}<div class="row multi-columns-row">{/if}
         <div class="col-sm-{$width} col-md-{$width} col-lg-{$width}{if $options.grid} grid{/if} pts">
             <div class="pt">
@@ -24,7 +24,7 @@
             </div>
         </div>
     {assign var=count value=$count+1}
-	{/foreach}
+	{/if}{/foreach}
 	{if $count % $options.kind > 0 }</div>{/if}
     </div>
 </div>

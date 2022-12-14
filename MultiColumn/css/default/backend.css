@@ -312,8 +312,15 @@ input[type="submit"].add_column {
   text-align: left;
   position: relative;
 }
-.cc_MC_del > * {
+.mCIcon-move {
+  cursor: move;
+}
+.MC_publish,
+.cc_MC_del {
   cursor: pointer;
+}
+.MC_publish.active {
+  color: #498dce;
 }
 .cc_MC_del .mCIcon-remove {
   display: inline-block;

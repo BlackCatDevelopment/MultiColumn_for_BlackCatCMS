@@ -37,8 +37,8 @@
 </script>
 
 <div id="mcFlexWidth_{$mc_id}" class="mcFlexWidth">
-	{foreach $columns ind column}
+	{foreach $columns ind column}{if $column.published}
 	<div{if $column.options.col_width} style="width:{$column.options.col_width}%;"{/if}>{$column.content}</div>
-	{/foreach}
+	{/if}{/foreach}
 	<div class="clear"></div>
 </div>

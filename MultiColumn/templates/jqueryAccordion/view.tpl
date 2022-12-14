@@ -37,8 +37,8 @@
 </script>
 
 <div id="mcAcc_{$mc_id}">
-	{foreach $columns ind column}
+	{foreach $columns ind column}{if $column.published}
 	<h3>{$column.options.tab_title}</h3>
 	<div>{$column.content}</div>
-	{/foreach}
+	{/if}{/foreach}
 </div>

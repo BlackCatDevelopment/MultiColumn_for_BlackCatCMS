@@ -164,16 +164,14 @@ if (!class_exists("MultiColumn", false)) {
 
             // Add a new MultiColum
             if (
-                CAT_Helper_Page::getInstance()
-                    ->db()
-                    ->query(
-                        "INSERT INTO `:prefix:mod_cc_multicolumn` " .
-                            "( `section_id` ) VALUES " .
-                            "( :section_id )",
-                        [
-                            "section_id" => self::$section_id,
-                        ]
-                    )
+                self::$db->query(
+                    "INSERT INTO `:prefix:mod_cc_multicolumn` " .
+                        "( `section_id` ) VALUES " .
+                        "( :section_id )",
+                    [
+                        "section_id" => self::$section_id,
+                    ]
+                )
             ) {
                 $this->setColumnID();
                 // Add initial options for multicolumn
@@ -206,15 +204,13 @@ if (!class_exists("MultiColumn", false)) {
 
             // Delete complete record from the database
             if (
-                CAT_Helper_Page::getInstance()
-                    ->db()
-                    ->query(
-                        "DELETE FROM `:prefix:mod_cc_multicolumn`" .
-                            " WHERE `section_id` = :section_id",
-                        [
-                            "section_id" => self::$section_id,
-                        ]
-                    )
+                self::$db->query(
+                    "DELETE FROM `:prefix:mod_cc_multicolumn`" .
+                        " WHERE `section_id` = :section_id",
+                    [
+                        "section_id" => self::$section_id,
+                    ]
+                )
             ) {
                 $return = true;
             }
@@ -236,8 +232,7 @@ if (!class_exists("MultiColumn", false)) {
 
             $newIDs = [];
 
-            $pos = CAT_Helper_Page::getInstance()
-                ->db()
+            $pos = self::$db
                 ->query(
                     'SELECT MAX(position) AS pos FROM `:prefix:mod_cc_multicolumn_contents`
 					WHERE `mc_id` = :mc_id',
@@ -249,23 +244,19 @@ if (!class_exists("MultiColumn", false)) {
 
             for ($i = 0; $i < $count; $i++) {
                 if (
-                    CAT_Helper_Page::getInstance()
-                        ->db()
-                        ->query(
-                            'INSERT INTO `:prefix:mod_cc_multicolumn_contents`
+                    self::$db->query(
+                        'INSERT INTO `:prefix:mod_cc_multicolumn_contents`
 							( `mc_id`, `position`, `content`, `text` ) VALUES
 							( :mc_id, :position, "", "" )',
-                            [
-                                "mc_id" => self::$mc_id,
-                                "position" => ++$pos,
-                            ]
-                        )
+                        [
+                            "mc_id" => self::$mc_id,
+                            "position" => ++$pos,
+                        ]
+                    )
                 ) {
                     $success = true;
                 }
-                $newIDs[] = CAT_Helper_Page::getInstance()
-                    ->db()
-                    ->lastInsertId();
+                $newIDs[] = self::$db->lastInsertId();
             }
             if ($success) {
                 return $newIDs;
@@ -288,15 +279,13 @@ if (!class_exists("MultiColumn", false)) {
             }
 
             if (
-                CAT_Helper_Page::getInstance()
-                    ->db()
-                    ->query(
-                        'DELETE FROM `:prefix:mod_cc_multicolumn_contents`
+                self::$db->query(
+                    'DELETE FROM `:prefix:mod_cc_multicolumn_contents`
 					WHERE `column_id` = :column_id',
-                        [
-                            "column_id" => $column_id,
-                        ]
-                    )
+                    [
+                        "column_id" => $column_id,
+                    ]
+                )
             ) {
                 return true;
             } else {
@@ -314,16 +303,14 @@ if (!class_exists("MultiColumn", false)) {
         private function setColumnID()
         {
             // Get columns in this section
-            $getID = CAT_Helper_Page::getInstance()
-                ->db()
-                ->query(
-                    "SELECT `mc_id` " .
-                        "FROM `:prefix:mod_cc_multicolumn` " .
-                        "WHERE `section_id` = :section_id",
-                    [
-                        "section_id" => self::$section_id,
-                    ]
-                );
+            $getID = self::$db->query(
+                "SELECT `mc_id` " .
+                    "FROM `:prefix:mod_cc_multicolumn` " .
+                    "WHERE `section_id` = :section_id",
+                [
+                    "section_id" => self::$section_id,
+                ]
+            );
             if ($getID && $getID->rowCount() > 0) {
                 if (!false == ($row = $getID->fetch())) {
                     self::$mc_id = $row["mc_id"];
@@ -348,17 +335,15 @@ if (!class_exists("MultiColumn", false)) {
 		 **/
         public function getContents($addOptions = false, $frontend = true)
         {
-            $contents = CAT_Helper_Page::getInstance()
-                ->db()
-                ->query(
-                    'SELECT `content`, `column_id`, `published`
+            $contents = self::$db->query(
+                'SELECT `content`, `column_id`, `published`
 					FROM `:prefix:mod_cc_multicolumn_contents`
 					WHERE `mc_id` = :mc_id
 					ORDER BY `position`',
-                    [
-                        "mc_id" => self::$mc_id,
-                    ]
-                );
+                [
+                    "mc_id" => self::$mc_id,
+                ]
+            );
             if ($contents && $contents->numRows() > 0) {
                 while (!false == ($row = $contents->fetchRow())) {
                     if ($frontend) {
@@ -408,25 +393,21 @@ if (!class_exists("MultiColumn", false)) {
             }
 
             if (isset($column_id)) {
-                $opts = CAT_Helper_Page::getInstance()
-                    ->db()
-                    ->query(
-                        sprintf(
-                            'SELECT * FROM `:prefix:mod_cc_multicolumn_content_options`
-								WHERE `column_id` = :column_id ',
-                            $select
-                        ),
-                        [
-                            "column_id" => $column_id,
-                        ]
-                    );
-            } else {
-                $opts = CAT_Helper_Page::getInstance()
-                    ->db()
-                    ->query(
+                $opts = self::$db->query(
+                    sprintf(
                         'SELECT * FROM `:prefix:mod_cc_multicolumn_content_options`
+								WHERE `column_id` = :column_id ',
+                        $select
+                    ),
+                    [
+                        "column_id" => $column_id,
+                    ]
+                );
+            } else {
+                $opts = self::$db->query(
+                    'SELECT * FROM `:prefix:mod_cc_multicolumn_content_options`
 							WHERE ' . $select
-                    );
+                );
             }
 
             $options = [];
@@ -487,26 +468,22 @@ if (!class_exists("MultiColumn", false)) {
             }
 
             $getOptions = $name
-                ? CAT_Helper_Page::getInstance()
-                    ->db()
-                    ->query(
-                        'SELECT * FROM `:prefix:mod_cc_multicolumn_content_options`
+                ? self::$db->query(
+                    'SELECT * FROM `:prefix:mod_cc_multicolumn_content_options`
 						WHERE `column_id` = :column_id AND
 							`name` = :name',
-                        [
-                            "column_id" => self::$gallery_id,
-                            "name" => $name,
-                        ]
-                    )
-                : CAT_Helper_Page::getInstance()
-                    ->db()
-                    ->query(
-                        'SELECT * FROM `:prefix:mod_cc_multicolumn_content_options`
+                    [
+                        "column_id" => self::$gallery_id,
+                        "name" => $name,
+                    ]
+                )
+                : self::$db->query(
+                    'SELECT * FROM `:prefix:mod_cc_multicolumn_content_options`
 						WHERE `column_id` = :column_id',
-                        [
-                            "column_id" => self::$gallery_id,
-                        ]
-                    );
+                    [
+                        "column_id" => self::$gallery_id,
+                    ]
+                );
 
             if (isset($getOptions) && $getOptions->numRows() > 0) {
                 while (!false == ($row = $getOptions->fetchRow())) {
@@ -554,17 +531,15 @@ if (!class_exists("MultiColumn", false)) {
             // for non-admins only
             if (!CAT_Users::getInstance()->ami_group_member(1)) {
                 // if HTMLPurifier is enabled...
-                $check = CAT_Helper_Page::getInstance()
-                    ->db()
-                    ->query(
-                        'SELECT * FROM `:prefix:mod_wysiwyg_admin_v2`
+                $check = self::$db->query(
+                    'SELECT * FROM `:prefix:mod_wysiwyg_admin_v2`
 						WHERE `set_name`= :name
 						AND `set_value`= :val',
-                        [
-                            "name" => "enable_htmlpurifier",
-                            "val" => 1,
-                        ]
-                    );
+                    [
+                        "name" => "enable_htmlpurifier",
+                        "val" => 1,
+                    ]
+                );
                 if ($check && $check->numRows() > 0) {
                     // use HTMLPurifier to clean up the output
                     $content = CAT_Helper_Protect::getInstance()->purify(
@@ -575,25 +550,23 @@ if (!class_exists("MultiColumn", false)) {
             }
 
             if (
-                CAT_Helper_Page::getInstance()
-                    ->db()
-                    ->query(
-                        'UPDATE `:prefix:mod_cc_multicolumn_contents`
+                self::$db->query(
+                    'UPDATE `:prefix:mod_cc_multicolumn_contents`
 					SET `content` = :content,
 						`text` = :text
 					WHERE `mc_id` = :mc_id AND
 						`column_id` = :column_id',
-                        [
-                            "content" => $content,
-                            "text" => umlauts_to_entities(
-                                strip_tags($content),
-                                strtoupper(DEFAULT_CHARSET),
-                                0
-                            ),
-                            "mc_id" => self::$mc_id,
-                            "column_id" => $column_id,
-                        ]
-                    )
+                    [
+                        "content" => $content,
+                        "text" => umlauts_to_entities(
+                            strip_tags($content),
+                            strtoupper(DEFAULT_CHARSET),
+                            0
+                        ),
+                        "mc_id" => self::$mc_id,
+                        "column_id" => $column_id,
+                    ]
+                )
             ) {
                 return true;
             } else {
@@ -620,19 +593,17 @@ if (!class_exists("MultiColumn", false)) {
                 return false;
             }
             if (
-                CAT_Helper_Page::getInstance()
-                    ->db()
-                    ->query(
-                        'REPLACE INTO `:prefix:mod_cc_multicolumn_content_options`
+                self::$db->query(
+                    'REPLACE INTO `:prefix:mod_cc_multicolumn_content_options`
 					SET `column_id`		= :column_id,
 						`name`			= :name,
 						`value`			= :value',
-                        [
-                            "column_id" => intval($column_id),
-                            "name" => $name,
-                            "value" => $value ? $value : "",
-                        ]
-                    )
+                    [
+                        "column_id" => intval($column_id),
+                        "name" => $name,
+                        "value" => $value ? $value : "",
+                    ]
+                )
             ) {
                 return true;
             } else {
@@ -650,21 +621,18 @@ if (!class_exists("MultiColumn", false)) {
          **/
         public function publishContent($colID = null)
         {
-            CAT_Helper_Page::getInstance()
-                ->db()
+            self::$db->query(
+                "UPDATE `:prefix:mod_cc_multicolumn_contents`" .
+                    " SET `published` = 1 - `published`" .
+                    " WHERE `column_id`		= :colID",
+                [
+                    "colID" => intval($colID),
+                ]
+            );
+            return self::$db
                 ->query(
-                    "UPDATE `:prefix:mod_cc_multicolumn_content`" .
-                        " SET `published` = 1 - `published`" .
-                        " WHERE `column_id`		= :colID",
-                    [
-                        "colID" => intval($colID),
-                    ]
-                );
-            return CAT_Helper_Page::getInstance()
-                ->db()
-                ->query(
-                    "SELECT `published` FROM `:prefix:mod_cc_multicolumn_content`" .
-                        " WHERE `column_id`		= :colID",
+                    "SELECT `published` FROM `:prefix:mod_cc_multicolumn_contents`" .
+                        " WHERE `column_id` = :colID",
                     [
                         "colID" => intval($colID),
                     ]
@@ -688,26 +656,22 @@ if (!class_exists("MultiColumn", false)) {
             }
 
             $getOptions = $name
-                ? CAT_Helper_Page::getInstance()
-                    ->db()
-                    ->query(
-                        'SELECT * FROM `:prefix:mod_cc_multicolumn_options`
+                ? self::$db->query(
+                    'SELECT * FROM `:prefix:mod_cc_multicolumn_options`
 						WHERE `mc_id` = :mc_id AND
 							`name` = :name',
-                        [
-                            "mc_id" => self::$mc_id,
-                            "name" => $name,
-                        ]
-                    )
-                : CAT_Helper_Page::getInstance()
-                    ->db()
-                    ->query(
-                        'SELECT * FROM `:prefix:mod_cc_multicolumn_options`
+                    [
+                        "mc_id" => self::$mc_id,
+                        "name" => $name,
+                    ]
+                )
+                : self::$db->query(
+                    'SELECT * FROM `:prefix:mod_cc_multicolumn_options`
 						WHERE `mc_id` = :mc_id',
-                        [
-                            "mc_id" => self::$mc_id,
-                        ]
-                    );
+                    [
+                        "mc_id" => self::$mc_id,
+                    ]
+                );
 
             if (isset($getOptions) && $getOptions->numRows() > 0) {
                 while (!false == ($row = $getOptions->fetchRow())) {
@@ -742,19 +706,17 @@ if (!class_exists("MultiColumn", false)) {
             }
 
             if (
-                CAT_Helper_Page::getInstance()
-                    ->db()
-                    ->query(
-                        'REPLACE INTO `:prefix:mod_cc_multicolumn_options`
+                self::$db->query(
+                    'REPLACE INTO `:prefix:mod_cc_multicolumn_options`
 					SET `mc_id`		= :mc_id,
 						`name`		= :name,
 						`value`		= :value',
-                        [
-                            "mc_id" => self::$mc_id,
-                            "name" => $name,
-                            "value" => is_null($value) ? "" : $value,
-                        ]
-                    )
+                    [
+                        "mc_id" => self::$mc_id,
+                        "name" => $name,
+                        "value" => is_null($value) ? "" : $value,
+                    ]
+                )
             ) {
                 return true;
             } else {
@@ -786,19 +748,17 @@ if (!class_exists("MultiColumn", false)) {
                 $colID = explode("_", $colStr);
 
                 if (
-                    !CAT_Helper_Page::getInstance()
-                        ->db()
-                        ->query(
-                            'UPDATE `:prefix:mod_cc_multicolumn_contents`
+                    !self::$db->query(
+                        'UPDATE `:prefix:mod_cc_multicolumn_contents`
 						SET `position` = :position
 						WHERE `mc_id`			= :mc_id
 							AND `column_id`		= :column_id',
-                            [
-                                "position" => $index,
-                                "mc_id" => self::$mc_id,
-                                "column_id" => $colID[count($colID) - 1],
-                            ]
-                        )
+                        [
+                            "position" => $index,
+                            "mc_id" => self::$mc_id,
+                            "column_id" => $colID[count($colID) - 1],
+                        ]
+                    )
                 ) {
                     $return = false;
                 }

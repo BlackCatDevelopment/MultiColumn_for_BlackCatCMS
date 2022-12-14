@@ -38,11 +38,11 @@
 
 <div id="mcTab_{$mc_id}">
 	<ul>
-		{foreach $columns ind column}
+		{foreach $columns ind column}{if $column.published}
 		<li><a href="#mcTab-{$mc_id}-{$ind}">{$column.options.tab_title}</a></li>
-		{/foreach}
+		{/if}{/foreach}
 	</ul>
-	{foreach $columns ind column}
+	{foreach $columns ind column}{if $column.published}
 	<div id="mcTab-{$mc_id}-{$ind}">{$column.content}</div>
-	{/foreach}
+	{/if}{/foreach}
 </div>

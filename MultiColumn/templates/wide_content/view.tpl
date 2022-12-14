@@ -26,7 +26,7 @@
 <div id="wide_content_{$section_id}" class="wide_content" {if $options.equalize != 0} class="wide_content_eq"{/if}>
 	<div class="c_960">
 		{assign var=count value=0}
-		{foreach $columns column}
+		{foreach $columns column}{if $column.published}
 		{if $options.kind != 0 && $count % $options.kind == 0}
 		<div class="wide_content_row">{/if}
 			<div class=" cc_column_{$options.kind}{if $count % $options.kind == ( $options.kind -1)} cc_last_column{/if}">
@@ -36,7 +36,7 @@
 			<div class="clear"></div>
 		</div>{/if}
 		{assign var=count value=$count+1}
-		{/foreach}
+		{/if}{/foreach}
 		{if $count % $options.kind > 0 }</div>{/if}
 		<div class="clear"></div>
 	</div>

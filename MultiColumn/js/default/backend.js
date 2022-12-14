@@ -231,13 +231,14 @@ $(document).ready(function () {
           $li = $cur.closest("li"),
           $inputs = $li.find("input"),
           ajaxData = {
-            page_id: cGID.page_id,
-            section_id: cGID.section_id,
-            gallery_id: cGID.gallery_id,
-            imgID: $inputs.filter("input[name=colID]").val(),
+            page_id: mCID.page_id,
+            section_id: mCID.section_id,
+            mc_id: mCID.mc_id,
+            colID: $inputs.filter("input[name=colID]").val(),
             action: "publishContent",
             _cat_ajax: 1,
           };
+        console.log(ajaxData);
         dialog_ajax(
           "Inhalt veröffentlichen",
           CAT_URL + "/modules/cc_multicolumn/save.php",

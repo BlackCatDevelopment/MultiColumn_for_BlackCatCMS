@@ -24,9 +24,9 @@
 
 
 <section id="imageBack_{$section_id}">
-{foreach $columns column}
+{foreach $columns column}{if $column.published}
 	{if $column.options.type == '2'}{include(view/right.tpl)}
 	{elseif $column.options.type == '1'}{include(view/left.tpl)}
 	{else}{include(view/center.tpl)}{/if}
-{/foreach}
+{/if}{/foreach}
 </section>
