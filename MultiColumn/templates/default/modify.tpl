@@ -13,8 +13,8 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
- *   @author			Matthias Glienke
- *   @copyright			2017, Black Cat Development
+ *   @author			Matthias Glienke, letima development
+ *   @copyright			2023, Black Cat Development
  *   @link				http://blackcat-cms.org
  *   @license			http://www.gnu.org/licenses/gpl.html
  *   @category			CAT_Modules
@@ -38,13 +38,13 @@
 	{include(modify/addCol.tpl)}
 	<p class="cc_MC_y">{translate('Existing rows')}</p>
 	<p class="cc_MC_n">{translate('No rows available')}</p>
-	<ul id="cc_MC_cols_{$mc_id}" class="cc_MC_cols MC_col{$options.kind}" data-cols="{$options.kind}">{$c=1}{$r=1}
+	<ul id="cc_MC_cols_{$mc_id}" class="cc_MC_cols MC_col{$options.kind}" data-cols="{$options.kind}">{assign var=c value=1}{assign var=r value=1}
 		<li class="clear">Column {$r}</li>
 		{foreach $columns column}
 		{include(modify/column.tpl)}
-		{if $c == $options.kind && ($r*$options.kind) < count($columns)}{$r=$r+1}<li class="clear">Column {$r}</li>{$c=1}{else}{$c=$c+1}{/if}
+		{if $c == $options.kind && ($r*$options.kind) < count($columns)}{assign var=r value=$r+1}<li class="clear">Column {$r}</li>{assign var=c value=1}{else}{assign var=c value=$c+1}{/if}
 		{/foreach}
-		{$column = NULL}
+		{assign var=column value=NULL}
 		{include(modify/column.tpl)}
 	</ul>
 </div>

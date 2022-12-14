@@ -13,8 +13,8 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
- *   @author			Matthias Glienke
- *   @copyright			2017, Black Cat Development
+ *   @author			Matthias Glienke, letima development
+ *   @copyright			2023, Black Cat Development
  *   @link				http://blackcat-cms.org
  *   @license			http://www.gnu.org/licenses/gpl.html
  *   @category			CAT_Modules
@@ -25,7 +25,7 @@
 
 <div id="wide_content_{$section_id}" class="wide_content" {if $options.equalize != 0} class="wide_content_eq"{/if}>
 	<div class="c_960">
-		{$count = 0}
+		{assign var=count value=0}
 		{foreach $columns column}
 		{if $options.kind != 0 && $count % $options.kind == 0}
 		<div class="wide_content_row">{/if}
@@ -35,7 +35,7 @@
 		{if $options.kind != 0 && $count % $options.kind == ($options.kind-1)}
 			<div class="clear"></div>
 		</div>{/if}
-		{$count = $count+1}
+		{assign var=count value=$count+1}
 		{/foreach}
 		{if $count % $options.kind > 0 }</div>{/if}
 		<div class="clear"></div>

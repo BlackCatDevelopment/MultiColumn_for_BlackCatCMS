@@ -13,16 +13,16 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
- *   @author			Matthias Glienke
- *   @copyright			2017, Black Cat Development
+ *   @author			Matthias Glienke, letima development
+ *   @copyright			2023, Black Cat Development
  *   @link				http://blackcat-cms.org
  *   @license			http://www.gnu.org/licenses/gpl.html
  *   @category			CAT_Modules
- *   @package			catMCallery
+ *   @package			multiColumn
  *
  *}
 
 <div class="right cc_In300px fc_gradient1 fc_border_all_light fc_br_top colCountCont">
-	<button type="submit" id="add_C_{$mc_id}" class="icon-plus cc_In200px right fc_br_right"> {translate('Add column')}</button>
+	<button type="submit" id="add_C_{$mc_id}" class="mCIcon-add cc_In200px right fc_br_right"> {translate('Add column')}</button>
 	<input name="colCount" class="colCount right fc_br_left" type="text" value="1">
 </div>

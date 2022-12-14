@@ -13,12 +13,12 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program; if not, see <http://www.gnu.org/licenses>.
  *
- *   @author			Matthias Glienke
- *   @copyright			2017, Black Cat Development
+ *   @author			Matthias Glienke, letima development
+ *   @copyright			2023, Black Cat Development
  *   @link				http://blackcat-cms.org
  *   @license			http://www.gnu.org/licenses/gpl.html
  *   @category			CAT_Modules
- *   @package			catGallery
+ *   @package			multiColumn
  *
  *}
 
@@ -31,7 +31,7 @@
 	<input type="hidden" name="_cat_ajax" value="1" >
 	<input type="hidden" name="options" value="kind,equalize" >
 	<p class="cc_In300px">
-		<input type="checkbox" name="equalize" class="fc_checkbox_jq" value="1"{if $options.equalize != 0} checked="checked"{/if} id="equalize_{$section_id}" ><label for="equalize_{$section_id}" class="cc_In300px">{translate('Equalize columns in one row')}</label>
+		<input type="checkbox" name="equalize" class="fc_checkbox_jq" value="1"{if $options.equalize} checked="checked"{/if} id="equalize_{$section_id}" ><label for="equalize_{$section_id}" class="cc_In300px">{translate('Equalize columns in one row')}</label>
 	</p><br>
 	<p>
 		{translate('Count of columns per row')}:

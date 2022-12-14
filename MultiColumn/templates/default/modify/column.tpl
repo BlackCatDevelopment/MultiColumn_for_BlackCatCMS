@@ -13,21 +13,21 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
- *   @author			Matthias Glienke
- *   @copyright			2017, Black Cat Development
+ *   @author			Matthias Glienke, letima development
+ *   @copyright			2023, Black Cat Development
  *   @link				http://blackcat-cms.org
  *   @license			http://www.gnu.org/licenses/gpl.html
  *   @category			CAT_Modules
- *   @package			catMCallery
+ *   @package			multiColumn
  *
  *}
 
 <li class="fc_border_all fc_shadow_small fc_br_all {if !$column}prevTemp{/if}" id="catMC_{if !$column}__column_id__{else}{$column.column_id}{/if}">
 	<div class="MC_options">
-		<p class="drag_corner icon-resize" title="{translate('Reorder column')}"></p>
-		<p class="icon-feed MC_publish{if $column.published} active{/if}" title="{translate('Publish this content')}">s</p>
+		<p class="drag_corner mCIcon-move" title="{translate('Reorder column')}"></p>
+		<p class="mCIcon-publish MC_publish{if $column.published} active{/if}" title="{translate('Publish this content')}"></p>
 		<div class="cc_MC_del">
-			<span class="icon-remove" title="{translate('Delete this column')}"></span>
+			<span class="mCIcon-remove" title="{translate('Delete this column')}"></span>
 			<p class="fc_br_right fc_shadow_small">
 				<span class="cc_MC_del_res">{translate('Keep it!')}</span>
 				<strong> | </strong>
@@ -46,7 +46,7 @@
 		<div class="cc_MC_left">
 			<div id="MC_cont_{if !$column}__column_id__{else}{$column.column_id}{/if}" class="MC_content">{$column.content}</div>
 		</div>
-		<button class="showWYSIWYG input_50p fc_gradient1 fc_gradient_hover left" {if !$column}disabled{/if}>{translate('Modify content')}</button>
+		<button class="showWYSIWYG input_50p fc_gradient1 fc_gradient_hover left" {if !$column}disabled{/if}><span class="mCIcon-pencil"> {translate('Modify content')}</span></button>
 		<input type="submit" class="input_50p fc_br_bottomright saveCol left" value="{translate('Save column')}" {if !$column}disabled{/if}>
 	</form>
 	<div class="clear"></div>

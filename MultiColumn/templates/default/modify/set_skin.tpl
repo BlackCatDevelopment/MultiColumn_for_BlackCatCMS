@@ -13,17 +13,16 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
- *   @author			Matthias Glienke
- *   @copyright			2017, Black Cat Development
+ *   @author			Matthias Glienke, letima development
+ *   @copyright			2023, Black Cat Development
  *   @link				http://blackcat-cms.org
  *   @license			http://www.gnu.org/licenses/gpl.html
  *   @category			CAT_Modules
- *   @package			mCallery
- *
+ *   @package			multiColumn
  *}
 
 <div class="mC_skin fc_br_top">
-	<p class="icon-cog cc_toggle_set"> {translate('Set skin')}<small>({$options.variant})</small></p>
+	<p class="mCIcon-skin cc_toggle_set"> {translate('Set skin')}<small>({$options.variant})</small></p>
 	<form action="{$CAT_URL}/modules/cc_multicolumn/save.php" method="post" class="fc_gradient1 fc_border_all_light fc_br_bottom fc_shadow_small">
 		<input type="hidden" name="page_id" value="{$page_id}" />
 		<input type="hidden" name="section_id" value="{$section_id}" />

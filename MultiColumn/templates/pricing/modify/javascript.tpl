@@ -1,1 +1,0 @@
-{include file="../../default/modify/javascript.tpl"}

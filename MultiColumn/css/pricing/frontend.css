@@ -1,53 +1,77 @@
+/**
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 3 of the License, or (at
+ *   your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful, but
+ *   WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ *   General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program; if not, see <http://www.gnu.org/licenses/>.
+ *
+ *   @author			Matthias Glienke, letima development
+ *   @copyright			2023, Black Cat Development
+ *   @link				http://blackcat-cms.org
+ *   @license			http://www.gnu.org/licenses/gpl.html
+ *   @category			CAT_Modules
+ *   @package			multiColumn
+ *
+ */
+
 /*--------------------------------------------------------------
 Pricing
 --------------------------------------------------------------*/
 .pts {
-    background-color: #f6f9fc;
+  background-color: #f6f9fc;
 }
 .pts {
-    padding-bottom: 66px;
-    padding-top: 66px;
+  padding-bottom: 66px;
+  padding-top: 66px;
 }
 .pts .pt {
-    background-color: #fff;
-    border-radius: 3px;
-    padding: 0 0 30px;
-    text-align: center;
-    z-index: 10;
+  background-color: #fff;
+  border-radius: 3px;
+  padding: 0 0 30px;
+  text-align: center;
+  z-index: 10;
 }
 .pts .pt h3 {
-    color: #ffffff;
-    font-size: 18px;
-    font-weight: 600;
-    text-align: center;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
 }
 .pts .pt_main {
-    background-color: #31ddb7;
-    color: #ffffff;
-    font-size: 46px;
-    line-height: 1;
-    padding: 50px 0;
+  background-color: #31ddb7;
+  color: #ffffff;
+  font-size: 46px;
+  line-height: 1;
+  padding: 50px 0;
 }
 .pts .pt_main span {
-    font-size: 14px;
-    font-weight: bold;
-    text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 .pt ul {
-    margin: 0;
-    padding: 0 40px;
+  margin: 0;
+  padding: 0 40px;
 }
 .pt li {
-    border-bottom: 1px dashed #d9dce0;
-    list-style: outside none none;
-    padding: 15px 0;
+  border-bottom: 1px dashed #d9dce0;
+  list-style: outside none none;
+  padding: 15px 0;
 }
 .pt li:last-child {
-    border-bottom: medium none;
+  border-bottom: medium none;
 }
 .pts .btn-primary {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 .pts .btn-primary:hover {
-    color: #ffffff;
+  color: #ffffff;
 }

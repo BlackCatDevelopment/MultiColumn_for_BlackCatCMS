@@ -14,8 +14,8 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
- *   @author			Matthias Glienke
- *   @copyright			2017, Black Cat Development
+ *   @author			Matthias Glienke, letima development
+ *   @copyright			2023, Black Cat Development
  *   @link				http://blackcat-cms.org
  *   @license			http://www.gnu.org/licenses/gpl.html
  *   @category			CAT_Modules
@@ -29,12 +29,12 @@ if (defined("CAT_PATH")) {
 } else {
     $root = "../";
     $level = 1;
-    while ($level < 10 && !file_exists($root . "/framework/class.secure.php")) {
+    while ($level < 10 && !file_exists($root . "framework/class.secure.php")) {
         $root .= "../";
         $level += 1;
     }
-    if (file_exists($root . "/framework/class.secure.php")) {
-        include $root . "/framework/class.secure.php";
+    if (file_exists($root . "framework/class.secure.php")) {
+        include $root . "framework/class.secure.php";
     } else {
         trigger_error(
             sprintf(
