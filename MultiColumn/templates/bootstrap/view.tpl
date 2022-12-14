@@ -6,7 +6,7 @@
             {if $options.heading_text}<p class="subtitle">{$options.heading_text}</p>{/if}
         </div>
     </div>{/if}
-  	{assign var=count value=0}{$width = $options.kind}{$max = 12}{$width = $max / $width}
+  	{assign var=count value=0}{assign var=width value=$options.kind}{assign var=max value=12}{assign var=width value= $max / $width}
 	{foreach $columns column}
     {if $column.published}{if $options.kind != 0 && $count % $options.kind == 0}<div class="row multi-columns-row">{/if}
         <div class="col-sm-{$width} col-md-{$width} col-lg-{$width}{if $options.grid} grid{/if}">
