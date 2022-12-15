@@ -48,14 +48,16 @@ if (defined("CAT_PATH")) {
 }
 // end include class.secure.php
 
-$module_directory	= 'cc_multicolumn';
-$module_name		= 'Mehrspalten Layout';
-$module_function	= 'page';
-$module_version		= '2.0.0.3';
-$module_platform	= '1.x';
-$module_author		= 'Matthias Glienke, creativecat';
-$module_license		= '<a href="http://www.gnu.org/licenses/gpl.html">GNU General Public License</a>';
-$module_description	= 'The add on "MultiColumn" provides a simple way to integrate multiple columns. You don\'t need to customize your frontend template. For details see <a href="https://github.com/BlackCatDevelopment/MultiColumn_for_BlackCatCMS" target="_blank">GitHub</a>.<br/><br/>Done by Matthias Glienke, <a class="icon-creativecat" href="http://creativecat.de"> creativecat</a>';
-$module_guid		= 'b9db6fee-da6a-4203-aac4-9c50dc866ae3';
+$module_directory = "cc_multicolumn";
+$module_name = "Mehrspalten Layout";
+$module_function = "page";
+$module_version = "2.0.0.3";
+$module_platform = "1.x";
+$module_author = "Matthias Glienke, letima development";
+$module_license =
+    '<a href="http://www.gnu.org/licenses/gpl.html">GNU General Public License</a>';
+$module_description =
+    'The add on "MultiColumn" provides a simple way to integrate multiple columns. You don\'t need to customize your frontend template. For details see <a href="https://github.com/BlackCatDevelopment/MultiColumn_for_BlackCatCMS" target="_blank">GitHub</a>.<br/><br/>Done by Matthias Glienke, <a class="icon-letima" href="http://letima.de"> letima development</a>';
+$module_guid = "b9db6fee-da6a-4203-aac4-9c50dc866ae3";
 
 ?>

@@ -47,164 +47,249 @@ if (defined("CAT_PATH")) {
 }
 // end include class.secure.php
 
-if(!isset($module_version))
-{
-	$details		= CAT_Helper_Addons::getAddonDetails('cc_multicolumn');
-	$module_version	= $details['version'];
+if (!isset($module_version)) {
+    $details = CAT_Helper_Addons::getAddonDetails("cc_multicolumn");
+    $module_version = $details["version"];
 }
 
-if ( CAT_Helper_Addons::versionCompare( $module_version, '2.0.0.3', '<' ) )
-{
-	$checkPosition	= CAT_Helper_Page::getInstance()->db()->query(
-		"SELECT * FROM INFORMATION_SCHEMA.COLUMNS" .
-			" WHERE table_name = ':prefix:mod_cc_multicolumn_contents'" .
-				" AND column_name = 'position'");
+if (CAT_Helper_Addons::versionCompare($module_version, "2.0.0.2", "<=")) {
+    $checkPosition = CAT_Helper_Page::getInstance()
+        ->db()
+        ->query(
+            "SELECT * FROM INFORMATION_SCHEMA.COLUMNS" .
+                " WHERE table_name = ':prefix:mod_cc_multicolumn_contents'" .
+                " AND column_name = 'position'"
+        );
 
-	# Add option to reorder contents
-	if( $checkPosition && $checkPosition->rowCount() == 0 )
-	{
-		CAT_Helper_Page::getInstance()->db()->query("ALTER TABLE :prefix:mod_cc_multicolumn_contents ADD `position` INT NOT NULL DEFAULT '0'");
-	}
+    # Add option to reorder contents
+    if ($checkPosition && $checkPosition->rowCount() == 0) {
+        CAT_Helper_Page::getInstance()
+            ->db()
+            ->query(
+                "ALTER TABLE :prefix:mod_cc_multicolumn_contents ADD `position` IINT(11) UNSIGNED NOT NULL DEFAULT 0"
+            );
+    }
 
-	# Add option to publish/unpublish contents
-	$checkPublish	= CAT_Helper_Page::getInstance()->db()->query(
-		"SELECT * FROM INFORMATION_SCHEMA.COLUMNS" .
-			" WHERE table_name = ':prefix:mod_cc_multicolumn_contents'" .
-				" AND column_name = 'published'");
-	if( $checkPublish && $checkPublish->rowCount() == 0 )
-	{
-		CAT_Helper_Page::getInstance()->db()->query("ALTER TABLE :prefix:mod_cc_multicolumn_contents ADD `published` TINYINT(1)  NULL DEFAULT NULL");
-		CAT_Helper_Page::getInstance()->db()->query("UPDATE :prefix:mod_cc_multicolumn_contents SET `published` = 1");
-	}
+    # Add option to publish/unpublish contents
+    $checkPublish = CAT_Helper_Page::getInstance()
+        ->db()
+        ->query(
+            "SELECT * FROM INFORMATION_SCHEMA.COLUMNS" .
+                " WHERE table_name = ':prefix:mod_cc_multicolumn_contents'" .
+                " AND column_name = 'published'"
+        );
+    if ($checkPublish && $checkPublish->rowCount() == 0) {
+        CAT_Helper_Page::getInstance()
+            ->db()
+            ->query(
+                "ALTER TABLE :prefix:mod_cc_multicolumn_contents ADD `published` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0"
+            );
+        CAT_Helper_Page::getInstance()
+            ->db()
+            ->query(
+                "UPDATE :prefix:mod_cc_multicolumn_contents SET `published` = 1"
+            );
+    }
 
-	# Change to InnoDB
-	foreach ( array(
-		'mod_cc_multicolumn',
-		'mod_cc_multicolumn_contents',
-		'mod_cc_multicolumn_options',
-		'mod_cc_multicolumn_content_options' ) as $table )
-	{
-		$getTable	= CAT_Helper_Page::getInstance()->db()->query("SELECT * FROM INFORMATION_SCHEMA.TABLES
- WHERE table_name = ':prefix:".$table."'");
-		if( $getTable && $getTable->rowCount() > 0 && !false == ($row = $getTable->fetchRow() ) )
-		{
-			if($row['ENGINE'] != 'InnoDB' )
-				CAT_Helper_Page::getInstance()->db()->query("ALTER TABLE `:prefix:".$table."` ENGINE=InnoDB");
-		}
-	}
+    # Change to InnoDB
+    foreach (
+        [
+            "mod_cc_multicolumn",
+            "mod_cc_multicolumn_contents",
+            "mod_cc_multicolumn_options",
+            "mod_cc_multicolumn_content_options",
+        ]
+        as $table
+    ) {
+        $getTable = CAT_Helper_Page::getInstance()
+            ->db()
+            ->query(
+                "SELECT * FROM INFORMATION_SCHEMA.TABLES
+ WHERE table_name = ':prefix:" .
+                    $table .
+                    "'"
+            );
+        if (
+            $getTable &&
+            $getTable->rowCount() > 0 &&
+            !false == ($row = $getTable->fetchRow())
+        ) {
+            if ($row["ENGINE"] != "InnoDB") {
+                CAT_Helper_Page::getInstance()
+                    ->db()
+                    ->query(
+                        "ALTER TABLE `:prefix:" . $table . "` ENGINE=InnoDB"
+                    );
+            }
+        }
+    }
 
-	$getColumns	= CAT_Helper_Page::getInstance()->db()->query("SELECT * FROM INFORMATION_SCHEMA.COLUMNS
+    $getColumns = CAT_Helper_Page::getInstance()->db()
+        ->query("SELECT * FROM INFORMATION_SCHEMA.COLUMNS
  WHERE table_name = ':prefix:mod_cc_multicolumn_contents'");
-	$columns	= array();
-	if( $getColumns && $getColumns->rowCount() > 0 )
-	{
-		while( !false == ($row = $getColumns->fetchRow() ) )
-		{
-			$columns[]	= $row['COLUMN_NAME'];
-		}
-		if (in_array('page_id', $columns))
-			CAT_Helper_Page::getInstance()->db()->query("ALTER TABLE `:prefix:mod_cc_multicolumn_contents` DROP COLUMN `page_id`; ALTER TABLE `:prefix:mod_cc_multicolumn_contents` DROP COLUMN `section_id`");
-	}
+    $columns = [];
+    if ($getColumns && $getColumns->rowCount() > 0) {
+        while (!false == ($row = $getColumns->fetchRow())) {
+            $columns[] = $row["COLUMN_NAME"];
+        }
+        if (in_array("page_id", $columns)) {
+            CAT_Helper_Page::getInstance()
+                ->db()
+                ->query(
+                    "ALTER TABLE `:prefix:mod_cc_multicolumn_contents` DROP COLUMN `page_id`; ALTER TABLE `:prefix:mod_cc_multicolumn_contents` DROP COLUMN `section_id`"
+                );
+        }
+    }
 
-	$getColumns	= CAT_Helper_Page::getInstance()->db()->query("SELECT * FROM INFORMATION_SCHEMA.COLUMNS
+    $getColumns = CAT_Helper_Page::getInstance()->db()
+        ->query("SELECT * FROM INFORMATION_SCHEMA.COLUMNS
  WHERE table_name = ':prefix:mod_cc_multicolumn_options'");
-	$columns	= array();
-	if( $getColumns && $getColumns->rowCount() > 0 )
-	{
-		while( !false == ($row = $getColumns->fetchRow() ) )
-		{
-			$columns[]	= $row['COLUMN_NAME'];
-		}
-		if (in_array('page_id', $columns))
-		{
-			if (!in_array('mc_id', $columns))
-			{
-				CAT_Helper_Page::getInstance()->db()->query("ALTER TABLE `:prefix:mod_cc_multicolumn_options` ADD COLUMN `mc_id` INT NULL DEFAULT NULL");
-				CAT_Helper_Page::getInstance()->db()->query("UPDATE `:prefix:mod_cc_multicolumn_options` AS org " .
-					"SET `mc_id` = ( " .
-						"SELECT `mc_id` FROM `:prefix:mod_cc_multicolumn` AS par " .
-							"WHERE org.`page_id` = par.`page_id` " .
-							"AND org.`section_id` = par.`section_id` )");
-				CAT_Helper_Page::getInstance()->db()->query(
-					"ALTER TABLE `:prefix:mod_cc_multicolumn_options` DROP PRIMARY KEY; " .
-					"ALTER TABLE `:prefix:mod_cc_multicolumn_options` ADD PRIMARY KEY ( `mc_id`, `name` )"
-				);
-			}
-			CAT_Helper_Page::getInstance()->db()->query("ALTER TABLE `:prefix:mod_cc_multicolumn_options` DROP COLUMN `page_id`; ALTER TABLE `:prefix:mod_cc_multicolumn_options` DROP COLUMN `section_id`");
-		}
-	}
-	
-	$getColumns	= CAT_Helper_Page::getInstance()->db()->query("SELECT * FROM INFORMATION_SCHEMA.COLUMNS
+    $columns = [];
+    if ($getColumns && $getColumns->rowCount() > 0) {
+        while (!false == ($row = $getColumns->fetchRow())) {
+            $columns[] = $row["COLUMN_NAME"];
+        }
+        if (in_array("page_id", $columns)) {
+            if (!in_array("mc_id", $columns)) {
+                CAT_Helper_Page::getInstance()
+                    ->db()
+                    ->query(
+                        "ALTER TABLE `:prefix:mod_cc_multicolumn_options` ADD COLUMN `mc_id` INT(11) UNSIGNED NOT NULL DEFAULT 0"
+                    );
+                CAT_Helper_Page::getInstance()
+                    ->db()
+                    ->query(
+                        "UPDATE `:prefix:mod_cc_multicolumn_options` AS org " .
+                            "SET `mc_id` = ( " .
+                            "SELECT `mc_id` FROM `:prefix:mod_cc_multicolumn` AS par " .
+                            "WHERE org.`page_id` = par.`page_id` " .
+                            "AND org.`section_id` = par.`section_id` )"
+                    );
+                CAT_Helper_Page::getInstance()
+                    ->db()
+                    ->query(
+                        "ALTER TABLE `:prefix:mod_cc_multicolumn_options` DROP PRIMARY KEY; " .
+                            "ALTER TABLE `:prefix:mod_cc_multicolumn_options` ADD PRIMARY KEY ( `mc_id`, `name` )"
+                    );
+            }
+            CAT_Helper_Page::getInstance()
+                ->db()
+                ->query(
+                    "ALTER TABLE `:prefix:mod_cc_multicolumn_options` DROP COLUMN `page_id`; ALTER TABLE `:prefix:mod_cc_multicolumn_options` DROP COLUMN `section_id`"
+                );
+        }
+    }
+
+    $getColumns = CAT_Helper_Page::getInstance()->db()
+        ->query("SELECT * FROM INFORMATION_SCHEMA.COLUMNS
  WHERE table_name = ':prefix:mod_cc_multicolumn_content_options'");
-	$columns	= array();
-	if( $getColumns && $getColumns->rowCount() > 0 )
-	{
-		while( !false == ($row = $getColumns->fetchRow() ) )
-		{
-			$columns[]	= $row['COLUMN_NAME'];
-		}
-		if (in_array('page_id', $columns))
-			CAT_Helper_Page::getInstance()->db()->query("ALTER TABLE `:prefix:mod_cc_multicolumn_content_options` DROP COLUMN `page_id`; ALTER TABLE `:prefix:mod_cc_multicolumn_content_options` DROP COLUMN `section_id`");
-	}
+    $columns = [];
+    if ($getColumns && $getColumns->rowCount() > 0) {
+        while (!false == ($row = $getColumns->fetchRow())) {
+            $columns[] = $row["COLUMN_NAME"];
+        }
+        if (in_array("page_id", $columns)) {
+            CAT_Helper_Page::getInstance()
+                ->db()
+                ->query(
+                    "ALTER TABLE `:prefix:mod_cc_multicolumn_content_options` DROP COLUMN `page_id`; ALTER TABLE `:prefix:mod_cc_multicolumn_content_options` DROP COLUMN `section_id`"
+                );
+        }
+    }
 
-	# Add Constraints
-	$getConstraints	= CAT_Helper_Page::getInstance()->db()->query("SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS");
+    # Add Constraints
+    $getConstraints = CAT_Helper_Page::getInstance()
+        ->db()
+        ->query(
+            "SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS"
+        );
 
-	$constraints	= array();
-	if( $getConstraints && $getConstraints->rowCount() > 0 )
-	{
-		while( !false == ($row = $getConstraints->fetchRow() ) )
-		{
-			$constraints[]	= $row['CONSTRAINT_NAME'];
-		}
-	}
-	if( !in_array(CAT_TABLE_PREFIX.'mc_pages', $constraints) )
-		CAT_Helper_Page::getInstance()->db()->query("ALTER TABLE :prefix:mod_cc_multicolumn ADD CONSTRAINT `:prefix:mc_pages` FOREIGN KEY (`page_id`) REFERENCES `:prefix:pages`(`page_id`) ON DELETE CASCADE");
+    $constraints = [];
+    if ($getConstraints && $getConstraints->rowCount() > 0) {
+        while (!false == ($row = $getConstraints->fetchRow())) {
+            $constraints[] = $row["CONSTRAINT_NAME"];
+        }
+    }
+    if (!in_array(CAT_TABLE_PREFIX . "mc_pages", $constraints)) {
+        CAT_Helper_Page::getInstance()
+            ->db()
+            ->query(
+                "ALTER TABLE :prefix:mod_cc_multicolumn ADD CONSTRAINT `:prefix:mc_pages` FOREIGN KEY (`page_id`) REFERENCES `:prefix:pages`(`page_id`) ON DELETE CASCADE"
+            );
+    }
 
-	if( !in_array(CAT_TABLE_PREFIX.'mc_sections', $constraints) )
-		CAT_Helper_Page::getInstance()->db()->query("ALTER TABLE :prefix:mod_cc_multicolumn ADD CONSTRAINT `:prefix:mc_sections` FOREIGN KEY (`section_id`) REFERENCES `:prefix:sections`(`section_id`) ON DELETE CASCADE");
+    if (!in_array(CAT_TABLE_PREFIX . "mc_sections", $constraints)) {
+        CAT_Helper_Page::getInstance()
+            ->db()
+            ->query(
+                "ALTER TABLE :prefix:mod_cc_multicolumn ADD CONSTRAINT `:prefix:mc_sections` FOREIGN KEY (`section_id`) REFERENCES `:prefix:sections`(`section_id`) ON DELETE CASCADE"
+            );
+    }
 
-	if( !in_array(CAT_TABLE_PREFIX.'content_mcID', $constraints) )
-		CAT_Helper_Page::getInstance()->db()->query("ALTER TABLE :prefix:mod_cc_multicolumn_contents ADD CONSTRAINT `:prefix:content_mcID` FOREIGN KEY (`mc_id`) REFERENCES `:prefix:mod_cc_multicolumn`(`mc_id`) ON DELETE CASCADE");
+    if (!in_array(CAT_TABLE_PREFIX . "content_mcID", $constraints)) {
+        CAT_Helper_Page::getInstance()
+            ->db()
+            ->query(
+                "ALTER TABLE :prefix:mod_cc_multicolumn_contents ADD CONSTRAINT `:prefix:content_mcID` FOREIGN KEY (`mc_id`) REFERENCES `:prefix:mod_cc_multicolumn`(`mc_id`) ON DELETE CASCADE"
+            );
+    }
 
-	if( !in_array(CAT_TABLE_PREFIX.'options_mcID', $constraints) )
-		CAT_Helper_Page::getInstance()->db()->query("ALTER TABLE :prefix:mod_cc_multicolumn_options ADD CONSTRAINT `:prefix:options_mcID` FOREIGN KEY (`mc_id`) REFERENCES `:prefix:mod_cc_multicolumn`(`mc_id`) ON DELETE CASCADE");
+    if (!in_array(CAT_TABLE_PREFIX . "options_mcID", $constraints)) {
+        CAT_Helper_Page::getInstance()
+            ->db()
+            ->query(
+                "ALTER TABLE :prefix:mod_cc_multicolumn_options ADD CONSTRAINT `:prefix:options_mcID` FOREIGN KEY (`mc_id`) REFERENCES `:prefix:mod_cc_multicolumn`(`mc_id`) ON DELETE CASCADE"
+            );
+    }
 
-	if( !in_array(CAT_TABLE_PREFIX.'optContent_mcID', $constraints) )
-		CAT_Helper_Page::getInstance()->db()->query("ALTER TABLE :prefix:mod_cc_multicolumn_content_options ADD CONSTRAINT `:prefix:optContent_mcID` FOREIGN KEY (`column_id`) REFERENCES `:prefix:mod_cc_multicolumn_contents`(`column_id`) ON DELETE CASCADE");
+    if (!in_array(CAT_TABLE_PREFIX . "optContent_mcID", $constraints)) {
+        CAT_Helper_Page::getInstance()
+            ->db()
+            ->query(
+                "ALTER TABLE :prefix:mod_cc_multicolumn_content_options ADD CONSTRAINT `:prefix:optContent_mcID` FOREIGN KEY (`column_id`) REFERENCES `:prefix:mod_cc_multicolumn_contents`(`column_id`) ON DELETE CASCADE"
+            );
+    }
 
-	$path	= CAT_PATH . '/modules/cc_multicolumn/classes/';
-	if (file_exists($path))
-		CAT_Helper_Directory::getInstance()->removeDirectory( $path );
+    $path = CAT_PATH . "/modules/cc_multicolumn/classes/";
+    if (file_exists($path)) {
+        CAT_Helper_Directory::getInstance()->removeDirectory($path);
+    }
 
-	# change save of variant to new automatic detected variants
-	$getInfo	= CAT_Helper_Addons::checkInfo( CAT_PATH . '/modules/cc_multicolumn/' );
+    # change save of variant to new automatic detected variants
+    $getInfo = CAT_Helper_Addons::checkInfo(
+        CAT_PATH . "/modules/cc_multicolumn/"
+    );
 
-	$getVariant	= CAT_Helper_Page::getInstance()->db()->query("SELECT `mc_id`, `value` FROM `:prefix:mod_cc_multicolumn_options`
+    $getVariant = CAT_Helper_Page::getInstance()->db()
+        ->query("SELECT `mc_id`, `value` FROM `:prefix:mod_cc_multicolumn_options`
  WHERE `name` = 'variant'");
-	if( $getVariant && $getVariant->rowCount() > 0 )
-	{
-		while( !false == ($row = $getVariant->fetchRow() ) )
-		{
-			if ($row['value'] == '' || $row['value'] == '0' )
-				$variant	= 'default';
-			else if (is_numeric($row['value']) && isset($getInfo['module_variants'][$row['value']]))
-				$variant	= $getInfo['module_variants'][$row['value']];
-			else if (is_numeric($row['value']))
-				$variant	= 'default';
-			else $variant	= $row['value'];
-			CAT_Helper_Page::getInstance()->db()->query(
-				"UPDATE `:prefix:mod_cc_multicolumn_options` " .
-					"SET `value` = :val " .
-					"WHERE `mc_id` = :mcID AND `name` = 'variant'",
-				array(
-					'val'		=> $variant,
-					'mcID'		=> $row['mc_id']
-			));
-		}
-	}
-
-
+    if ($getVariant && $getVariant->rowCount() > 0) {
+        while (!false == ($row = $getVariant->fetchRow())) {
+            if ($row["value"] == "" || $row["value"] == "0") {
+                $variant = "default";
+            } elseif (
+                is_numeric($row["value"]) &&
+                isset($getInfo["module_variants"][$row["value"]])
+            ) {
+                $variant = $getInfo["module_variants"][$row["value"]];
+            } elseif (is_numeric($row["value"])) {
+                $variant = "default";
+            } else {
+                $variant = $row["value"];
+            }
+            CAT_Helper_Page::getInstance()
+                ->db()
+                ->query(
+                    "UPDATE `:prefix:mod_cc_multicolumn_options` " .
+                        "SET `value` = :val " .
+                        "WHERE `mc_id` = :mcID AND `name` = 'variant'",
+                    [
+                        "val" => $variant,
+                        "mcID" => $row["mc_id"],
+                    ]
+                );
+        }
+    }
 }
 
 ?>
