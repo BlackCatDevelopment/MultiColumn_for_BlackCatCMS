@@ -15,11 +15,11 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
  *   @author			Matthias Glienke, letima development
- *   @copyright			2023, Black Cat Development
- *   @link				http://blackcat-cms.org
- *   @license			http://www.gnu.org/licenses/gpl.html
- *   @category			CAT_Modules
- *   @package			multiColumn
+  *   @copyright			2023, Black Cat Development
+  *   @link				https://blackcat-cms.org
+  *   @license			https://www.gnu.org/licenses/gpl.html
+  *   @category			CAT_Modules
+  *   @package			multiColumn
  *
  */
 
@@ -68,12 +68,6 @@ $mod_headers = [
             [
                 "media" => "all",
                 "file" => "modules/cc_multicolumn/css/centerColor/frontend.css",
-            ],
-        ],
-        "js" => ["/modules/cc_multicolumn/js/centerColor/frontend.js"],
-        "jquery" => [
-            [
-                "core" => true,
             ],
         ],
     ],

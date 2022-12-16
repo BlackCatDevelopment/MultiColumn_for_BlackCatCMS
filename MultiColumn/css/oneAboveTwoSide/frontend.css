@@ -1,0 +1,142 @@
+/**
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 3 of the License, or (at
+ *   your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful, but
+ *   WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ *   General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program; if not, see <http://www.gnu.org/licenses/>.
+ *
+ *   @author			Matthias Glienke, letima development
+  *   @copyright			2023, Black Cat Development
+  *   @link				https://blackcat-cms.org
+  *   @license			https://www.gnu.org/licenses/gpl.html
+  *   @category			CAT_Modules
+  *   @package			multiColumn
+ *
+ */
+
+.oaT {
+	background:		white;
+	overflow:		hidden;
+	width:			100%;
+	position:		relative;
+	padding:		4em 0em;
+}
+	.oaT .c_960 {
+		position:	relative;
+		z-index:	1;
+	}
+
+	.oaT h1 {
+		font-size:		3em;
+		line-height:	1.4em;
+		text-transform:	none;
+		padding:		0.2em 0em 1em 0em;
+	}
+	.oaT h2 {
+		font-size:		1.8em;
+		line-height:	1.4em;
+		text-transform:	none;
+		padding:		0.2em 0em 1em 0em;
+	}
+	.oaT h3 {
+		font-size:		1.6em;
+		line-height:	1.4em;
+		padding:		0.2em 0em 1em 0em;
+	}
+	.oaT h4 {
+		font-size:		1.4em;
+		font-weight:	700;
+		padding:		0.2em 0em 0.5em 0em;
+		color:			#2a9ada;
+	}
+	.oaT_IMG {
+		opacity:				.1;
+		height:					100%;
+		width:					100%;
+		position:				absolute;
+		bottom:					0em;
+		background-repeat:		no-repeat;
+		background-position:	right bottom;
+		z-index:				0;
+		background-size:		cover;
+	}
+	.oaTR .oaT_IMG {
+		background-position:	left bottom;
+	}
+
+	@media (min-width: 480px) {
+		.oaT_IMG {
+			opacity:			1;
+			width:				3000px;
+			background-size:	contain;
+		}
+		.oaTL .oaT_IMG {
+			right:				58%;
+		}
+		.oaTR .oaT_IMG {
+			left:				58%;
+		}
+	}
+
+	.oaT_two {
+		font-size:	0.9em;
+	}
+
+	@media (min-width: 480px) {
+		.oaTL .oaT_content {
+			padding-left:	50%;
+		}
+		.oaTR .oaT_content {
+			padding-right:	50%;
+		}
+
+	.oaT_two {
+		width:		50%;
+		padding:	2em 1em 1em 1em;
+		float:		left;
+	}
+		.oaT_left {
+			padding-left: 0em;
+		}
+		.oaT_right {
+			padding-right: 0em;
+		}
+	}
+.oaT a.button,
+.oaT .button {
+	padding:	0.3em 1em;
+	margin:		2em 0em;
+	font-size:	1em;
+	display:	block;
+	text-align:	center;
+}
+
+@media (min-width: 480px) {
+	.oaT a.button,
+	.oaT .button {
+		padding:	0.3em 3em;
+		font-size:	1.2em;	
+	}
+}
+@media (min-width: 960px) {
+	.oaTR h1 {
+		font-size:		3em;
+	}
+	.oaTR h2 {
+		font-size:		2em;
+	}
+	.oaTR h3 {
+		font-size:		1.8em;
+	}
+	.oaTR h4 {
+		font-size:		1.4em;
+	}
+}
