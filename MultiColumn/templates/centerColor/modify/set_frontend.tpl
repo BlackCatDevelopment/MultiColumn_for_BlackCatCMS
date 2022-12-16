@@ -35,7 +35,7 @@
 		{for counter 1 6}<label for="mc_kind_{$counter}">&nbsp;&nbsp;&nbsp;{$counter}&nbsp;&nbsp;</label><input id="mc_kind_{$counter}" type="radio" name="kind" class="set_kind column_{$counter}{if $options.kind==$counter} active{/if}"{if $options.kind==$counter} checked{/if} value="{$counter}" >&nbsp;&nbsp;&nbsp;|{/for}
 	</p>
 	<p class="cc_In300px">
-		<input type="checkbox" name="wHeight" class="fc_checkbox_jq" value="1"{if $options.wHeight != 0} checked="checked"{/if} id="wHeight_{$section_id}" ><label for="wHeight_{$section_id}" class="cc_In300px">Höhe an Fensterhöhe anpassen</label>
+		<input type="checkbox" name="wHeight" class="fc_checkbox_jq" value="1"{if $options.wHeight} checked="checked"{/if} id="wHeight_{$section_id}" ><label for="wHeight_{$section_id}" class="cc_In300px">Höhe an Fensterhöhe anpassen</label>
 	</p>
 	<p class="cc_In300px">
 		Farbe: <input type="text" name="color" value="{if $options.color}{$options.color}{/if}" />

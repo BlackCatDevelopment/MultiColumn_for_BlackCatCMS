@@ -32,7 +32,7 @@
 	<input type="hidden" name="options" value="kind,equalize,title" >
 	<input type="checkbox" checked="checked" name="kind" value="2" class="set_kind hidden">
 	<p class="cc_In300px">
-		<input type="checkbox" name="equalize" class="fc_checkbox_jq" value="1"{if $options.equalize != 0} checked="checked"{/if} id="equalize_{$section_id}" ><label for="equalize_{$section_id}" class="cc_In300px">{translate('Equalize columns in one row')}</label>
+		<input type="checkbox" name="equalize" class="fc_checkbox_jq" value="1"{if $options.equalize} checked="checked"{/if} id="equalize_{$section_id}" ><label for="equalize_{$section_id}" class="cc_In300px">{translate('Equalize columns in one row')}</label>
 	</p><br>
 	<p class="cc_In300px">
 		Titel: <input type="text" name="title" value="{if $options.title}{$options.title}{/if}" />

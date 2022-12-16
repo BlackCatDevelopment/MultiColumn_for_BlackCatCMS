@@ -145,6 +145,8 @@ if ($mc_id = $val->sanitizePost("mc_id", "numeric")) {
                         !$MulCol->saveOptions(
                             $option,
                             $val->sanitizePost($option)
+                                ? $val->sanitizePost($option)
+                                : ""
                         )
                     ) {
                         $error = true;

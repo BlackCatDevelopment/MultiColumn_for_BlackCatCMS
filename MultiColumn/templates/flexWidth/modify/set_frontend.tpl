@@ -31,7 +31,7 @@
 	<input type="hidden" name="_cat_ajax" value="1" >
 	<input type="hidden" name="options" value="kind,equalize" >
 	<p class="cc_In300px">
-		<input type="checkbox" name="equalize" class="fc_checkbox_jq" value="1"{if $options.equalize != 0} checked="checked"{/if} id="equalize_{$section_id}" ><label for="equalize_{$section_id}" class="cc_In300px">{translate('Equalize columns in one row')}</label>
+		<input type="checkbox" name="equalize" class="fc_checkbox_jq" value="1"{if $options.equalize} checked="checked"{/if} id="equalize_{$section_id}" ><label for="equalize_{$section_id}" class="cc_In300px">{translate('Equalize columns in one row')}</label>
 	</p><br>
 	<p class="hidden"><input type="checkbox" name="kind" class="set_kind column_2 active" checked="checked" value="2" ></p>
 	<p class="cc_In300px">

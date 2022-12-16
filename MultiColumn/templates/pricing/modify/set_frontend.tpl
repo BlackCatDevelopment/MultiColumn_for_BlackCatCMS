@@ -31,7 +31,7 @@
 	<input type="hidden" name="_cat_ajax" value="1" >
 	<input type="hidden" name="options" value="kind,grid,heading,heading_level,heading_text" >
 	<p class="cc_In200px">
-		<input type="checkbox" name="grid" class="fc_checkbox_jq" value="1"{if $options.grid != 0} checked="checked"{/if} id="grid_{$section_id}" ><label for="grid_{$section_id}" class="cc_In300px">{translate('Use grid')}</label>
+		<input type="checkbox" name="grid" class="fc_checkbox_jq" value="1"{if $options.grid} checked="checked"{/if} id="grid_{$section_id}" ><label for="grid_{$section_id}" class="cc_In300px">{translate('Use grid')}</label>
 	</p><br>
 	<p>
 		<span class="cc_In200px">{translate('Count of columns per row')}:</span>

@@ -710,10 +710,8 @@ if (!class_exists("MultiColumn", false)) {
          * @return bool true/false
          *
          **/
-        public function saveOptions(
-            string $name = null,
-            string $value = ""
-        ): bool {
+        public function saveOptions(string $name = "", string $value = ""): bool
+        {
             if (!$name) {
                 return false;
             }
@@ -727,7 +725,7 @@ if (!class_exists("MultiColumn", false)) {
                     [
                         "mc_id" => self::$mc_id,
                         "name" => $name,
-                        "value" => is_null($value) ? "" : $value,
+                        "value" => $value ? $value : "",
                     ]
                 )
             ) {
