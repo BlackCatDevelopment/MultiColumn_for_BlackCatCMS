@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -47,7 +46,5 @@ if (defined("CAT_PATH")) {
     }
 }
 // end include class.secure.php
-
-$PRECHECK["CAT_VERSION"] = ["VERSION" => "1.4.1", "OPERATOR" => ">="];
 
 ?>

@@ -47,39 +47,40 @@ if (defined("CAT_PATH")) {
 }
 // end include class.secure.php
 
+$module_description =
+    'Das Add on "MultiColumn" bietet eine einfache M&ouml;glichkeit ein Mehrspaltenlayout zu integrieren. F&uuml;r mehr Informationen lesen Sie <a class="icon-github" href="https://github.com/BlackCatDevelopment/MultiColumn_for_BlackCatCMS" target="_blank">GitHub</a>.<br/><br/>Done by Matthias Glienke, <a class="icon-creativecat" href="http://creativecat.de"> creativecat</a>';
 
-$module_description	  = 'Das Add on "MultiColumn" bietet eine einfache M&ouml;glichkeit ein Mehrspaltenlayout zu integrieren. F&uuml;r mehr Informationen lesen Sie <a class="icon-github" href="https://github.com/BlackCatDevelopment/MultiColumn_for_BlackCatCMS" target="_blank">GitHub</a>.<br/><br/>Done by Matthias Glienke, <a class="icon-creativecat" href="http://creativecat.de"> creativecat</a>';
+$LANG = [
+    // --- view no image ---
 
-
-$LANG = array(
-// --- view no image ---
-
-// --- modify ---
-	'You sent an invalid ID'			=> 'Es wurde eine ung&uuml;ltige ID &uuml;bermittelt',
-	'Administration for'				=> 'Verwaltung für',
-	'Options for frontend'				=> 'Optionen f&uuml;rs Frontend',
-	'Module variant'					=> 'Modulvariante',
-	'Count of columns per row'			=> 'Anzahl der Spalten pro Zeile',
-	'Add column'						=> 'Spalte hinzuf&uuml;gen',
-	'Add columns'						=> 'Spalten hinzuf&uuml;gen',
-	'Equalize columns in one row'		=> 'Passe Spaltenh&ouml;he an',
-	'Row No.'							=> 'Zeile Nr.',
-	'Column No.'						=> 'Spalte Nr.',
-	'Set skin'							=> 'Variante setzen',
-	'Save skin &amp; reload'			=> 'Speichern &amp; Neuladen',
-	'Save column'						=> 'Spalte speichern',
-	'An error occoured'					=> 'Ein Fehler ist aufgetreten',
-	'Column added successfully'			=> 'Spalte erfolgreich hinzugefügt',
-	'Column saved successfully'			=> 'Spalte erfolgreich gespeichert',
-	'Column deleted successfully'		=> 'Spalte erfolgreich gelöscht',
-	'Columns reordered successfully'	=> 'Spalten erfolgreich sortiert',
-	'Reorder failed'					=> 'Sortierung fehlgeschlagen',
-	'Options saved successfully'		=> 'Optionen erfolgreich gespeichert',
-	'Variant saved successfully'		=> 'Variante erfolgreich gespeichert',
-	'Existing rows'						=> 'Vorhandene Zeilen',
-	'No rows available'					=> 'Keine Zeilen vorhanden',
-	'Column'							=> 'Spalte',
-	'Row'								=> 'Zeile',
-	'Tab title'							=> 'Tab-Titel',
-	'Column width in percent'			=> 'Spaltenbreite in Prozent'
-);
+    // --- modify ---
+    "You sent an invalid ID" =>
+        "Es wurde eine ung&uuml;ltige ID &uuml;bermittelt",
+    "Administration for" => "Verwaltung für",
+    "Options for frontend" => "Optionen f&uuml;rs Frontend",
+    "Module variant" => "Modulvariante",
+    "Count of columns per row" => "Anzahl der Spalten pro Zeile",
+    "Add column" => "Spalte hinzuf&uuml;gen",
+    "Add columns" => "Spalten hinzuf&uuml;gen",
+    "Equalize columns in one row" => "Passe Spaltenh&ouml;he an",
+    "Row No." => "Zeile Nr.",
+    "Column No." => "Spalte Nr.",
+    "Set skin" => "Variante setzen",
+    "Save skin &amp; reload" => "Speichern &amp; Neuladen",
+    "Save column" => "Spalte speichern",
+    "An error occoured" => "Ein Fehler ist aufgetreten",
+    "Column added successfully" => "Spalte erfolgreich hinzugefügt",
+    "Column saved successfully" => "Spalte erfolgreich gespeichert",
+    "Column deleted successfully" => "Spalte erfolgreich gelöscht",
+    "Columns reordered successfully" => "Spalten erfolgreich sortiert",
+    "Reorder failed" => "Sortierung fehlgeschlagen",
+    "Options saved successfully" => "Optionen erfolgreich gespeichert",
+    "Variant saved successfully" => "Variante erfolgreich gespeichert",
+    "Existing rows" => "Vorhandene Zeilen",
+    "No rows available" => "Keine Zeilen vorhanden",
+    "Column" => "Spalte",
+    "Row" => "Zeile",
+    "Tab title" => "Tab-Titel",
+    "Column width in percent" => "Spaltenbreite in Prozent",
+    "Background color" => "Hintergrundfarbe",
+];

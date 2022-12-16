@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -48,6 +47,24 @@ if (defined("CAT_PATH")) {
 }
 // end include class.secure.php
 
-$PRECHECK["CAT_VERSION"] = ["VERSION" => "1.4.1", "OPERATOR" => ">="];
+// Get columns in this section
+
+function checkColor(string $color): bool
+{
+    $hex = str_replace("#", "", $color);
+
+    $c_r = hexdec(substr($hex, 0, 2));
+    $c_g = hexdec(substr($hex, 2, 2));
+    $c_b = hexdec(substr($hex, 4, 2));
+
+    $brightness = ($c_r * 299 + $c_g * 587 + $c_b * 114) / 1000;
+
+    return $brightness > 155 ? false : true;
+}
+if ($parser_data["options"]["color"]) {
+    $parser_data["options"]["checkColor"] = checkColor(
+        $parser_data["options"]["color"]
+    );
+}
 
 ?>

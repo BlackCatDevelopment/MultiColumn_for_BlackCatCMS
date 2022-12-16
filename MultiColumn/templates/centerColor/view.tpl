@@ -22,7 +22,7 @@
  *
  *}
 
-<section id="centerColor_{$section_id}" class="c_1024 centerColor{if $options.wHeight} mc_cC_eq{/if}{*if $options.checkColor < 100} mc_cC_light{/if*}" style="{if $options.color && $options.color != ''}background: {$options.color};{/if}" data-aos="zoom-in">
+<section id="centerColor_{$section_id}" class="c_1024 centerColor{if $options.wHeight} mc_cC_eq{/if}{if $options.checkColor < 100} mc_cC_light{/if}" style="{if $options.color && $options.color != ''}background: {$options.color};{/if}" data-aos="zoom-in">
 	{foreach $columns as column}<article {if $column.options.height && $column.options.height > 0 && !$options.is_mobile}style="min-height:{$column.options.height}px;"{/if}>{$column.content}</article>
 	{/foreach}
 </section>
