@@ -66,9 +66,21 @@ if (CAT_Helper_Addons::versionCompare($module_version, "2.0.0.2", "<=")) {
         CAT_Helper_Page::getInstance()
             ->db()
             ->query(
-                "ALTER TABLE :prefix:mod_cc_multicolumn_contents ADD `position` IINT(11) UNSIGNED NOT NULL DEFAULT 0"
+                "ALTER TABLE `:prefix:mod_cc_multicolumn_contents` ADD `position` INT(11) UNSIGNED NOT NULL DEFAULT 0"
             );
     }
+
+    # Change mc_id to int(11) UNSIGNED
+    CAT_Helper_Page::getInstance()
+        ->db()
+        ->query(
+            "ALTER TABLE `:prefix:mod_cc_multicolumn` MODIFY `mc_id` INT(11) UNSIGNED NOT NULL DEFAULT 0"
+        );
+    CAT_Helper_Page::getInstance()
+        ->db()
+        ->query(
+            "ALTER TABLE `:prefix:mod_cc_multicolumn_contents` MODIFY `mc_id` INT(11) UNSIGNED NOT NULL DEFAULT 0"
+        );
 
     # Add option to publish/unpublish contents
     $checkPublish = CAT_Helper_Page::getInstance()
@@ -82,12 +94,12 @@ if (CAT_Helper_Addons::versionCompare($module_version, "2.0.0.2", "<=")) {
         CAT_Helper_Page::getInstance()
             ->db()
             ->query(
-                "ALTER TABLE :prefix:mod_cc_multicolumn_contents ADD `published` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0"
+                "ALTER TABLE `:prefix:mod_cc_multicolumn_contents` ADD `published` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0"
             );
         CAT_Helper_Page::getInstance()
             ->db()
             ->query(
-                "UPDATE :prefix:mod_cc_multicolumn_contents SET `published` = 1"
+                "UPDATE `:prefix:mod_cc_multicolumn_contents` SET `published` = 1"
             );
     }
 
@@ -214,7 +226,7 @@ if (CAT_Helper_Addons::versionCompare($module_version, "2.0.0.2", "<=")) {
         CAT_Helper_Page::getInstance()
             ->db()
             ->query(
-                "ALTER TABLE :prefix:mod_cc_multicolumn ADD CONSTRAINT `:prefix:mc_pages` FOREIGN KEY (`page_id`) REFERENCES `:prefix:pages`(`page_id`) ON DELETE CASCADE"
+                "ALTER TABLE `:prefix:mod_cc_multicolumn` ADD CONSTRAINT `:prefix:mc_pages` FOREIGN KEY (`page_id`) REFERENCES `:prefix:pages`(`page_id`) ON DELETE CASCADE"
             );
     }
 
@@ -222,7 +234,7 @@ if (CAT_Helper_Addons::versionCompare($module_version, "2.0.0.2", "<=")) {
         CAT_Helper_Page::getInstance()
             ->db()
             ->query(
-                "ALTER TABLE :prefix:mod_cc_multicolumn ADD CONSTRAINT `:prefix:mc_sections` FOREIGN KEY (`section_id`) REFERENCES `:prefix:sections`(`section_id`) ON DELETE CASCADE"
+                "ALTER TABLE `:prefix:mod_cc_multicolumn` ADD CONSTRAINT `:prefix:mc_sections` FOREIGN KEY (`section_id`) REFERENCES `:prefix:sections`(`section_id`) ON DELETE CASCADE"
             );
     }
 
@@ -230,7 +242,7 @@ if (CAT_Helper_Addons::versionCompare($module_version, "2.0.0.2", "<=")) {
         CAT_Helper_Page::getInstance()
             ->db()
             ->query(
-                "ALTER TABLE :prefix:mod_cc_multicolumn_contents ADD CONSTRAINT `:prefix:content_mcID` FOREIGN KEY (`mc_id`) REFERENCES `:prefix:mod_cc_multicolumn`(`mc_id`) ON DELETE CASCADE"
+                "ALTER TABLE `:prefix:mod_cc_multicolumn_contents` ADD CONSTRAINT `:prefix:content_mcID` FOREIGN KEY (`mc_id`) REFERENCES `:prefix:mod_cc_multicolumn`(`mc_id`) ON DELETE CASCADE"
             );
     }
 
@@ -238,7 +250,7 @@ if (CAT_Helper_Addons::versionCompare($module_version, "2.0.0.2", "<=")) {
         CAT_Helper_Page::getInstance()
             ->db()
             ->query(
-                "ALTER TABLE :prefix:mod_cc_multicolumn_options ADD CONSTRAINT `:prefix:options_mcID` FOREIGN KEY (`mc_id`) REFERENCES `:prefix:mod_cc_multicolumn`(`mc_id`) ON DELETE CASCADE"
+                "ALTER TABLE `:prefix:mod_cc_multicolumn_options` ADD CONSTRAINT `:prefix:options_mcID` FOREIGN KEY (`mc_id`) REFERENCES `:prefix:mod_cc_multicolumn`(`mc_id`) ON DELETE CASCADE"
             );
     }
 
@@ -246,7 +258,7 @@ if (CAT_Helper_Addons::versionCompare($module_version, "2.0.0.2", "<=")) {
         CAT_Helper_Page::getInstance()
             ->db()
             ->query(
-                "ALTER TABLE :prefix:mod_cc_multicolumn_content_options ADD CONSTRAINT `:prefix:optContent_mcID` FOREIGN KEY (`column_id`) REFERENCES `:prefix:mod_cc_multicolumn_contents`(`column_id`) ON DELETE CASCADE"
+                "ALTER TABLE `:prefix:mod_cc_multicolumn_content_options` ADD CONSTRAINT `:prefix:optContent_mcID` FOREIGN KEY (`column_id`) REFERENCES `:prefix:mod_cc_multicolumn_contents`(`column_id`) ON DELETE CASCADE"
             );
     }
 
