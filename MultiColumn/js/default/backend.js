@@ -149,6 +149,8 @@ $(document).ready(function () {
             data.process = set_activity("Adding column");
           },
           success: function (data, textStatus, jqXHR) {
+            clearInterval(timerId);
+            sessionSetTimer(TimeStringToSecs(data.session));
             if (data.success === true) {
               $.each(data.colIDs, function (index, cID) {
                 var $newCont = $($prevTemp);
@@ -210,6 +212,8 @@ $(document).ready(function () {
             data.process = set_activity("Deleting column");
           },
           success: function (data, textStatus, jqXHR) {
+            clearInterval(timerId);
+            sessionSetTimer(TimeStringToSecs(data.session));
             if (data.success === true) {
               $(this).slideUp(300, function () {
                 $(this).remove();
@@ -240,7 +244,6 @@ $(document).ready(function () {
             action: "publishContent",
             _cat_ajax: 1,
           };
-        console.log(ajaxData);
         dialog_ajax(
           "Inhalt veröffentlichen",
           CAT_URL + "/modules/cc_multicolumn/save.php",
@@ -251,6 +254,8 @@ $(document).ready(function () {
           function (data) {
             if (data.published == 1) $cur.addClass("active");
             else $cur.removeClass("active");
+            clearInterval(timerId);
+            sessionSetTimer(TimeStringToSecs(data.session));
           },
           $cur
         );
@@ -293,6 +298,8 @@ $(document).ready(function () {
               data.process = set_activity("Sort entries");
             },
             success: function (data, textStatus, jqXHR) {
+              clearInterval(timerId);
+              sessionSetTimer(TimeStringToSecs(data.session));
               if (data.success === true) {
                 return_success(jqXHR.process, data.message);
               } else {
@@ -353,6 +360,17 @@ $(document).ready(function () {
         }
         $MC.find(".MC_content").show();
         $WYSIWYG.hide();
+
+        dialog_form(
+          $form,
+          false,
+          function (data) {
+            clearInterval(timerId);
+            sessionSetTimer(TimeStringToSecs(data.session));
+          },
+          "JSON",
+          function () {}
+        );
         $form.submit();
       });
 

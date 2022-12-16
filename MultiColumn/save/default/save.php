@@ -58,6 +58,14 @@ if ($mc_id = $val->sanitizePost("mc_id", "numeric")) {
     $colID = $val->sanitizePost("colID", "numeric");
     $action = $val->sanitizePost("action");
 
+    $t = CAT_Registry::get("SESSION_LIFETIME");
+    $sessionTime = sprintf(
+        "%02d:%02d:%02d",
+        $t / 3600,
+        ($t / 60) % 60,
+        $t % 60
+    );
+
     switch ($action) {
         case "addContent":
             $colCount = $val->sanitizePost("colCount");
@@ -68,6 +76,7 @@ if ($mc_id = $val->sanitizePost("mc_id", "numeric")) {
                         ? $lang->translate("Column added successfully")
                         : $lang->translate("An error occoured"),
                 "colIDs" => $added,
+                "session" => $sessionTime,
                 "success" =>
                     is_array($added) && count($added) > 0 ? true : false,
             ];
@@ -80,6 +89,7 @@ if ($mc_id = $val->sanitizePost("mc_id", "numeric")) {
                         ? $lang->translate("Column deleted successfully")
                         : $lang->translate("An error occoured"),
                 "success" => $deleted,
+                "session" => $sessionTime,
             ];
             break;
         case "saveColumn":
@@ -90,6 +100,7 @@ if ($mc_id = $val->sanitizePost("mc_id", "numeric")) {
             $ajax_return = [
                 "message" => $lang->translate("Column saved successfully"),
                 "success" => true,
+                "session" => $sessionTime,
             ];
 
             $entry_options = $val->sanitizePost("entry_options");
@@ -99,10 +110,13 @@ if ($mc_id = $val->sanitizePost("mc_id", "numeric")) {
                     as $option
                 ) {
                     if (
+                        $option &&
                         !$MulCol->saveContentOptions(
                             $colID,
                             $option,
                             $val->sanitizePost($option)
+                                ? $val->sanitizePost($option)
+                                : ""
                         )
                     ) {
                         $success = false;
@@ -116,6 +130,7 @@ if ($mc_id = $val->sanitizePost("mc_id", "numeric")) {
                         ? $lang->translate("Column saved successfully")
                         : $lang->translate("An error occoured"),
                 "success" => $success,
+                "session" => $sessionTime,
             ];
 
             break;
@@ -131,6 +146,7 @@ if ($mc_id = $val->sanitizePost("mc_id", "numeric")) {
                         ? $lang->translate("Columns reordered successfully")
                         : $lang->translate("Reorder failed"),
                 "success" => $success,
+                "session" => $sessionTime,
             ];
             break;
         case "saveOptions":
@@ -155,6 +171,7 @@ if ($mc_id = $val->sanitizePost("mc_id", "numeric")) {
             }
             $ajax_return = [
                 "message" => $lang->translate("Options saved successfully"),
+                "session" => $sessionTime,
                 "success" => true,
             ];
             break;
@@ -168,6 +185,7 @@ if ($mc_id = $val->sanitizePost("mc_id", "numeric")) {
                     ? $lang->translate("Content published successfully!")
                     : $lang->translate("Content unpublished successfully!"),
                 "published" => $success,
+                "session" => $sessionTime,
                 "success" => true,
             ];
             break;
@@ -179,6 +197,7 @@ if ($mc_id = $val->sanitizePost("mc_id", "numeric")) {
 
             $ajax_return = [
                 "message" => $lang->translate("Variant saved successfully"),
+                "session" => $sessionTime,
                 "success" => true,
             ];
 

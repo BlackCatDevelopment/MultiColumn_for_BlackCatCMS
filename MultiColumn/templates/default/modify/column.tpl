@@ -24,7 +24,7 @@
 
 <li class="fc_border_all fc_shadow_small fc_br_all {if !$column}prevTemp{/if}" id="catMC_{if !$column}__column_id__{else}{$column.column_id}{/if}">
 	{include(column_options.tpl)}
-	<form action="{$CAT_URL}/modules/cc_multicolumn/save.php" method="post" class="ajaxForm">
+	<form action="{$CAT_URL}/modules/cc_multicolumn/save.php" method="post">
 		<input type="hidden" name="page_id" value="{$page_id}">
 		<input type="hidden" name="section_id" value="{$section_id}">
 		<input type="hidden" name="mc_id" value="{$mc_id}">
