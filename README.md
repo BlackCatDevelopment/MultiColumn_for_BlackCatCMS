@@ -1,17 +1,17 @@
-MultiColumn for BlackCat CMS
-===============================
+# MultiColumn for BlackCat CMS
 
-This is a module for BlackCat CMS. It provides the opportunity to add multiple columns.
-
-This is the first official release of MultiColumn.
+With this add-on, different forms of display of text can be easily implemented. Static, dynamic and responsive designs are no longer a problem.
 
 ## Please notice
 
-You are not able to update from previous beta versions as there had been many changes in the structure. Please uninstall and reinstall this version. Your data will be lost when uninstalling previous installed version.
-You might try to manually check the differences betwenn the structure of the current and previous database and adapt your old database. In that case you need to Upload the files of the new version manually.
+This release requires at least version 1.4.1 of BlackCat CMS. Please remember to run upgrade.php after updating the module, since a lot has changed in the database design!
+As of BlackCat CMS 1.4, old variants of MultiColumn no longer work reliably. An update is strongly recommended.
+
+For new installations under BlackCat CMS 1.4, the version in precheck.php can be adjusted accordingly. The add-on will then work without any problems.
 
 ## German description
-For a german description of the module please follow this link: http://wiki.blackcat-cms.org/doku.php?id=addons:modules:multicolumn
+
+For a German description of the add-on and examples of the possible variants, follow this link: https://letima.de/module/catflex
 
 ## License
 
