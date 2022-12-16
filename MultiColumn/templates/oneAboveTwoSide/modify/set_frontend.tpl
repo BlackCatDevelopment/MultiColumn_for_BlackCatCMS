@@ -14,11 +14,11 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses>.
  *
  *   @author			Matthias Glienke, letima development
-  *   @copyright			2023, Black Cat Development
-  *   @link				https://blackcat-cms.org
-  *   @license			https://www.gnu.org/licenses/gpl.html
-  *   @category			CAT_Modules
-  *   @package			multiColumn
+ *   @copyright			2023, Black Cat Development
+ *   @link				https://blackcat-cms.org
+ *   @license			https://www.gnu.org/licenses/gpl.html
+ *   @category			CAT_Modules
+ *   @package			multiColumn
  *
  *}
 
@@ -34,7 +34,7 @@
 	<p>
 		<label for="mc_image_{$section_id}">Bild:</label>
 		<input type="text" name="image" id="mc_image_{$section_id}" value="{if $options.image}{$options.image}{/if}"><br>
-		<small>Pfad: /media/[Bildname/Pfad]</small>
+		<small>Pfad relativ zu: /media/<strong>[Pfad|Bildname]</strong></small>
 	</p>
 	<p class="cc_In200px">
 		<input type="radio" name="side" id="mc_side_{$section_id}_0" class="fc_radio_jq" value="0"{if !$options.side} checked="checked"{/if}>

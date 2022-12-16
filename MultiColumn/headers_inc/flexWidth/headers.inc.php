@@ -15,11 +15,11 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
  *   @author			Matthias Glienke, letima development
-  *   @copyright			2023, Black Cat Development
-  *   @link				https://blackcat-cms.org
-  *   @license			https://www.gnu.org/licenses/gpl.html
-  *   @category			CAT_Modules
-  *   @package			multiColumn
+ *   @copyright			2023, Black Cat Development
+ *   @link				https://blackcat-cms.org
+ *   @license			https://www.gnu.org/licenses/gpl.html
+ *   @category			CAT_Modules
+ *   @package			multiColumn
  *
  */
 
@@ -47,41 +47,36 @@ if (defined("CAT_PATH")) {
 }
 // end include class.secure.php
 
-
-$mod_headers = array(
-	'backend' => array(
-		'css' => array(
-			array(
-				'media'		=> 'all',
-				'file'		=> 'modules/cc_multicolumn/css/default/backend.css'
-			)
-		),
-		'js' => array(
-			'/modules/cc_multicolumn/js/default/backend.js',
-		),
-		'ui' => array(
-			array(
-				'core'			=> true
-			),
-		)
-	),
-	'frontend' => array(
-		'css' => array(
-			array(
-				'media'		=> 'all',
-				'file'		=> 'modules/cc_multicolumn/css/flexWidth/frontend.css'
-			)
-		),
-		'jquery' => array(
-			array(
-				'core'			=> true,
-				'ui'			=> true
-			)
-		),
-		'js' => array(
-			'/modules/cc_multicolumn/js/flexWidth/frontend.js',
-		)
-	)
-);
+$mod_headers = [
+    "backend" => [
+        "css" => [
+            [
+                "media" => "all",
+                "file" => "modules/cc_multicolumn/css/default/backend.css",
+            ],
+        ],
+        "js" => ["/modules/cc_multicolumn/js/default/backend.js"],
+        "ui" => [
+            [
+                "core" => true,
+            ],
+        ],
+    ],
+    "frontend" => [
+        "css" => [
+            [
+                "media" => "all",
+                "file" => "modules/cc_multicolumn/css/flexWidth/frontend.css",
+            ],
+        ],
+        "jquery" => [
+            [
+                "core" => true,
+                "ui" => true,
+            ],
+        ],
+        "js" => ["/modules/cc_multicolumn/js/flexWidth/frontend.js"],
+    ],
+];
 
 ?>

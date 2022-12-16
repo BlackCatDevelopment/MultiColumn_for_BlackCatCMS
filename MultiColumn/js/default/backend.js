@@ -4,11 +4,11 @@
  * Additional license terms can be seen in the info.php of this module.
  *
  *   @author			Matthias Glienke, letima development
-  *   @copyright			2023, Black Cat Development
-  *   @link				https://blackcat-cms.org
-  *   @license			https://www.gnu.org/licenses/gpl.html
-  *   @category			CAT_Modules
-  *   @package			multiColumn
+ *   @copyright			2023, Black Cat Development
+ *   @link				https://blackcat-cms.org
+ *   @license			https://www.gnu.org/licenses/gpl.html
+ *   @category			CAT_Modules
+ *   @package			multiColumn
  *
  */
 

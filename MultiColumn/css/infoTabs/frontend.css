@@ -1,0 +1,603 @@
+/**
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 3 of the License, or (at
+ *   your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful, but
+ *   WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ *   General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program; if not, see <http://www.gnu.org/licenses/>.
+ *
+ *   @author			Matthias Glienke, letima development
+   *   @copyright			2023, Black Cat Development
+   *   @link				https://blackcat-cms.org
+   *   @license			https://www.gnu.org/licenses/gpl.html
+   *   @category			CAT_Modules
+   *   @package			multiColumn
+ *
+ */
+
+@font-face {
+  font-family: "iconIT";
+  src: url("fonts/iconIT.eot?nljpi");
+  src: url("fonts/iconIT.eot?nljpi#iefix") format("embedded-opentype"),
+    url("fonts/iconIT.ttf?nljpi") format("truetype"),
+    url("fonts/iconIT.woff?nljpi") format("woff"),
+    url("fonts/iconIT.svg?nljpi#iconIT") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="iconIT-"]::before,
+[class*=" iconIT-"]::before {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "iconIT" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.iconIT-responsive::before {
+  content: "\e900";
+}
+.iconIT-home::before {
+  content: "\e901";
+}
+.iconIT-letima::before {
+  content: "\e902";
+}
+.iconIT-design::before {
+  content: "\e90d";
+}
+.iconIT-quill::before {
+  content: "\e919";
+}
+.iconIT-bucket::before {
+  content: "\e92e";
+}
+.iconIT-images::before {
+  content: "\e940";
+}
+.iconIT-price-tag::before {
+  content: "\e9f0";
+}
+.iconIT-price-tags::before {
+  content: "\e9f1";
+}
+.iconIT-envelop::before {
+  content: "\ea31";
+}
+.iconIT-alarm::before {
+  content: "\ea53";
+}
+.iconIT-stopwatch::before {
+  content: "\ea5e";
+}
+.iconIT-display::before {
+  content: "\ea73";
+}
+.iconIT-mobile::before {
+  content: "\ea78";
+}
+.iconIT-tablet::before {
+  content: "\ea79";
+}
+.iconIT-bubbles::before {
+  content: "\eac8";
+}
+.iconIT-spinner::before {
+  content: "\eb2b";
+}
+.iconIT-search::before {
+  content: "\eb33";
+}
+.iconIT-zoom-in::before {
+  content: "\eb34";
+}
+.iconIT-zoom-out::before {
+  content: "\eb35";
+}
+.iconIT-lock::before {
+  content: "\eb55";
+}
+.iconIT-wrench::before {
+  content: "\eb59";
+}
+.iconIT-cogs::before {
+  content: "\eb60";
+}
+.iconIT-hammer::before {
+  content: "\eb68";
+}
+.iconIT-screwdriver::before {
+  content: "\eb6c";
+}
+.iconIT-magic-wand::before {
+  content: "\eb6d";
+}
+.iconIT-magic-wand2::before {
+  content: "\eb6e";
+}
+.iconIT-trophy::before {
+  content: "\ebab";
+}
+.iconIT-coffee::before {
+  content: "\ebc9";
+}
+.iconIT-fire::before {
+  content: "\ebe8";
+}
+.iconIT-lab::before {
+  content: "\ebea";
+}
+.iconIT-atom::before {
+  content: "\ebec";
+}
+.iconIT-lamp::before {
+  content: "\ebfa";
+}
+.iconIT-bin::before {
+  content: "\ec00";
+}
+.iconIT-puzzle::before {
+  content: "\ec22";
+}
+.iconIT-brain::before {
+  content: "\ec27";
+}
+.iconIT-power-cord::before {
+  content: "\ec4d";
+}
+.iconIT-clipboard::before {
+  content: "\ec51";
+}
+.iconIT-clipboard2::before {
+  content: "\ec52";
+}
+.iconIT-more::before {
+  content: "\ec5c";
+}
+.iconIT-cloud::before {
+  content: "\ec75";
+}
+.iconIT-cloud-download::before {
+  content: "\ec76";
+}
+.iconIT-cloud-upload::before {
+  content: "\ec77";
+}
+.iconIT-cloud-check::before {
+  content: "\ec78";
+}
+.iconIT-link::before {
+  content: "\ec99";
+}
+.iconIT-star-empty::before {
+  content: "\ece3";
+}
+.iconIT-star-half::before {
+  content: "\ece4";
+}
+.iconIT-star-full::before {
+  content: "\ece5";
+}
+.iconIT-man-woman::before {
+  content: "\ecfd";
+}
+.iconIT-smile::before {
+  content: "\ed04";
+}
+.iconIT-warning::before {
+  content: "\ed4f";
+}
+.iconIT-plus-circle::before {
+  content: "\ed5f";
+}
+.iconIT-minus-circle::before {
+  content: "\ed60";
+}
+.iconIT-cancel-circle::before {
+  content: "\ed65";
+}
+.iconIT-arrow-up::before {
+  content: "\edba";
+}
+.iconIT-arrow-right::before {
+  content: "\edbe";
+}
+.iconIT-arrow-down::before {
+  content: "\edc2";
+}
+.iconIT-arrow-left::before {
+  content: "\edc6";
+}
+.iconIT-checkbox-checked::before {
+  content: "\ee6e";
+}
+.iconIT-checkbox-unchecked::before {
+  content: "\ee6f";
+}
+.iconIT-pencil-ruler::before {
+  content: "\ee83";
+}
+.iconIT-embed::before {
+  content: "\eecd";
+}
+.iconIT-code::before {
+  content: "\eed1";
+}
+.iconIT-facebook::before {
+  content: "\eef0";
+}
+.iconIT-github::before {
+  content: "\ef0f";
+}
+.iconIT-apple::before {
+  content: "\ef1d";
+}
+.iconIT-chrome::before {
+  content: "\ef38";
+}
+.iconIT-firefox::before {
+  content: "\ef39";
+}
+.iconIT-edge::before {
+  content: "\ef3b";
+}
+.iconIT-safari::before {
+  content: "\ef3c";
+}
+.iconIT-html-five::before {
+  content: "\ef43";
+}
+.iconIT-palette::before {
+  content: "\e92a";
+}
+.iconIT-new::before {
+  content: "\e97b";
+}
+.iconIT-archive::before {
+  content: "\e996";
+}
+.iconIT-library2::before {
+  content: "\e999";
+}
+.iconIT-profile::before {
+  content: "\e99c";
+}
+.iconIT-file-empty::before {
+  content: "\e99d";
+}
+.iconIT-file-plus::before {
+  content: "\e9a1";
+}
+.iconIT-file-minus::before {
+  content: "\e9a3";
+}
+.iconIT-file-download::before {
+  content: "\e9a5";
+}
+.iconIT-file-upload::before {
+  content: "\e9a7";
+}
+.iconIT-file-check::before {
+  content: "\e9a9";
+}
+.iconIT-file-text2::before {
+  content: "\e9ad";
+}
+.iconIT-file-presentation::before {
+  content: "\e9bf";
+}
+.iconIT-certificate::before {
+  content: "\e9eb";
+}
+.iconIT-lifebuoy::before {
+  content: "\ea1b";
+}
+.iconIT-location::before {
+  content: "\ea3b";
+}
+.iconIT-calendar::before {
+  content: "\ea5f";
+}
+.iconIT-vcard::before {
+  content: "\eb11";
+}
+.iconIT-chart::before {
+  content: "\eb8f";
+}
+.iconIT-stairs-up::before {
+  content: "\eb94";
+}
+.iconIT-stars::before {
+  content: "\eb9e";
+}
+.iconIT-medal::before {
+  content: "\eba0";
+}
+.iconIT-trophy1::before {
+  content: "\eba8";
+}
+.iconIT-gift::before {
+  content: "\ebac";
+}
+.iconIT-atom1::before {
+  content: "\ebeb";
+}
+.iconIT-briefcase3::before {
+  content: "\ec04";
+}
+.iconIT-target::before {
+  content: "\ec2b";
+}
+.iconIT-list::before {
+  content: "\ec5a";
+}
+.iconIT-grid3::before {
+  content: "\ec5f";
+}
+.iconIT-menu::before {
+  content: "\ec71";
+}
+.iconIT-eye3::before {
+  content: "\ecb4";
+}
+.iconIT-eye-blocked3::before {
+  content: "\ecb5";
+}
+.iconIT-sun::before {
+  content: "\eccf";
+}
+.iconIT-heart4::before {
+  content: "\ecea";
+}
+.iconIT-thumbs-up::before {
+  content: "\ecf4";
+}
+.iconIT-question3::before {
+  content: "\ed55";
+}
+.iconIT-info::before {
+  content: "\ed63";
+}
+.iconIT-cross::before {
+  content: "\ed6c";
+}
+.iconIT-checkmark::before {
+  content: "\ed6f";
+}
+.iconIT-rulers::before {
+  content: "\ee81";
+}
+.iconIT-file-pdf::before {
+  content: "\ef3e";
+}
+.iconIT-qrcode::before {
+  content: "\e9f8";
+}
+.iconIT-spinner9::before {
+  content: "\eb2a";
+}
+.iconIT-stats-bars4::before {
+  content: "\eb8c";
+}
+.iconIT-medal-star::before {
+  content: "\eb9f";
+}
+.iconIT-switch::before {
+  content: "\ec4b";
+}
+
+.mC_infoTabs {
+  background: white;
+  /*	background-size:	cover;*/
+  padding: 4rem 0;
+  max-width: 100vw;
+}
+.mC_infoTabs > div > h3,
+.mC_infoTabs > div > h2 {
+  text-align: center;
+}
+.mC_infoTabs > div > div {
+  padding: 3rem 0;
+}
+.mC_infoTabs img {
+  -webkit-border-radius: 0.35rem;
+  -moz-border-radius: 0.35rem;
+  -o-box-shadow: 0.35rem;
+  -ms-box-shadow: 0.35rem;
+  border-radius: 0.35rem;
+  -webkit-box-shadow: rgba(049, 112, 182, 1) 0 0 5rem -1.5rem;
+  -moz-box-shadow: rgba(049, 112, 182, 1) 0 0 5rem -1.5rem;
+  -o-box-shadow: rgba(049, 112, 182, 1) 0 0 5rem -1.5rem;
+  -ms-box-shadow: rgba(049, 112, 182, 1) 0 0 5rem -1.5rem;
+  box-shadow: rgba(049, 112, 182, 1) 0 0 5rem -1.5rem;
+}
+.mC_infoTabs > div > * {
+  position: relative;
+  z-index: 2;
+}
+.mC_infoTabs > div > .infoTab-Image {
+  text-align: left;
+  z-index: 1;
+}
+
+.infoTab-Image img {
+  max-width: calc(100% - 3rem);
+  position: relative;
+  z-index: 1;
+}
+
+.mC_infoTabs nav {
+  position: relative;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -o-flexbox;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-transform: rotate(-5deg);
+  -moz-transform: rotate(-5deg);
+  -ms-transform: rotate(-5deg);
+  -o-transform: rotate(-5deg);
+  transform: rotate(-5deg);
+  padding: 0 0 2rem 0;
+  z-index: 2;
+  position: relative;
+  min-height: 7rem;
+}
+.mC_infoTabs nav::after {
+  position: absolute;
+  width: 100%;
+  z-index: 0;
+  content: "";
+  top: calc(50% - 1rem);
+  border-bottom: 1px solid rgba(049, 112, 182, 0.2);
+}
+.mC_infoTabs nav a {
+  z-index: 1;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  font-size: 1.1rem;
+  height: 3rem;
+  width: 3rem;
+  line-height: 3rem;
+  -webkit-transform: rotate(5deg);
+  -moz-transform: rotate(5deg);
+  -ms-transform: rotate(5deg);
+  -o-transform: rotate(5deg);
+  transform: rotate(5deg);
+  border: 1px solid rgba(049, 112, 182, 0.3);
+  -webkit-box-shadow: rgba(049, 112, 182, 1) 0 0 2rem -2rem;
+  -moz-box-shadow: rgba(049, 112, 182, 1) 0 0 2rem -2rem;
+  -o-box-shadow: rgba(049, 112, 182, 1) 0 0 2rem -2rem;
+  -ms-box-shadow: rgba(049, 112, 182, 1) 0 0 2rem -2rem;
+  box-shadow: rgba(049, 112, 182, 1) 0 0 2rem -2rem;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -o-box-shadow: 50%;
+  -ms-box-shadow: 50%;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+}
+.mC_infoTabs nav a::before {
+  padding: 0;
+  color: rgba(049, 112, 182, 1);
+}
+
+.mC_infoTabs nav a.active {
+  background: rgba(049, 112, 182, 1);
+  font-size: 1.4rem;
+  height: 4rem;
+  width: 4rem;
+  line-height: 4rem;
+  -webkit-box-shadow: rgba(049, 112, 182, 1) 0 0 3rem -0.5rem;
+  -moz-box-shadow: rgba(049, 112, 182, 1) 0 0 3rem -0.5rem;
+  -o-box-shadow: rgba(049, 112, 182, 1) 0 0 3rem -0.5rem;
+  -ms-box-shadow: rgba(049, 112, 182, 1) 0 0 3rem -0.5rem;
+  box-shadow: rgba(049, 112, 182, 1) 0 0 3rem -0.5rem;
+}
+.mC_infoTabs nav a.active::before {
+  color: white;
+}
+
+.mC_infoTabs article {
+  padding: 0;
+  position: relative;
+  z-index: 0;
+  -webkit-border-radius: 0.35rem;
+  -moz-border-radius: 0.35rem;
+  -o-box-shadow: 0.35rem;
+  -ms-box-shadow: 0.35rem;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(066, 125, 244, 0);
+}
+.mC_infoTabs article header {
+  padding: 0 1rem 0 0;
+}
+.mC_infoTabs article .mc_iT_Content {
+  max-height: 0;
+  overflow: hidden;
+  -webkit-transition: all 0.7s ease-in;
+  -moz-transition: all 0.7s ease-in;
+  -o-transition: all 0.7s ease-in;
+  -ms-transition: all 0.7s ease-in;
+  transition: all 0.7s ease-in;
+}
+.mC_infoTabs article.active .mc_iT_Content {
+  max-height: 1000px;
+  -webkit-transition: all 1.4s ease-in;
+  -moz-transition: all 1.4s ease-in;
+  -o-transition: all 1.4s ease-in;
+  -ms-transition: all 1.4s ease-in;
+  transition: all 1.4s ease-in;
+}
+
+@media (min-width: 768px) {
+  .mC_infoTabs > div {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -o-flexbox;
+    display: -ms-flexbox;
+    display: flex;
+    -moz-box-wrap: wrap;
+    -webkit-box-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    -ms-flexbox-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+  .mC_infoTabs > div > * {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 calc(50% - 1rem);
+    -ms-flex: 0 0 calc(50% - 1rem);
+    flex: 0 0 calc(50% - 1rem);
+  }
+  .mC_infoTabs > div > nav {
+    text-align: center;
+    padding: 1rem 0 4rem 0;
+  }
+  .mC_infoTabs > div > nav > * {
+    margin: 0.5rem;
+  }
+  .mC_infoTabs > div > nav,
+  .mC_infoTabs > div > h3,
+  .mC_infoTabs > div > h2 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 100%;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+}

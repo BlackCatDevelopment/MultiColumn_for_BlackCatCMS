@@ -15,11 +15,11 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
  *   @author			Matthias Glienke, letima development
-  *   @copyright			2023, Black Cat Development
-  *   @link				https://blackcat-cms.org
-  *   @license			https://www.gnu.org/licenses/gpl.html
-  *   @category			CAT_Modules
-  *   @package			multiColumn
+ *   @copyright			2023, Black Cat Development
+ *   @link				https://blackcat-cms.org
+ *   @license			https://www.gnu.org/licenses/gpl.html
+ *   @category			CAT_Modules
+ *   @package			multiColumn
  *
  */
 
@@ -49,27 +49,27 @@ if (defined("CAT_PATH")) {
 
 // Get columns in this section
 
-include_once CAT_PATH . '/modules/lib_mdetect/mdetect/mdetect.php';
+include_once CAT_PATH . "/modules/lib_mdetect/mdetect/mdetect.php";
 
-if ( class_exists('uagent_info'))
-{
-	$uagent_obj = new uagent_info();
-	
-	if( $uagent_obj->DetectMobileQuick() )
-	{
-		foreach( $parser_data['columns'] as $index => $column )
-		{
-			if ( isset($column['options']['image']) )
-			{
-				$image	= explode( '.', $column['options']['image'] );
-				$image[count($image)-2]	= $image[count($image)-2] . '_mobile';
-				$newIMG	= implode( '.', $image);
-				if ( file_exists( CAT_PATH . '/media/images/' . $newIMG ) )
-					$parser_data['columns'][$index]['options']['image']	= $newIMG;
-			}
-		}
-		$parser_data['options']['is_mobile']	= true;
-	}
+if (class_exists("uagent_info")) {
+    $uagent_obj = new uagent_info();
+
+    if ($uagent_obj->DetectMobileQuick()) {
+        foreach ($parser_data["columns"] as $index => $column) {
+            if (isset($column["options"]["image"])) {
+                $image = explode(".", $column["options"]["image"]);
+                $image[count($image) - 2] =
+                    $image[count($image) - 2] . "_mobile";
+                $newIMG = implode(".", $image);
+                if (file_exists(CAT_PATH . "/media/images/" . $newIMG)) {
+                    $parser_data["columns"][$index]["options"][
+                        "image"
+                    ] = $newIMG;
+                }
+            }
+        }
+        $parser_data["options"]["is_mobile"] = true;
+    }
 }
 
 ?>

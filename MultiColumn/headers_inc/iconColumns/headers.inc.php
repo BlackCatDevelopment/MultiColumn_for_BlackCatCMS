@@ -15,11 +15,11 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
  *   @author			Matthias Glienke, letima development
-  *   @copyright			2023, Black Cat Development
-  *   @link				https://blackcat-cms.org
-  *   @license			https://www.gnu.org/licenses/gpl.html
-  *   @category			CAT_Modules
-  *   @package			multiColumn
+ *   @copyright			2023, Black Cat Development
+ *   @link				https://blackcat-cms.org
+ *   @license			https://www.gnu.org/licenses/gpl.html
+ *   @category			CAT_Modules
+ *   @package			multiColumn
  *
  */
 
@@ -29,12 +29,12 @@ if (defined("CAT_PATH")) {
 } else {
     $root = "../";
     $level = 1;
-    while ($level < 10 && !file_exists($root . "framework/class.secure.php")) {
+    while ($level < 10 && !file_exists($root . "/framework/class.secure.php")) {
         $root .= "../";
         $level += 1;
     }
-    if (file_exists($root . "framework/class.secure.php")) {
-        include $root . "framework/class.secure.php";
+    if (file_exists($root . "/framework/class.secure.php")) {
+        include $root . "/framework/class.secure.php";
     } else {
         trigger_error(
             sprintf(
@@ -46,5 +46,30 @@ if (defined("CAT_PATH")) {
     }
 }
 // end include class.secure.php
+
+$mod_headers = [
+    "backend" => [
+        "css" => [
+            [
+                "media" => "all",
+                "file" => "modules/cc_multicolumn/css/default/backend.css",
+            ],
+        ],
+        "js" => ["/modules/cc_multicolumn/js/default/backend.js"],
+        "ui" => [
+            [
+                "core" => true,
+            ],
+        ],
+    ],
+    "frontend" => [
+        "css" => [
+            [
+                "media" => "all",
+                "file" => "modules/cc_multicolumn/css/iconColumns/frontend.css",
+            ],
+        ],
+    ],
+];
 
 ?>

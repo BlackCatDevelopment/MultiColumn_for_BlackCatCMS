@@ -14,27 +14,17 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
  *   @author			Matthias Glienke, letima development
-  *   @copyright			2023, Black Cat Development
-  *   @link				https://blackcat-cms.org
-  *   @license			https://www.gnu.org/licenses/gpl.html
-  *   @category			CAT_Modules
-  *   @package			multiColumn
+ *   @copyright			2023, Black Cat Development
+ *   @link				https://blackcat-cms.org
+ *   @license			https://www.gnu.org/licenses/gpl.html
+ *   @category			CAT_Modules
+ *   @package			multiColumn
  *
  *}
 {include(../default/modify/javascript.tpl)}
 
 <div class="cc_MC_form" id="cc_MC_{$mc_id}">
 	{include(../default/modify/set_skin.tpl)}
-	<div class="clear"></div>
-	{*<div class="cc_MC_settings">
-		<ul class="cc_MC_nav fc_br_left" id="cc_MC_nav_{$mc_id}">
-			<li class="active fc_br_left">{translate('Options for frontend')}</li>
-		</ul>
-		<ul class="cc_MC_tabs fc_br_right">
-			<li class="active cc_MC_tab">{include(modify/set_frontend.tpl)}</li>
-		</ul>
-		<div class="clear"></div>
-	</div>*}
 	{include(../default/modify/addCol.tpl)}
 	<p class="cc_MC_y">{translate('Existing rows')}</p>
 	<p class="cc_MC_n">{translate('No rows available')}</p>
