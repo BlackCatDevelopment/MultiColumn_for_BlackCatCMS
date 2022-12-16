@@ -22,7 +22,7 @@ COLLATE='utf8_general_ci';
 
 CREATE TABLE IF NOT EXISTS `:prefix:mod_cc_multicolumn_contents` (
 	`column_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-	`mc_id` INT(11) UNSIGNED NOT NULL,
+	`mc_id` INT(11) UNSIGNED NOT NULL DEFAULT 0,
 	`content` TEXT,
 	`text` TEXT,
 	`published` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
