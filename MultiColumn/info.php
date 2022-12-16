@@ -51,7 +51,7 @@ if (defined("CAT_PATH")) {
 $module_directory = "cc_multicolumn";
 $module_name = "Mehrspalten Layout";
 $module_function = "page";
-$module_version = "2.1";
+$module_version = "2.2";
 $module_platform = "1.x";
 $module_author = "Matthias Glienke, letima development";
 $module_license =

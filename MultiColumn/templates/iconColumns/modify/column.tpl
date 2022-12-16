@@ -30,7 +30,7 @@
 		<input type="hidden" name="mc_id" value="{$mc_id}">
 		<input type="hidden" name="colID" value="{if !$column}__column_id__{else}{$column.column_id}{/if}">
 		<input type="hidden" name="action" value="saveColumn">
-		<input type="hidden" name="entry_options" value="title,icon,pageURL,urlText,urlClass,color">
+		<input type="hidden" name="entry_options" value="title,icon,pageURL,urlText,urlClass">
 		<input type="hidden" name="_cat_ajax" value="1">
 		<p>
 			<strong class="cc_In100px">Überschrift:</strong>
@@ -42,23 +42,12 @@
 		</p>
 		<p>
 			<strong class="cc_In200px">Link Seite (optional):</strong>
-			<input type="text" name="pageURL" class="cc_In100px" value="{if $column.options.pageURL}{$column.options.pageURL}{/if}"{if !$column} disabled{/if}>
+			<input type="text" name="pageURL" class="cc_In100px" value="{if $column.options.pageURL}{$column.options.pageURL}{/if}"{if !$column} disabled{/if}><br>
 			<strong class="cc_In100px">Button Text:</strong>
-			<input type="text" name="urlText" class="cc_In300px" value="{if $column.options.urlText}{$column.options.urlText}{/if}"{if !$column} disabled{/if}>	
+			<input type="text" name="urlText" class="cc_In300px" value="{if $column.options.urlText}{$column.options.urlText}{/if}"{if !$column} disabled{/if}>	<br>
 			<strong class="cc_In100px">Klasse:</strong>
 			<input type="text" name="urlClass" class="cc_In100px" value="{if $column.options.urlClass}{$column.options.urlClass}{/if}"{if !$column} disabled{/if}>
 
-		</p>
-		<p>
-
-			   <label class="cc_In200px" for="color_{if !$column}__column_id__{else}{$column.column_id}{/if}">Individuelles Farbschema:</label>
-			   <select name="color" id="color_{if !$column}__column_id__{else}{$column.column_id}{/if}">
-					  <option value=""{if $column.options.color==""} selected="selected"{/if}>Keines</option>
-					  <option value="uni"{if $column.options.color=="uni"} selected="selected"{/if}>Hochschule</option>
-					  <option value="unt"{if $column.options.color=="unt"} selected="selected"{/if}>Unternehmen</option>
-					  <option value="stud"{if $column.options.color=="stud"} selected="selected"{/if}>Studierende</option>
-					  <option value="alu"{if $column.options.color=="alu"} selected="selected"{/if}>Students&Alumni</option>
-			   </select>
 		</p>
 		{*<p class="cc_In300px">
 			<input type="checkbox" name="center" class="fc_checkbox_jq" value="1"{if $column.options.center != 0} checked="checked"{/if} id="center_{$section_id}" ><label for="center_{$section_id}" class="cc_In300px">Inhalt zentrieren</label>
