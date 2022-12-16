@@ -40,8 +40,8 @@
 
     <label for="heading" class="cc_In200px">{translate('Optional heading')}:</label>
     <input class="cc_In50pc" type="text" name="heading" id="heading_{$section_id}" placeholder="{translate('Optional heading')}" value="{if $options.heading}{$options.heading}{/if}" />
-    <select name="heading_level">
-    {foreach array(1,2,3,4,5,6) i}
+    <select name="heading_level"><?php $this->scope['arr'] = range(1,6); ?>
+    {foreach $arr i}
     <option value="{$i}"{if $options.heading_level && $i == $options.heading_level} selected="selected"{/if}>h{$i}</option>
     {/foreach}
     </select><br />

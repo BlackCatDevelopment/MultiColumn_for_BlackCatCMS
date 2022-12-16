@@ -1,77 +1,286 @@
-/**
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 3 of the License, or (at
- *   your option) any later version.
- *
- *   This program is distributed in the hope that it will be useful, but
- *   WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- *   General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program; if not, see <http://www.gnu.org/licenses/>.
- *
- *   @author			Matthias Glienke, letima development
- *   @copyright			2023, Black Cat Development
- *   @link				http://blackcat-cms.org
- *   @license			http://www.gnu.org/licenses/gpl.html
- *   @category			CAT_Modules
- *   @package			multiColumn
- *
- */
-
-/*--------------------------------------------------------------
-Pricing
---------------------------------------------------------------*/
-.pts {
-  background-color: #f6f9fc;
+body .mc_pricing_container {
+  margin: auto;
 }
-.pts {
-  padding-bottom: 66px;
-  padding-top: 66px;
-}
-.pts .pt {
-  background-color: #fff;
-  border-radius: 3px;
-  padding: 0 0 30px;
+body .mc_pricing_container .mc_pricing_card {
+  margin: 2em auto;
+  display: inline-block;
+  margin-right: 30px;
+  transform: scale(0);
+  width: 280px;
   text-align: center;
+  position: relative;
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
+  box-shadow: 0px 17px 46px -10px #777777;
+  height: 470px;
+  border-radius: 14px;
+}
+body .mc_pricing_container .mc_pricing_card:nth-of-type(1) {
+  -webkit-animation: intro 1s 0.1s forwards;
+          animation: intro 1s 0.1s forwards;
+}
+body .mc_pricing_container .mc_pricing_card:nth-of-type(2) {
+  -webkit-animation: intro 1s 0.2s forwards;
+          animation: intro 1s 0.2s forwards;
+}
+body .mc_pricing_container .mc_pricing_card:nth-of-type(3) {
+  -webkit-animation: intro 1s 0.3s forwards;
+          animation: intro 1s 0.3s forwards;
+}
+body .mc_pricing_container .mc_pricing_card:nth-of-type(1) {
+  background: -webkit-linear-gradient(45deg, #c96881 0%, #f7b695 100%);
+}
+body .mc_pricing_container .mc_pricing_card:nth-of-type(2) {
+  background: -webkit-linear-gradient(45deg, #6B6ECC 0%, #89BFDF 100%);
+}
+body .mc_pricing_container .mc_pricing_card:nth-of-type(3) {
+  background: -webkit-linear-gradient(45deg, #81B77B 0%, #A3E3C3 100%);
+}
+body .mc_pricing_container .mc_pricing_card:hover .mc_pricing_card_inner__header img {
+  left: -50px;
+  transition: all 3.4s linear;
+}
+body .mc_pricing_container .mc_pricing_card:hover .mc_pricing_card_inner__cta button {
+  transform: scale(1);
+}
+body .mc_pricing_container .mc_pricing_card:nth-of-type(1):hover .mc_pricing_card_inner__circle img {
+  -webkit-animation: launch 1s forwards;
+          animation: launch 1s forwards;
+}
+body .mc_pricing_container .mc_pricing_card:nth-of-type(1) .mc_pricing_card_inner__circle img {
+  top: 22px;
+  left: 1px;
+}
+body .mc_pricing_container .mc_pricing_card:nth-of-type(2):hover .mc_pricing_card_inner__circle img {
+  -webkit-animation: spin 1s forwards;
+          animation: spin 1s forwards;
+}
+body .mc_pricing_container .mc_pricing_card:nth-of-type(2) .mc_pricing_card_inner__circle img {
+  top: 22px;
+}
+body .mc_pricing_container .mc_pricing_card:nth-of-type(3):hover .mc_pricing_card_inner__circle img {
+  -webkit-animation: fly 1s forwards;
+          animation: fly 1s forwards;
+}
+body .mc_pricing_container .mc_pricing_card:nth-of-type(3) .mc_pricing_card_inner__circle img {
+  top: 22px;
+  left: 1px;
+}
+body .mc_pricing_container .mc_pricing_card:hover {
+  opacity: 1;
+}
+body .mc_pricing_container .mc_pricing_card_inner__circle {
+  overflow: hidden;
+  width: 70px;
+  position: absolute;
+  background: #F1F0ED;
   z-index: 10;
+  height: 70px;
+  border-radius: 100px;
+  left: 0;
+  box-shadow: 0px 7px 20px rgba(0, 0, 0, 0.28);
+  right: 0;
+  margin: auto;
+  border: 4px solid white;
+  top: 82px;
 }
-.pts .pt h3 {
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: 600;
-  text-align: center;
+body .mc_pricing_container .mc_pricing_card_inner__circle img {
+  height: 26px;
+  position: relative;
+  top: 17px;
+  transition: all 0.2s;
 }
-.pts .pt_main {
-  background-color: #31ddb7;
-  color: #ffffff;
-  font-size: 46px;
-  line-height: 1;
-  padding: 50px 0;
+body .mc_pricing_container .mc_pricing_card_inner__header {
+  height: 120px;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+  overflow: hidden;
 }
-.pts .pt_main span {
-  font-size: 14px;
-  font-weight: bold;
-  text-transform: uppercase;
+body .mc_pricing_container .mc_pricing_card_inner__header img {
+  width: 120%;
+  position: relative;
+  top: -30px;
+  left: 0;
+  transition: all 0.1s linear;
 }
-.pt ul {
-  margin: 0;
-  padding: 0 40px;
+body .mc_pricing_container .mc_pricing_card_inner__content {
+  padding: 20px;
 }
-.pt li {
-  border-bottom: 1px dashed #d9dce0;
-  list-style: outside none none;
-  padding: 15px 0;
+body .mc_pricing_container .mc_pricing_card_inner__content .price {
+  color: white;
+  font-weight: 800;
+  font-size: 3em;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.42);
 }
-.pt li:last-child {
-  border-bottom: medium none;
-}
-.pts .btn-primary {
+body .mc_pricing_container .mc_pricing_card_inner__content .text {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 100;
   margin-top: 20px;
+  font-size: 13px;
+  line-height: 16px;
 }
-.pts .btn-primary:hover {
-  color: #ffffff;
+body .mc_pricing_container .mc_pricing_card_inner__content .title {
+  font-weight: 800;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.64);
+  margin: 2em auto;
+  font-size: 1.5em;
+  letter-spacing: 1px;
+}
+body .mc_pricing_container .mc_pricing_card_inner__cta {
+  position: absolute;
+  bottom: -1.5em;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 200px;
+  height: 3em;
+}
+body .mc_pricing_container .mc_pricing_card_inner__cta a {
+  display:block;
+  height: 1.8em;
+  line-height: 1.8em;
+  box-shadow: 0px 0px 40px 4px #F76583, 0px 0px 0px 2px rgba(255, 255, 255, 0.19) inset;
+  width: 100%;
+  background: -webkit-linear-gradient(-90deg, #fe5e7d 0%, #e5375b 100%);
+  border: none;
+  font-family: "Yanone Kaffeesatz", sans-serif;
+  color: white;
+  outline: none;
+  font-size: 20px;
+  border-radius: 6px;
+  transform: scale(0.94);
+  cursor: pointer;
+  transition: box-shadow 0.3s, transform 0.3s 0.1s;
+}
+
+body .mc_pricing_container .mc_pricing_card_inner__cta a:hover {
+  box-shadow: 0px 0px 60px 8px #F76583, 0px 0px 0px 2px rgba(255, 255, 255, 0.19) inset;
+}
+
+@-webkit-keyframes launch {
+  0% {
+    left: 1px;
+  }
+  25% {
+    top: -50px;
+    left: 1px;
+  }
+  50% {
+    left: -100px;
+  }
+  75% {
+    top: 100px;
+    transform: rotate(40deg);
+  }
+  100% {
+    left: 1px;
+  }
+}
+
+@keyframes launch {
+  0% {
+    left: 1px;
+  }
+  25% {
+    top: -50px;
+    left: 1px;
+  }
+  50% {
+    left: -100px;
+  }
+  75% {
+    top: 100px;
+    transform: rotate(40deg);
+  }
+  100% {
+    left: 1px;
+  }
+}
+@-webkit-keyframes fly {
+  0% {
+    left: 0px;
+  }
+  25% {
+    top: -50px;
+    left: 50px;
+  }
+  50% {
+    left: -130px;
+  }
+  75% {
+    top: 60px;
+  }
+  100% {
+    left: 0px;
+  }
+}
+@keyframes fly {
+  0% {
+    left: 0px;
+  }
+  25% {
+    top: -50px;
+    left: 50px;
+  }
+  50% {
+    left: -130px;
+  }
+  75% {
+    top: 60px;
+  }
+  100% {
+    left: 0px;
+  }
+}
+@-webkit-keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(720deg);
+  }
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(720deg);
+  }
+}
+@-webkit-keyframes intro {
+  0% {
+    transform: scale(0);
+  }
+  25% {
+    transform: scale(1.06);
+  }
+  50% {
+    transform: scale(0.965);
+  }
+  75% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes intro {
+  0% {
+    transform: scale(0);
+  }
+  25% {
+    transform: scale(1.06);
+  }
+  50% {
+    transform: scale(0.965);
+  }
+  75% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

@@ -26,7 +26,7 @@
             </div>
             <div class='mc_pricing_card_inner__cta'>
             {if $column.options.button}
-                <a href="{if $column.options.link}{$column.options.link}{else}#{/if}">{$column.options.button}</a>
+                <a href="{if $column.options.link}{$column.options.link}{else}#{/if}²">{$column.options.button}</a>
             {/if}
             </div>
         </div>

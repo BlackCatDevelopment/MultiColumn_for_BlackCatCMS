@@ -18,24 +18,34 @@
 		<input type="hidden" name="mc_id" value="{$mc_id}">
 		<input type="hidden" name="colID" value="{if !$column}__column_id__{else}{$column.column_id}{/if}">
 		<input type="hidden" name="action" value="saveColumn">
-		<input type="hidden" name="entry_options" value="heading,bgcolor,sub_heading,button">
+		<input type="hidden" name="entry_options" value="image,symbol,cardtitle,price,button,link">
 		<input type="hidden" name="_cat_ajax" value="1">
 		<p>
-			<strong class="cc_In300px">{translate('Background color')}:</strong><br />
-            <select name="bgcolor"{if !$column} disabled{/if}>
-                <option value="#5bc0de"{if $column.options.bgcolor && $column.options.bgcolor == '#5bc0de'} selected="selected"{/if}>#5bc0de ({translate('light blue')})</option>
-                <option value="#f74d4e"{if $column.options.bgcolor && $column.options.bgcolor == '#f74d4e'} selected="selected"{/if}>#f74d4e ({translate('reddish')})</option>
-                <option value="#31ddb7"{if $column.options.bgcolor && $column.options.bgcolor == '#31ddb7'} selected="selected"{/if}>#31ddb7 ({translate('light green')})</option>
+			<strong class="cc_In300px">{translate('Header image')}:</strong><br />
+            <select name="image"{if !$column} disabled{/if}>
+{foreach $images img}
+                <option value="{$img}"{if $column.options.image && $column.options.image == $img} selected="selected"{/if}>{$img}</option>
+{/foreach}
             </select>
         <br />
-			<strong class="cc_In100px">{translate('Main heading')}:</strong>
-			<input type="text" name="heading" value="{if $column.options.heading}{$column.options.heading}{/if}"{if !$column} disabled{/if}>
+            <strong class="cc_In300px">{translate('Symbol')}:</strong><br />
+            <select name="symbol"{if !$column} disabled{/if}>
+{foreach $symbols img}
+                <option value="{$img}"{if $column.options.symbol && $column.options.symbol == $img} selected="selected"{/if}>{$img}</option>
+{/foreach}
+            </select>
+        <br />
+			<strong class="cc_In100px">{translate('Card title')}:</strong>
+			<input type="text" name="cardtitle" value="{if $column.options.cardtitle}{$column.options.cardtitle}{/if}"{if !$column} disabled{/if}>
 		<br />
-			<strong class="cc_In100px">{translate('Sub heading')}:</strong>
-			<input type="text" name="sub_heading" value="{if $column.options.sub_heading}{$column.options.sub_heading}{/if}"{if !$column} disabled{/if}>
+			<strong class="cc_In100px">{translate('Price')}:</strong>
+			<input type="text" name="price" value="{if $column.options.price}{$column.options.price}{/if}"{if !$column} disabled{/if}>
         <br />
 			<strong class="cc_In100px">{translate('Button text')}:</strong>
 			<input type="text" name="button" value="{if $column.options.button}{$column.options.button}{/if}"{if !$column} disabled{/if}>
+        <br />
+			<strong class="cc_In100px">{translate('Button link')}:</strong>
+			<input type="text" name="link" value="{if $column.options.link}{$column.options.link}{/if}"{if !$column} disabled{/if}>
 		</p>
 		<hr />
 		<div class="cc_MC_left">

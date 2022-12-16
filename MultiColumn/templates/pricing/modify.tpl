@@ -22,6 +22,25 @@
  *
  *}
 
+
+<?php
+    $path = CAT_Helper_Directory::sanitizePath(CAT_PATH.'/modules/cc_multicolumn/css/pricing');
+    $this->scope['images'] = CAT_Helper_Directory::scanDirectory(
+        $path.'/images',
+        true,
+        true,
+        $path.'/images/',
+        ['png','gif','jpg','jpeg']
+    );
+    $this->scope['symbols'] = CAT_Helper_Directory::scanDirectory(
+        $path.'/symbols',
+        true,
+        true,
+        $path.'/symbols/',
+        ['png','gif','jpg','jpeg']
+    );
+?>
+
 {include(../default/modify/javascript.tpl)}
 
 <div class="cc_MC_form" id="cc_MC_{$mc_id}">
