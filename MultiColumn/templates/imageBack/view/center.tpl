@@ -23,12 +23,7 @@
  *}
 
 <article class="MC_imgC">
-	<div class="c_1000">
-		<div style="{if $column.options.imgBack && $column.options.imgBack != ''}background: url({cat_url}/media/{$column.options.imgBack}) center bottom no-repeat;{/if}{if $column.options.height && $column.options.height > 0 && !$options.is_mobile}min-height:{$column.options.height}px;{/if}">
-			<div class="MC_imgC-content">
-				{$column.content}
-			</div>
-			<div class="clear"></div>
-		</div>
+	<div style="{if $column.options.imgBack && $column.options.imgBack != ''}background: url({cat_url}/media/{$column.options.imgBack}) center bottom no-repeat;{/if}{if $column.options.height && $column.options.height > 0 && !$options.is_mobile}min-height:{$column.options.height}px;{/if}">
+	   <div class="MC_imgC-content c_1024">{$column.content}</div>
 	</div>
 </article>

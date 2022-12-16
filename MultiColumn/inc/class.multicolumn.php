@@ -69,7 +69,7 @@ if (!class_exists("MultiColumn", false)) {
 
         protected static $initOptions;
 
-        public static function getInstance()
+        public static function getInstance(): object
         {
             if (!self::$instance) {
                 self::$instance = new self();
@@ -79,7 +79,7 @@ if (!class_exists("MultiColumn", false)) {
             return self::$instance;
         }
 
-        public static function init()
+        public static function init(): void
         {
             // Connection to DB
             self::$db = CAT_Helper_DB::getInstance();
@@ -123,7 +123,7 @@ if (!class_exists("MultiColumn", false)) {
         {
         }
 
-        public static function getClassInfo($value): string
+        public static function getClassInfo(string $value): string
         {
             return static::$$value;
         }
@@ -136,7 +136,7 @@ if (!class_exists("MultiColumn", false)) {
          * @return boolean true/false
          *
          **/
-        private function checkIDs($colID = null)
+        private function checkIDs(int $colID = null): bool
         {
             if (
                 !self::$section_id ||
@@ -156,7 +156,7 @@ if (!class_exists("MultiColumn", false)) {
          * @return integer
          *
          **/
-        private function initAdd()
+        private function initAdd(): ?int
         {
             if (!self::$section_id) {
                 return false;
@@ -196,7 +196,7 @@ if (!class_exists("MultiColumn", false)) {
          * @return integer
          *
          **/
-        public function deleteMC()
+        public function deleteMC(): bool
         {
             if (!self::$section_id || !self::$mc_id) {
                 return false;
@@ -224,7 +224,7 @@ if (!class_exists("MultiColumn", false)) {
          * @return integer
          *
          **/
-        public function addColumn($count = 1)
+        public function addColumn(int $count = 1)
         {
             if (!self::$mc_id || !is_numeric($count)) {
                 return false;
@@ -272,7 +272,7 @@ if (!class_exists("MultiColumn", false)) {
          * @return integer
          *
          **/
-        public function removeColumn($column_id = null)
+        public function removeColumn(int $column_id = null): bool
         {
             if (!self::$mc_id || !$column_id || !is_numeric($column_id)) {
                 return false;
@@ -333,8 +333,10 @@ if (!class_exists("MultiColumn", false)) {
 		 * @return array()
 		 *
 		 **/
-        public function getContents($addOptions = false, $frontend = true)
-        {
+        public function getContents(
+            bool $addOptions = false,
+            bool $frontend = true
+        ): array {
             $contents = self::$db->query(
                 'SELECT `content`, `column_id`, `published`
 					FROM `:prefix:mod_cc_multicolumn_contents`
@@ -347,6 +349,11 @@ if (!class_exists("MultiColumn", false)) {
             if ($contents && $contents->numRows() > 0) {
                 while (!false == ($row = $contents->fetchRow())) {
                     if ($frontend) {
+                        // Remove if content is not published
+                        if ($row["published"] != 1) {
+                            continue;
+                        }
+
                         CAT_Helper_Page::preprocess($row["content"]);
                     }
                     $this->contents[$row["column_id"]] = [
@@ -377,8 +384,10 @@ if (!class_exists("MultiColumn", false)) {
          * @return array()
          *
          **/
-        private function getContentOptions($column_id = null, $frontend = false)
-        {
+        private function getContentOptions(
+            int $column_id = null,
+            bool $frontend = false
+        ) {
             $select = "";
 
             if (!$column_id && count($this->contents) > 0) {
@@ -455,9 +464,9 @@ if (!class_exists("MultiColumn", false)) {
          *
          **/
         public function getSingContentOptions(
-            $column_id = null,
-            $name = null,
-            $frontend = false
+            int $column_id = null,
+            string $name = null,
+            bool $frontend = false
         ) {
             if (!$column_id) {
                 return false;
@@ -517,8 +526,10 @@ if (!class_exists("MultiColumn", false)) {
          * @return bool true/false
          *
          **/
-        public function saveContent($column_id = null, $content = "")
-        {
+        public function saveContent(
+            int $column_id = null,
+            string $content = ""
+        ): bool {
             if (
                 !self::$section_id ||
                 !self::$mc_id ||
@@ -585,10 +596,10 @@ if (!class_exists("MultiColumn", false)) {
          *
          **/
         public function saveContentOptions(
-            $column_id = null,
-            $name = null,
-            $value = ""
-        ) {
+            int $column_id = null,
+            string $name = null,
+            string $value = ""
+        ): bool {
             if (!$name || !$column_id) {
                 return false;
             }
@@ -619,7 +630,7 @@ if (!class_exists("MultiColumn", false)) {
          * @return bool true/false
          *
          **/
-        public function publishContent($colID = null)
+        public function publishContent(int $colID = null): int
         {
             self::$db->query(
                 "UPDATE `:prefix:mod_cc_multicolumn_contents`" .
@@ -649,7 +660,7 @@ if (!class_exists("MultiColumn", false)) {
          * @return array()
          *
          **/
-        public function getOptions($name = null, $frontend = false)
+        public function getOptions(string $name = null, bool $frontend = false)
         {
             if ($name && isset($this->options[$name])) {
                 return $this->options[$name];
@@ -684,7 +695,7 @@ if (!class_exists("MultiColumn", false)) {
                 if (isset($this->options[$name])) {
                     return $this->options[$name];
                 } else {
-                    return null;
+                    return "";
                 }
             }
             return $this->options;
@@ -699,8 +710,10 @@ if (!class_exists("MultiColumn", false)) {
          * @return bool true/false
          *
          **/
-        public function saveOptions($name = null, $value = "")
-        {
+        public function saveOptions(
+            string $name = null,
+            string $value = ""
+        ): bool {
             if (!$name) {
                 return false;
             }
@@ -732,7 +745,7 @@ if (!class_exists("MultiColumn", false)) {
          * @return bool true/false
          *
          **/
-        public function reorderCols($colIDs = [])
+        public function reorderCols(array $colIDs = []): bool
         {
             if (
                 !$this->checkIDs() ||
@@ -766,12 +779,12 @@ if (!class_exists("MultiColumn", false)) {
             return $return;
         } // end reorderCols()
 
-        public function getID()
+        public function getID(): int
         {
             return self::$mc_id;
         }
 
-        public function getVariant()
+        public function getVariant(): string
         {
             if (isset($this->options["_variant"])) {
                 return $this->options["_variant"];
@@ -791,11 +804,12 @@ if (!class_exists("MultiColumn", false)) {
         /**
          * Get all available variants of an addon by checking the templates-folder
          */
-        public static function getAllVariants()
+        public static function getAllVariants(): array
         {
             if (count(self::$allVariants) > 0) {
                 return self::$allVariants;
             }
+            self::$allVariants = [];
             $templatePath =
                 CAT_PATH . "/modules/" . static::$directory . "/templates/";
 
@@ -822,10 +836,10 @@ if (!class_exists("MultiColumn", false)) {
          *
          *
          **/
-        public function sanitizeURL($url = null)
+        public function sanitizeURL(string $url = ""): string
         {
             if (!$url) {
-                return false;
+                return "";
             }
             $parts = array_filter(explode("/", $url));
             return implode("/", $parts);
@@ -876,7 +890,7 @@ if (!class_exists("MultiColumn", false)) {
         /**
          * temporäre Funktion zum initialen Installieren der structure.sql
          */
-        private static function _installSQL($file): ?bool
+        private static function _installSQL(string $file): bool
         {
             $errors = [];
 
@@ -899,8 +913,10 @@ if (!class_exists("MultiColumn", false)) {
         /**
          * Credits: http://stackoverflow.com/questions/147821/loading-sql-files-from-within-php
          **/
-        private static function _split_sql_file($sql, $delimiter): array
-        {
+        private static function _split_sql_file(
+            string $sql,
+            string $delimiter
+        ): array {
             // Split up our string into "possible" SQL statements.
             $tokens = explode($delimiter, $sql);
 

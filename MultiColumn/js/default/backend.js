@@ -106,7 +106,9 @@ $(document).ready(function () {
           .removeClass("prevTemp")[0].outerHTML,
         $mcNav = $("#cc_MC_nav_" + mCID.mc_id),
         $setKind = $MC.find(".set_kind");
-
+      if ($setKind.length == 0) {
+        $setKind = $('<input value="2" type="radio" checked="checked">');
+      }
       $MC
         .find(".cc_MC_tabs")
         .find("input[type=submit]")
@@ -175,7 +177,7 @@ $(document).ready(function () {
         });
       });
 
-      $mcUL.on("click", ".icon-remove", function () {
+      $mcUL.on("click", ".mCIcon-remove", function () {
         $(this).closest("div").children("p").slideToggle(100);
       });
 

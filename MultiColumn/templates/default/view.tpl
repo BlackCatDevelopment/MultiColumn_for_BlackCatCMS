@@ -23,7 +23,5 @@
  *}
 
 <section id="mC_{$mc_id}" class="mCSection mCKind_{$options.kind}{if $options.equalize} mC_eq{/if}">
-	{foreach $columns column}
-	{if $column.published}<article>{$column.content}</article>{/if}
-	{/foreach}
+	{foreach $columns column}<article>{$column.content}</article>{/foreach}
 </section>

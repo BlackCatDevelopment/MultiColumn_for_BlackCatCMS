@@ -24,7 +24,7 @@
 
 <article class="MC_imgL">
 	<div style="{if $column.options.height && $column.options.height > 0 && !$options.is_mobile}min-height:{$column.options.height}px;{/if}">
-		<div class="c_1000">
+		<div class="c_1024">
 			<div class="MC_imgL-content">
 				{$column.content}
 			</div>

@@ -36,13 +36,11 @@
 	});
 </script>
 
-<div id="mcTab_{$mc_id}">
+<section id="mcTab_{$mc_id}">
 	<ul>
 		{foreach $columns ind column}{if $column.published}
 		<li><a href="#mcTab-{$mc_id}-{$ind}">{$column.options.tab_title}</a></li>
 		{/if}{/foreach}
 	</ul>
-	{foreach $columns ind column}{if $column.published}
-	<div id="mcTab-{$mc_id}-{$ind}">{$column.content}</div>
-	{/if}{/foreach}
-</div>
+	{foreach $columns ind column}<article id="mcTab-{$mc_id}-{$ind}">{$column.content}</article>{/foreach}
+</section>
