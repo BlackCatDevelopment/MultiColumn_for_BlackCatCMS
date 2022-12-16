@@ -23,19 +23,7 @@
  *}
 
 <li class="fc_border_all fc_shadow_small fc_br_all {if !$column}prevTemp{/if}" id="catMC_{if !$column}__column_id__{else}{$column.column_id}{/if}">
-	<div class="MC_options">
-		<p class="drag_corner icon-resize" title="{translate('Reorder column')}"></p>
-		<div class="cc_MC_del">
-			<span class="icon-remove" title="{translate('Delete this column')}"></span>
-			<p class="fc_br_right fc_shadow_small">
-				<span class="cc_MC_del_res">{translate('Keep it!')}</span>
-				<strong> | </strong>
-				<span class="cc_MC_del_conf">{translate('Confirm delete')}</span>
-			</p>
-		</div>
-		{*<p class="icon-eye"></p>
-		<p class="icon-scissors"></p>*}
-	</div>
+	{include(../../default/modify/column_options.tpl)}
 	<form action="{$CAT_URL}/modules/cc_multicolumn/save.php" method="post" class="ajaxForm">
 		<input type="hidden" name="page_id" value="{$page_id}">
 		<input type="hidden" name="section_id" value="{$section_id}">
